@@ -154,6 +154,57 @@ $('#datepicker').datepicker({
       autoclose: true
     });
 
+$('#familia').change(function()
+{
+	var familia=$('#familia').val();
+	$('#categoria').empty();
+	if(familia>0)
+	{
+
+		$.ajax({
+            url: '{{url()}}/get_categorias',
+            type: 'POST',
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data:{familia:familia},
+            success:function(data)
+            {
+            	if(data==0)
+            	{
+            		swal("Error", "No existen categorias asociadas a la familia seleccionada", "error");
+            	}
+            	else
+            	{
+            		if(data=='SINSESION')
+            		{
+            			sinsesion();
+            		}
+            		else
+            		{
+            			var datos=JSON.parse(data);
+            			$('#categoria').append('<option value="0">Seleccione la categoria</option>');
+            			for(var i=0;i<datos.length;i++)
+            			{
+            				$('#categoria').append('<option value="'+datos[i]['id']+'">'+datos[i]['nombre']+'</option>');
+            			}
+            		}
+            	}
+            }
+        });
+	}
 });
+
+	$('#guardarProducto').click(function()
+	{
+	 
+	 productos_validar();
+	});
+});
+
+function productos_validar()
+{
+	alert("validando");
+}
 </script>
 @include('footer')

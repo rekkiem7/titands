@@ -33,5 +33,29 @@ class ProductosController extends Controller
             //return View::make('login/login');
             return Redirect::to('/');
         }   
+    }
+
+    public function get_categorias()
+    {
+      Session::put('logeado',false);
+      if (Session::get('logeado')==true)
+      {
+        $familia=$_POST['familia'];
+        $id_empresa=Session::get('id_empresa');
+        $datos=mantenedores::get_categorias($id_empresa,$familia);
+        if($datos)
+        {
+          return json_encode($datos);
+        }
+        else
+        {
+          return 0;
+        }
+
+      }
+      else
+      {
+        return "SINSESION";
+      }
     }   
 }

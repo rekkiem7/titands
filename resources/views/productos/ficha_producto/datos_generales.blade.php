@@ -22,7 +22,7 @@
 	<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Categoria</label>
   	<div class="input-group col-lg-5 col-md-5 col-sm-12">
         <select class="form-control" id="categoria" name="categoria" onchange="">
-        	<option value="0">Seleccione la categoria...</option>
+        	
     	</select>
         <span class="input-group-addon"><i class="fa fa-bookmark-o"></i></span>
 	</div><br>

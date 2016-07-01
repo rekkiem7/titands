@@ -23,3 +23,4 @@ Route::get('/facturacion_test/{menu}','FacturacionController@facturacion_test');
 Route::post('/facturasonline_token','FacturacionController@facturasonline_token');
 Route::post('/facturasonline_facuturaElectronica','FacturacionController@facturasonline_facuturaElectronica');
 Route::post('/get_sucursal','ConfiguracionController@get_sucursal');
+Route::post('/get_categorias','ProductosController@get_categorias');

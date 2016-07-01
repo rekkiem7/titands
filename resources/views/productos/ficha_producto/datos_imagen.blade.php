@@ -7,7 +7,7 @@
 </div><br>
             
 <div class="col-lg-8 col-md-8 col-sm-12">
-	<button onclick="Direccionar('datosEmpaquetado');" type="button" class="btn btn-primary">Volver&nbsp;&nbsp;<i class="glyphicon glyphicon-chevron-left"></i></button>&nbsp;&nbsp;<button class="btn btn-success" id="s5">Guardar  <i class="glyphicon glyphicon-floppy-disk"></i></button>
+	<button onclick="Direccionar('datosEmpaquetado');" type="button" class="btn btn-primary">Volver&nbsp;&nbsp;<i class="glyphicon glyphicon-chevron-left"></i></button>&nbsp;&nbsp;<button class="btn btn-success" id="guardarProducto" name="guardarProducto" >Guardar  <i class="glyphicon glyphicon-floppy-disk"></i></button>
 </div><br><br>
 <script>
 $('#imagenesProducto').fileinput({

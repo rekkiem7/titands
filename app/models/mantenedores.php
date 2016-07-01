@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use DB;
 use App\models\UnidadMedida;
 use App\models\Familia;
+use App\models\Categoria;
 class mantenedores extends Model
 {
     public static function get_unidadMedida()
@@ -20,5 +21,15 @@ class mantenedores extends Model
                        ->orderBy('id', 'asc')
                        ->get();
         return $familias;
+    }
+
+    public static function get_categorias($empresa,$familia)
+    {
+        $categorias = Categoria::where('id_empresa',$empresa)
+                        ->where('id_familia',$familia)
+                        ->orderBy('id', 'asc')
+                        ->get();
+
+        return $categorias;
     }
 }
