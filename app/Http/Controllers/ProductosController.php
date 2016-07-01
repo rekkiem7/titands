@@ -37,7 +37,6 @@ class ProductosController extends Controller
 
     public function get_categorias()
     {
-      Session::put('logeado',false);
       if (Session::get('logeado')==true)
       {
         $familia=$_POST['familia'];
