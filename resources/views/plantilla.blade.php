@@ -17,6 +17,8 @@
 <link href="{{ asset('template/plugins/timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('template/plugins/select2/select2.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('/plugins_adicionales/fileinput/css/fileinput.css')}}" rel="stylesheet"/>
+<link href="{{ asset('template/plugins/datatables/dataTables.bootstrap.css')}}" rel="stylesheet" type="text/css" />
+
 
 
 <script src="{{ asset ('/template/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
@@ -36,5 +38,7 @@
 <script src="{{ asset ('/plugins_adicionales/fileinput/js/fileinput.js')}}"></script>
 <script src="{{ asset ('/plugins_adicionales/fileinput/js/fileinput.min.js')}}"></script>
 <script src="{{ asset ('/plugins_adicionales/fileinput/js/locales/es.js')}}"></script>
+<script src="{{ asset ('/template/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset ('/template/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
 
 

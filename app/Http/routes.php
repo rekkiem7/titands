@@ -24,3 +24,5 @@ Route::post('/facturasonline_token','FacturacionController@facturasonline_token'
 Route::post('/facturasonline_facuturaElectronica','FacturacionController@facturasonline_facuturaElectronica');
 Route::post('/get_sucursal','ConfiguracionController@get_sucursal');
 Route::post('/get_categorias','ProductosController@get_categorias');
+Route::post('/verificar_url','MantenedoresController@verificar_url');
+Route::post('/add_menu','MantenedoresController@add_menu');
