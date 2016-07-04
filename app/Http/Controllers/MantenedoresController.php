@@ -101,4 +101,23 @@ class MantenedoresController extends Controller
          return 'SINSESION';
       }
    }
+
+   public function Listado_menu($menu)
+   {
+      if (Session::get('logeado')==true)
+      {
+         $data['titulo']=" Listado Menús";
+         $data['subtitulo']="Sistema ERP Tomahawk"; 
+         $data["menus_padres"]="";  
+         $data['block_menu']=Session::get('skin');
+         $data['menus']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
+         $data["menus_hijos"]=app('App\Http\Controllers\ConfiguracionController')->menus_hijos($data['menus']);
+         $data["all_menus"]=mantenedores::all_menus();
+         return view('mantenedores.listado_menu',$data);
+      }
+      else
+      {
+         return Redirect::to('/');
+      }   
+   }
 }
