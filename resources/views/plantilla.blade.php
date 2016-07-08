@@ -26,6 +26,7 @@
 <script src="{{ asset ('/template/dist/js/app.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset ('/plugins_adicionales/sweetalert/dist/sweetalert-dev.js')}}"></script>
 <script src="{{ asset ('/plugins_adicionales/data-toggle/bootstrap-toggle.min.js')}}"></script>
+<script src="{{ asset ('/plugins_adicionales/dialog/dialog.js')}}"></script>
 <script src="{{ asset ('/template/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
 <script src="{{ asset ('/template/plugins/ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset ('/template/plugins/daterangepicker/daterangepicker.js') }}"></script>
@@ -39,6 +40,7 @@
 <script src="{{ asset ('/plugins_adicionales/fileinput/js/fileinput.min.js')}}"></script>
 <script src="{{ asset ('/plugins_adicionales/fileinput/js/locales/es.js')}}"></script>
 <script src="{{ asset ('/template/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset ('/template/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ asset ('/template/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
 
 

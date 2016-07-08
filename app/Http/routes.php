@@ -27,3 +27,5 @@ Route::post('/get_categorias','ProductosController@get_categorias');
 Route::post('/verificar_url','MantenedoresController@verificar_url');
 Route::post('/add_menu','MantenedoresController@add_menu');
 Route::get('/Listado_menu/{menu}','MantenedoresController@Listado_menu');
+Route::post('/delete_menu','MantenedoresController@delete_menu');
+Route::post('/info_menu_editar','MantenedoresController@info_menu_editar');

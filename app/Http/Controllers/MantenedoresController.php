@@ -120,4 +120,40 @@ class MantenedoresController extends Controller
          return Redirect::to('/');
       }   
    }
+
+   public function delete_menu()
+   {
+      if (Session::get('logeado')==true)
+      {
+         $menu=$_POST['id'];
+         $estado=$_POST['estado'];
+         $data=['visible'=>0];
+         $delete=mantenedores::update_menu($menu,$data);
+         if($delete)
+         {
+            return 1;
+         }
+         else
+         {
+            return 0;
+         }
+      }
+      else
+      {
+        return "SINSESION";
+      }
+   }
+
+   public function info_menu_editar()
+   {
+      if (Session::get('logeado')==true)
+      {
+      $id=$_POST['id'];
+      return $id;
+      }
+      else
+      {
+        return "SINSESION";
+      }
+   }
 }

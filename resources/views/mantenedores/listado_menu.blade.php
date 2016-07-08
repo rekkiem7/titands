@@ -19,7 +19,7 @@
                 </thead>
                 <tbody>
                 @foreach($all_menus as $row)
-                <tr><td style="text-align:center">{{$row->id}}</td><td>{{$row->nombre}}</td><td>{{$row->nombre_padre}}</td><td style="text-align:center"><button class="btn btn-primary"> <i class="fa fa-edit"></i></button></td><td style="text-align:center"><button class="btn btn-danger"> <i class="fa fa-remove"></i></button></td></tr>
+                <tr><td style="text-align:center">{{$row->id}}</td><td>{{$row->nombre}}</td><td>{{$row->nombre_padre}}</td><td style="text-align:center"><button class="btn btn-primary" onclick="Listado_menu_EditarMenu({{$row->id}});"> <i class="fa fa-edit"></i></button></td><td style="text-align:center"><button class="btn btn-danger" onclick="Listado_menu_BorrarMenu({{$row->id}});"> <i class="fa fa-remove"></i></button></td></tr>
                 @endforeach
                 </tbody>
               </table>
@@ -29,6 +29,73 @@
   </div>
 </section>
 <script>
+function Listado_menu_EditarMenu(id)
+{
+  waitingDialog.show();
+    $.ajax({
+        url: '{{url()}}/info_menu_editar',
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data:{id:id},
+        success:function(data)
+        {
+          waitingDialog.hide();
+          if(data==0)
+          {
+            swal("Error", "Se ha producido un error al consultar el menú", "error");
+          }
+          else
+          {
+            if(data=='SINSESION')
+            {
+              sinsesion();
+            }
+            else
+            {
+              
+            }
+          }
+        }
+      });
+}
+function Listado_menu_BorrarMenu(id)
+{
+  swal({   title: "¿Eliminar Menú?",   text: "¿Desea eliminar el menú seleccionado? El menú ya no estará disponible para ningún usuario.",   type: "info",   showCancelButton: true,   confirmButtonColor: '#CC00000',   confirmButtonText: "Eliminar",   cancelButtonText: "Cancelar",   closeOnConfirm: false,   closeOnCancel: true },
+      function(isConfirm)
+      {   
+          if (isConfirm) 
+          {     
+               $.ajax({
+                  url: '{{url()}}/delete_menu',
+                  type: 'POST',
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  },
+                  data:{id:id,estado:0},
+                  success:function(data)
+                  {
+                    if(data==0)
+                    {
+                      swal("Error", "Se ha producido un error al eliminar el menú, inténtelo nuevamente", "error");
+                    }
+                    else
+                    {
+                      if(data=='SINSESION')
+                      {
+                        sinsesion();
+                      }
+                      else
+                      {
+                        swal("Menú Eliminado", "El menú seleccionado ha sido eliminado correctamente", "success");
+                      }
+                    }
+                  }
+              });
+          }  
+      });
+}
 $(document).ready(function()
 {
   $('#menus').DataTable({
