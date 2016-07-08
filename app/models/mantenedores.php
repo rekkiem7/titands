@@ -36,11 +36,11 @@ class mantenedores extends Model
 
     public static function all_menus()
     {
-        $menus=DB::table('menu as m1')
-            ->select('m1.id','m1.nombre','m1.id_padre','m2.nombre as nombre_padre')
-            ->join('menu as m2', 'm1.id_padre', '=', 'm2.id','left')
-            ->get();
-        return $menus;
+            $menus=DB::table('menu as m1')
+                ->select('m1.id','m1.nombre','m1.id_padre','m2.nombre as nombre_padre')
+                ->join('menu as m2', 'm1.id_padre', '=', 'm2.id','left')
+                ->get();
+            return $menus;
     }
 
     public static function verificar_url($url)
@@ -67,5 +67,15 @@ class mantenedores extends Model
         $sql="SELECT *FROM menu WHERE id=".$id;
         $datos=DB::select($sql);
         return $datos;
+    }
+
+    public static function select_menu_editar($id)
+    {
+        $menus=DB::table('menu as m1')
+            ->select('m1.id','m1.nombre','m1.id_padre','m2.nombre as nombre_padre','m1.url','m1.clase')
+            ->join('menu as m2', 'm1.id_padre', '=', 'm2.id','left')
+            ->where('m1.id',$id)
+            ->get();
+        return $menus;
     }
 }

@@ -28,6 +28,7 @@
 	  </div>
   </div>
 </section>
+@include('mantenedores.ventana_verMenuEditar')
 <script>
 function Listado_menu_EditarMenu(id)
 {
@@ -54,7 +55,17 @@ function Listado_menu_EditarMenu(id)
             }
             else
             {
+              var datos=JSON.parse(data);
+              $('#titulo_verMenuEditar').empty();
+              $('#titulo_verMenuEditar').append('Menú '+datos[0]['nombre']);
+              $('#nombre_edit').val(datos[0]['nombre']);
+              $('#id_menu_padre_edit').val(datos[0]['id_padre']);
+              $('#menu_padre_edit').val(datos[0]['nombre_padre']);
+              $('#url_edit').val(datos[0]['url']);
+              $('#icono_edit').val(datos[0]['clase']);
               
+              
+              $('#verMenuEditar').modal();
             }
           }
         }

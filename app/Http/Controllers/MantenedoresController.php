@@ -148,8 +148,17 @@ class MantenedoresController extends Controller
    {
       if (Session::get('logeado')==true)
       {
-      $id=$_POST['id'];
-      return $id;
+         $id=$_POST['id'];
+         $datos=mantenedores::select_menu_editar($id);
+         if($datos)
+         {
+            return json_encode($datos);
+         }
+         else
+         {
+            return 0;
+         }
+
       }
       else
       {
