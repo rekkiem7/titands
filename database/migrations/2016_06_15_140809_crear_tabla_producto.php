@@ -23,15 +23,15 @@ class CrearTablaProducto extends Migration
             $table->integer('unidadMedida');
             $table->float('precioVenta');
             $table->float('cantidadMinimaVenta');
-            $table->float('precioPorMayor');
-            $table->float('cantidadPrecioPorMayor');
+            $table->float('precioPorMayor')->nullable();
+            $table->float('cantidadPrecioPorMayor')->nullable();
             $table->boolean('visible');
             $table->boolean('disponiblePedidos');
             $table->boolean('mostrarPrecio');
             $table->boolean('disponibleOnline');
-            $table->longText('descripcion');
+            $table->longText('descripcion')->nullable();
             $table->integer('usuario_creacion');
-            $table->integer('usuario_modificacion');
+            $table->integer('usuario_modificacion')->nullable();
             $table->timestamps();
         });
     }

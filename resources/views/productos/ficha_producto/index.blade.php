@@ -324,6 +324,21 @@ $('#familia').change(function()
 						            },
 						            success:function(data)
 						            {
+						            	if(data=='SINSESION')
+						            	{
+						            		sinsesion();
+						            	}
+						            	else
+						            	{
+						            		if(data==1)
+						            		{
+						            			swal("Producto Guardado", "El producto ha sido guardado correctamente", "success");
+						            		}
+						            		else
+						            		{
+						            			swal("Error", "Se ha producido un problema al almacenar el producto, por favor inténtelo nuevamente", "error");
+						            		}
+						            	}
 
 						            }
 						        });

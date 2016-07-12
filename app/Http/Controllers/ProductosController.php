@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 use Cache;
 use Validator;
-use  App\models\mantenedores;
+use App\models\mantenedores;
+use App\models\Producto_Operative;
 
 class ProductosController extends Controller
 { 
@@ -63,6 +64,8 @@ class ProductosController extends Controller
       if (Session::get('logeado')==true)
       {
           $tipo=$_POST['tipo'];
+          $id_empresa=Session::get('id_empresa');
+          $id_usuario=Session::get('id_usuario');
           if($tipo==1)
           {
             $familia=$_POST['familia'];
@@ -99,9 +102,19 @@ class ProductosController extends Controller
             $pesoEmpaque=$_POST['pesoEmpaque'];
             $unidadPesoEmpaque=$_POST['unidadPesoEmpaque'];
 
-            $count = count($_FILES['archivos']['name']);
-            for ($i = 0; $i < $count; $i++) {
-                echo $_FILES['archivos']['name'][$i].'<br/>';
+            $data1=['id_empresa'=>$id_empresa,'codigo'=>$codigoGeneral,'nombre'=>$nombre,'tipo'=>$tipo,'familia'=>$familia,'categoria'=>$categoria,'unidadMedida'=>$unidadMedida,'precioVenta'=>$precioVenta,'cantidadMinimaVenta'=>$cantidadMinimaVenta,'precioPorMayor'=>$precioPorMayor,'cantidadPrecioPorMayor'=>$cantidadMinimaPorMayor,'visible'=>$visible,'disponiblePedidos'=>$disponiblePedidos,'mostrarPrecio'=>$mostrarPrecio,'disponibleOnline'=>$disponibleOnline,'descripcion'=>$descripcionProducto,'usuario_creacion'=>$id_usuario];
+            $insert=Producto_Operative::insert_producto($data1);
+            if($insert)
+            {
+              $count = count($_FILES['archivos']['name']);
+              for ($i = 0; $i < $count; $i++) {
+                 // echo $_FILES['archivos']['name'][$i].'<br/>';
+              }
+              return 1;
+            }
+            else
+            {
+              return 0;
             }
           }
       }
