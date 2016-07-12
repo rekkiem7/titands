@@ -1,6 +1,6 @@
 <label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Cantidad Mínima de Venta</label>
 <div class="input-group col-lg-5 col-md-5 col-sm-12">
-	<input type="number" class="form-control" placeholder="Cantidad Mínima" id="cantidadMinimaVenta" name="cantidadMinimaVenta"/>
+	<input type="number" class="form-control requerido" placeholder="Cantidad Mínima" id="cantidadMinimaVenta" name="cantidadMinimaVenta"/>
 	<select class="form-control" id="unidadCantidadMinimaVenta" name="unidadCantidadMinimaVenta">
             <option value="0">Seleccione la Unidad de Medida</option>
             @foreach($unidad_medida as $row_unid)
@@ -17,22 +17,22 @@
 </div><br>			
 <label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Visible</label>
 <div class="input-group col-lg-5 col-md-5 col-sm-12">
-    <input type="checkbox" checked data-toggle="toggle" id="visible" name="visible">
+    <input type="checkbox" checked data-toggle="toggle" id="visible" name="visible" class="requerido">
 </div><br>
 
 <label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Disponible para pedidos</label>
 <div class="input-group col-lg-5 col-md-5 col-sm-12">
-    <input type="checkbox" checked data-toggle="toggle" id="disponiblePedidos" name="disponiblePedidos">
+    <input type="checkbox" checked data-toggle="toggle" id="disponiblePedidos" name="disponiblePedidos" class="requerido">
 </div><br>
 
 <label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Mostrar Precio</label>
 <div class="input-group col-lg-5 col-md-5 col-sm-12">
-    <input type="checkbox" checked data-toggle="toggle" id="mostrarPrecio" name="mostrarPrecio">
+    <input type="checkbox" checked data-toggle="toggle" id="mostrarPrecio" name="mostrarPrecio" class="requerido">
 </div><br>
 
 <label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Disponible online</label>
 <div class="input-group col-lg-5 col-md-5 col-sm-12">
-    <input type="checkbox" checked data-toggle="toggle" id="disponibleOnline" name="disponibleOnline">
+    <input type="checkbox" checked data-toggle="toggle" id="disponibleOnline" name="disponibleOnline" class="requerido">
 </div><br>
 <div class="col-lg-8 col-md-8 col-sm-12">
 	<button onclick="Direccionar('datosGenerales');" type="button" class="btn btn-primary">Volver&nbsp;&nbsp;<i class="glyphicon glyphicon-chevron-left"></i></button>&nbsp;&nbsp;<button onclick="Direccionar('descripcion');"  type="button" class="btn btn-info">Continuar&nbsp;&nbsp;<i class="glyphicon glyphicon-chevron-right"></i></button>

@@ -1,6 +1,6 @@
 <label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Cantidad por Unidad de Empaque</label>
 <div class="input-group col-lg-5 col-md-5 col-sm-12">
-	<input type="number" class="form-control" id="cantidadEmpaque" name="cantidadEmpaque"/>
+	<input type="number" class="form-control requerido" id="cantidadEmpaque" name="cantidadEmpaque"/>
 	<select class="form-control" id="unidadCantidadEmpaque" name="unidadCantidadEmpaque" onchange="">
 	     @foreach($unidad_medida as $row_unid)
             <option value="{{$row_unid->id}}">{{$row_unid->abrev}}</option>

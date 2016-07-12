@@ -30,7 +30,7 @@ display:none;
 .kv-file-zoom{
 display:none;
 }
-
+ 
 </style>
 <section class="content">
    <div class="row">
@@ -198,13 +198,39 @@ $('#familia').change(function()
 	$('#guardarProducto').click(function()
 	{
 	 
-	 productos_validar();
+	 var validar=productos_validar();
+	 if(validar!=0)
+	 {
+	 	alert("guardar");
+	 }
 	});
 });
 
 function productos_validar()
-{
-	alert("validando");
+{	
+	var error=0;
+	$('.requerido').each(function(i, elem) {
+
+		if($(elem).val() == ''){
+			$(elem).css({'border':'1px solid #CC0000'});
+			error++;
+			}
+		else
+		{
+			$(elem).css({'border':''});
+		}
+	});
+
+	if(error > 0){
+		//event.preventDefault();
+		swal("Campos Faltantes", "Debe ingresar los datos faltantes", "info");
+		return 0;
+		}
+	else
+	{
+		return 1;
+	}
+	
 }
 </script>
 @include('footer')
