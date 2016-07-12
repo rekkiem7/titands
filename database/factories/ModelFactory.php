@@ -126,6 +126,7 @@ $factory->define(App\models\Categoria::class, function (Faker\Generator $faker) 
 $factory->define(App\models\Producto::class, function (Faker\Generator $faker) {
     return [
         'id' => $faker->name,
+        'id_empresa' => $faker->name,
         'codigo' => $faker->name,
         'nombre' => $faker->name,
         'tipo' => $faker->name,
@@ -140,7 +141,9 @@ $factory->define(App\models\Producto::class, function (Faker\Generator $faker) {
         'disponiblePedidos' => $faker->name,
         'mostrarPrecio' => $faker->name,
         'disponibleOnline' => $faker->name,
-        'descripcion' => $faker->name
+        'descripcion' => $faker->name,
+        'usuario_creacion' => $faker->name,
+        'usuario_modificacion' => $faker->name
     ];
 });
 

@@ -14,6 +14,7 @@ class CrearTablaProducto extends Migration
     {
         Schema::create('producto', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('id_empresa');
             $table->string('codigo');
             $table->string('nombre');
             $table->integer('tipo');
@@ -29,6 +30,8 @@ class CrearTablaProducto extends Migration
             $table->boolean('mostrarPrecio');
             $table->boolean('disponibleOnline');
             $table->longText('descripcion');
+            $table->integer('usuario_creacion');
+            $table->integer('usuario_modificacion');
             $table->timestamps();
         });
     }
