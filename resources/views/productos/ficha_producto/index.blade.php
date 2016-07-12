@@ -89,6 +89,88 @@ display:none;
     </div>
 </section>
 <script>
+function tomar_datos()
+{
+	var tipo=$('#tipo').val();
+	if(tipo==1)
+	{
+		var familia=$('#familia').val();
+		var categoria=$('#categoria').val();
+		var nombre=$('#nombre').val();
+		var codigoGeneral=$('#codigoGeneral').val();
+		var unidadMedida=$('#unidadMedida').val();
+		var precioVenta=$('#precioVenta').val();
+		var cantidadMinimaVenta=$('#cantidadMinimaVenta').val();
+		var unidadCantidadMinimaVenta=$('#unidadCantidadMinimaVenta').val();
+		var precioPorMayor=$('#precioPorMayor').val();
+		var cantidadMinimaPorMayor=$('#cantidadMinimaPorMayor').val();
+		var visible=document.getElementById("visible").checked;
+		var disponiblePedidos=document.getElementById("disponiblePedidos").checked;
+		var mostrarPrecio=document.getElementById("mostrarPrecio").checked;
+		var disponibleOnline=document.getElementById("disponibleOnline").checked;
+		var descripcionProducto=CKEDITOR.instances['descripcionProducto'].getData();
+		var anchoProducto=$('#anchoProducto').val();
+		var unidadAnchoProducto=$('#unidadAnchoProducto').val();
+		var altoProducto=$('#altoProducto').val();
+		var unidadAltoProducto=$('#unidadAltoProducto').val();
+		var profundidadProducto=$('#profundidadProducto').val();
+		var unidadProfundidadProducto=$('#unidadProfundidadProducto').val();
+		var pesoProducto=$('#pesoProducto').val();
+		var unidadPesoProducto=$('#unidadPesoProducto').val();
+		var cantidadEmpaque=$('#cantidadEmpaque').val();
+		var unidadCantidadEmpaque=$('#unidadCantidadEmpaque').val();
+		var anchoEmpaque=$('#anchoEmpaque').val();
+		var unidadAnchoEmpaque=$('#unidadAnchoEmpaque').val();
+		var altoEmpaque=$('#altoEmpaque').val();
+		var unidadAltoEmpaque=$('#unidadAltoEmpaque').val();
+		var profundidadEmpaque=$('#profundidadEmpaque').val();
+		var unidadProfundidadEmpaque=$('#unidadProfundidadEmpaque').val();
+		var pesoEmpaque=$('#pesoEmpaque').val();
+		var unidadPesoEmpaque=$('#unidadPesoEmpaque').val();
+		var files = document.getElementById("imagenesProducto").files;
+		var data=new FormData();
+		for (var i = 0; i < files.length; i++)
+		{
+		   data.append("archivos[]",document.getElementById('imagenesProducto').files[i]);
+		}
+		data.append("tipo",tipo);
+		data.append("familia",familia);
+		data.append("categoria",categoria);
+		data.append("nombre",nombre);
+		data.append("codigoGeneral",codigoGeneral);
+		data.append("unidadMedida",unidadMedida);
+		data.append("precioVenta",precioVenta);
+		data.append("cantidadMinimaVenta",cantidadMinimaVenta);
+		data.append("unidadCantidadMinimaVenta",unidadCantidadMinimaVenta);
+		data.append("precioPorMayor",precioPorMayor);
+		data.append("cantidadMinimaPorMayor",cantidadMinimaPorMayor);
+		data.append("visible",visible);
+		data.append("disponiblePedidos",disponiblePedidos);
+		data.append("mostrarPrecio",mostrarPrecio);
+		data.append("disponibleOnline",disponibleOnline);
+		data.append("descripcionProducto",descripcionProducto);
+		data.append("anchoProducto",anchoProducto);
+		data.append("unidadAnchoProducto",unidadAnchoProducto);
+		data.append("altoProducto",altoProducto);
+		data.append("unidadAltoProducto",unidadAltoProducto);
+		data.append("profundidadProducto",profundidadProducto);
+		data.append("unidadProfundidadProducto",unidadProfundidadProducto);
+		data.append("pesoProducto",pesoProducto);
+		data.append("unidadPesoProducto",unidadPesoProducto);
+		data.append("cantidadEmpaque",cantidadEmpaque);
+		data.append("unidadCantidadEmpaque",unidadCantidadEmpaque);
+		data.append("anchoEmpaque",anchoEmpaque);
+		data.append("unidadAnchoEmpaque",unidadAnchoEmpaque);
+		data.append("altoEmpaque",altoEmpaque);
+		data.append("unidadAltoEmpaque",unidadAltoEmpaque);
+		data.append("profundidadEmpaque",profundidadEmpaque);
+		data.append("unidadProfundidadEmpaque",unidadProfundidadEmpaque);
+		data.append("pesoEmpaque",pesoEmpaque);
+		data.append("unidadPesoEmpaque",unidadPesoEmpaque);		
+	}
+
+	return data;
+}
 function productos_updateLabel()
 {
     var texto=$('#unidadMedida option:selected').text();
@@ -197,12 +279,61 @@ $('#familia').change(function()
 
 	$('#guardarProducto').click(function()
 	{
-	 
-	 var validar=productos_validar();
-	 if(validar!=0)
-	 {
-	 	alert("guardar");
-	 }
+		 var tipo=$('#tipo').val();
+		 if(tipo==0)
+		 {
+		 	swal("Campo Faltante", "Debe seleccionar el tipo de producto", "info");
+		 	$('#tipo').focus();
+		 }
+		 else
+		 {
+			 if(tipo==1)
+			 {
+			 	if($('#familia').val()==0)
+			 	{
+			 		swal("Campo Faltante", "Debe seleccionar la familia del producto", "info");
+			 	}
+			 	else
+			 	{
+			 		if($('#categoria').val()==0)
+			 		{
+			 			swal("Campo Faltante", "Debe seleccionar la categoria del producto", "info");
+			 		}
+			 		else
+			 		{
+			 			if($('#unidadMedida').val()==0)
+			 			{
+			 				swal("Campo Faltante", "Debe seleccionar la unidad de medida del producto", "info");
+			 			}
+			 			else
+			 			{
+			 				var validar=productos_validar();
+							 if(validar!=0)
+							 {
+							 	var data=tomar_datos();
+							 	alert(data);
+							 	$.ajax({
+						            url: '{{url()}}/add_producto',
+						            type: 'POST',
+						            contentType:false,
+						            data:data,
+						            processData:false,
+						            cache:false,
+						            headers: {
+						              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+						            },
+						            success:function(data)
+						            {
+
+						            }
+						        });
+							 }
+			 			}
+			 		}
+			 	}
+				 
+			 }
+		 }
 	});
 });
 

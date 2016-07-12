@@ -2,7 +2,7 @@
 <label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Imágenes del Producto</label>
 <div class="input-group col-lg-12 col-md-12 col-sm-12">
 	<form enctype="multipart/form-data">
-    <input id="imagenesProducto" class="file requerido" type="file" multiple data-min-file-count="1">
+    <input id="imagenesProducto" name="imagenesProducto" class="file requerido" type="file" multiple data-min-file-count="1">
     </form>
 </div><br>
             
