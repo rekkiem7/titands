@@ -20,7 +20,7 @@ class ProductosController extends Controller
       if (Session::get('logeado')==true)
       {
       $id_empresa=Session::get('id_empresa');
-      $data['titulo']='Ficha de Productos';
+      $data['titulo']='Módulo de Productos';
       $data['subtitulo']="Sistema ERP Tomahawk";
       $data['block_menu']=Session::get('skin');
       $data['menus_padres']="";
@@ -29,7 +29,7 @@ class ProductosController extends Controller
       $data['familia']=mantenedores::get_familia($id_empresa);
       $data['menus']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
       $data["menus_hijos"]=app('App\Http\Controllers\ConfiguracionController')->menus_hijos($data['menus']);
-      return view('productos.ficha_producto.index',$data);
+      return view('productos.index',$data);
       }else{
             //return View::make('login/login');
             return Redirect::to('/');
@@ -106,9 +106,27 @@ class ProductosController extends Controller
             $insert=Producto_Operative::insert_producto($data1);
             if($insert)
             {
+
+              $data2=['idProducto'=>$insert,'codigo'=>$codigoGeneral,'ancho'=>$anchoProducto,'alto'=>$altoProducto,'profundidad'=>$profundidadProducto,'unidadDimensiones'=>$unidadAnchoProducto,'peso'=>$pesoProducto,'unidadPeso'=>$unidadPesoProducto,'cantidadPorUEmpaque'=>$cantidadEmpaque,'anchoEmpaque'=>$anchoEmpaque,'altoEmpaque'=>$altoEmpaque,'profundidadEmpaque'=>$profundidadEmpaque,'unidadDimensionesEmpaque'=>$unidadAnchoEmpaque,'pesoEmpaque'=>$pesoEmpaque,'unidadPesoEmpaque'=>$unidadPesoEmpaque];
+              $insert2=Producto_Operative::insert_productologistico($data2);
               $count = count($_FILES['archivos']['name']);
+              $hoy=getdate();
               for ($i = 0; $i < $count; $i++) {
                  // echo $_FILES['archivos']['name'][$i].'<br/>';
+                $nombre_archivo = $_FILES["archivos"]["name"][$i];
+                $tipo_archivo = $_FILES["archivos"]["type"][$i];
+                $tamano_archivo = $_FILES["archivos"]["size"][$i];
+                $tmp_archivo = $_FILES["archivos"]["tmp_name"][$i];
+                $ext1=explode(".",$nombre_archivo); 
+                $ext=$ext1[1];
+                $nombre_imagen=$insert.'_'.$codigoGeneral.'_'.$id_usuario.'_'.$hoy["mday"].'_'.$hoy["mon"].'_'.$hoy["year"].'.'.$ext;
+                $url='archivos_empresas/'.$id_empresa.'/productos/'.$nombre_imagen;
+                $subido = copy($_FILES['archivos']['tmp_name'][$i], $url);
+                if(file_exists($url))
+                {
+                   $data3=["idProducto"=>$insert,"codigo"=>$codigoGeneral,"nombreImagen"=>$nombre_imagen,"url"=>$url,"visible"=>1];
+                   $insert3=Producto_Operative::insert_productoimagen($data3);
+                }
               }
               return 1;
             }
@@ -122,5 +140,26 @@ class ProductosController extends Controller
       {
         return "SINSESION";
       }
-    } 
+    }
+
+  public function crear_producto($menu)
+  {
+    if (Session::get('logeado')==true)
+      {
+      $id_empresa=Session::get('id_empresa');
+      $data['titulo']='Ficha de Productos';
+      $data['subtitulo']="Sistema ERP Tomahawk";
+      $data['block_menu']=Session::get('skin');
+      $data['menus_padres']="";
+      $data['unidad_medida']=mantenedores::get_unidadMedida();
+     // dd($data['unidad_medida']);
+      $data['familia']=mantenedores::get_familia($id_empresa);
+      $data['menus']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
+      $data["menus_hijos"]=app('App\Http\Controllers\ConfiguracionController')->menus_hijos($data['menus']);
+      return view('productos.ficha_producto.index',$data);
+      }else{
+            //return View::make('login/login');
+            return Redirect::to('/');
+        }   
+  } 
 }

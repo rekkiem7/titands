@@ -30,3 +30,4 @@ Route::get('/Listado_menu/{menu}','MantenedoresController@Listado_menu');
 Route::post('/delete_menu','MantenedoresController@delete_menu');
 Route::post('/info_menu_editar','MantenedoresController@info_menu_editar');
 Route::post('/add_producto','ProductosController@add_producto');
+Route::get('/crear_producto/{menu}','ProductosController@crear_producto');

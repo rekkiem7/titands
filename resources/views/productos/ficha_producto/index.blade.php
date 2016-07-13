@@ -127,6 +127,14 @@ function tomar_datos()
 		var unidadProfundidadEmpaque=$('#unidadProfundidadEmpaque').val();
 		var pesoEmpaque=$('#pesoEmpaque').val();
 		var unidadPesoEmpaque=$('#unidadPesoEmpaque').val();
+
+		if(visible===true){visible=1;}else{visible=0;}
+		if(disponiblePedidos===true){disponiblePedidos=1;}else{disponiblePedidos=0;}
+		if(mostrarPrecio===true){mostrarPrecio=1;}else{mostrarPrecio=0;}
+		if(disponibleOnline===true){disponibleOnline=1;}else{disponibleOnline=0;}
+
+
+
 		var files = document.getElementById("imagenesProducto").files;
 		var data=new FormData();
 		for (var i = 0; i < files.length; i++)
@@ -311,7 +319,7 @@ $('#familia').change(function()
 							 if(validar!=0)
 							 {
 							 	var data=tomar_datos();
-							 	alert(data);
+							 	
 							 	$.ajax({
 						            url: '{{url()}}/add_producto',
 						            type: 'POST',
