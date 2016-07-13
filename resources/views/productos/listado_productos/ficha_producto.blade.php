@@ -15,8 +15,7 @@
 		            </ul>
 		            <div class="tab-content">
 		              <div class="active tab-pane animated fadeIn" id="resumen">
-							
-										
+								 			
 					  </div>
 		           
 		              <div class="tab-pane animated fadeIn" id="datos">

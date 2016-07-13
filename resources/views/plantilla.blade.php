@@ -19,8 +19,6 @@
 <link href="{{ asset('/plugins_adicionales/fileinput/css/fileinput.css')}}" rel="stylesheet"/>
 <link href="{{ asset('template/plugins/datatables/dataTables.bootstrap.css')}}" rel="stylesheet" type="text/css" />
 
-
-
 <script src="{{ asset ('/template/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
 <script src="{{ asset ('/template/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset ('/template/dist/js/app.min.js') }}" type="text/javascript"></script>
