@@ -1,13 +1,21 @@
 @include('head')
 <style>
+@media screen and (min-width: 992px) {
 .hide-bullets {
     list-style:none;
     margin-left: -40px;
     margin-top:20px;
+ }
 }
 
-.thumbnail {
-    padding: 0;
+@media screen and (max-width: 991px) {
+.hide-bullets {
+    list-style:none;
+    margin-left: -40px;
+    margin-top:20px;
+    display:none;
+}
+
 }
 
 .carousel-inner>.item>img, .carousel-inner>.item>a>img {
@@ -99,6 +107,9 @@
             				<!--/Slider-->
 						            
             					
+        					</div>
+        					<div class="col-lg-12">
+        						<?php echo $producto[0]->descripcion?>
         					</div>
     					</div>	 			
 					  </div>

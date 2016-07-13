@@ -6,7 +6,7 @@
 		    <div class="box-header with-border">
 		        <h3 class="box-title">Productos</h3>
 		    </div>
-		    <div class="box-body">
+		    <div class="box-body table-responsive">
 		    	<table id="productos" class="table table-bordered table-hover">
                 <thead>
                 <tr>
