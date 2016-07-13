@@ -112,6 +112,7 @@ class ProductosController extends Controller
               $count = count($_FILES['archivos']['name']);
               $hoy=getdate();
               for ($i = 0; $i < $count; $i++) {
+                $z=$i+1;
                  // echo $_FILES['archivos']['name'][$i].'<br/>';
                 $nombre_archivo = $_FILES["archivos"]["name"][$i];
                 $tipo_archivo = $_FILES["archivos"]["type"][$i];
@@ -119,7 +120,7 @@ class ProductosController extends Controller
                 $tmp_archivo = $_FILES["archivos"]["tmp_name"][$i];
                 $ext1=explode(".",$nombre_archivo); 
                 $ext=$ext1[1];
-                $nombre_imagen=$insert.'_'.$codigoGeneral.'_'.$id_usuario.'_'.$hoy["mday"].'_'.$hoy["mon"].'_'.$hoy["year"].'.'.$ext;
+                $nombre_imagen=$insert.'_archivo'.$z.'_'.$codigoGeneral.'_'.$id_usuario.'_'.$hoy["mday"].'_'.$hoy["mon"].'_'.$hoy["year"].'.'.$ext;
                 $url='archivos_empresas/'.$id_empresa.'/productos/'.$nombre_imagen;
                 $subido = copy($_FILES['archivos']['tmp_name'][$i], $url);
                 if(file_exists($url))
@@ -162,4 +163,43 @@ class ProductosController extends Controller
             return Redirect::to('/');
         }   
   } 
+
+  public function listado_productos($menu)
+  {
+    if (Session::get('logeado')==true)
+      {
+      $id_empresa=Session::get('id_empresa');
+      $data['titulo']='Listado de Productos';
+      $data['subtitulo']="Sistema ERP Tomahawk";
+      $data['block_menu']=Session::get('skin');
+      $data['menus_padres']="";
+      $data['menus']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
+      $data["menus_hijos"]=app('App\Http\Controllers\ConfiguracionController')->menus_hijos($data['menus']);
+      $data["productos"]=Producto_Operative::select_productos($id_empresa);
+      return view('productos.listado_productos.index',$data);
+      }else{
+            //return View::make('login/login');
+            return Redirect::to('/');
+        }   
+  }
+
+  public function ficha_producto($id)
+  {
+    if (Session::get('logeado')==true)
+      {
+      $id_empresa=Session::get('id_empresa');
+      $data['titulo']='Ficha de Producto';
+      $data['subtitulo']="Sistema ERP Tomahawk";
+      $data['block_menu']=Session::get('skin');
+      $data['menus_padres']="";
+      $data['menus']="";
+      $data["menus_hijos"]="";
+      $data["producto"]=Producto_Operative::select_producto_xid($id);
+      $data["imagenes"]=Producto_Operative::select_productoimagen($id);
+      return view('productos.listado_productos.ficha_producto',$data);
+      }else{
+            //return View::make('login/login');
+            return Redirect::to('/');
+        }   
+  }
 }

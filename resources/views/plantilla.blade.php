@@ -44,3 +44,4 @@
 <script src="{{ asset ('/template/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
 
 
+
