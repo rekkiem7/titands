@@ -80,6 +80,8 @@ class ConfiguracionController extends Controller
 
     public function home()
     {
+        if (Session::get('logeado')==true)
+        {
         $data['titulo']='Últimas Noticias';
         $data['subtitulo']="Sistema ERP Tomahawk";
         $rol=Session::get('id_rol');
@@ -87,6 +89,11 @@ class ConfiguracionController extends Controller
         $data['menus']=$this->menus_padres($rol);
         $data['block_menu']="hold-transition sidebar-collapse sidebar-min ".Session::get('skin');
         return view('home.slider',$data);
+        }
+        else
+        {
+            return Redirect::to('/');
+        }
     }
 
     public function logout()

@@ -7,6 +7,7 @@
 		        <h3 class="box-title">Menus</h3>
 		    </div>
 		    <div class="box-body">
+          <div class="table-responsive">
 		    	<table id="menus" class="table table-bordered table-hover">
                 <thead>
                 <tr>
@@ -23,6 +24,7 @@
                 @endforeach
                 </tbody>
               </table>
+            </div>
 		    </div>
 		</div>
 	  </div>

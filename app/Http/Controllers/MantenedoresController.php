@@ -22,6 +22,7 @@ class MantenedoresController extends Controller
          $data['subtitulo']="Sistema ERP Tomahawk";
          $data['block_menu']=Session::get('skin');
          $data['menus']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
+         //dd($data['menus']);
          return view('mantenedores.index',$data);
       }
       else

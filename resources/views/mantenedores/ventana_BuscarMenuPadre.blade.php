@@ -7,6 +7,7 @@
         <h4 class="modal-title" id="titulo">Listado de Menú</h4>
       </div>
       <div class="modal-body ">
+        <div class="table-responsive">
         <table id="menus" class="table table-bordered table-hover">
                 <thead>
                 <tr>
@@ -25,6 +26,7 @@
                 @endforeach
                 </tbody>
               </table>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cerrar</button>
