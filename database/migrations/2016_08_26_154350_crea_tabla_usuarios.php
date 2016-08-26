@@ -23,6 +23,9 @@ class CreaTablaUsuarios extends Migration
             $table->integer('id_empresa')->unsigned()->nullable(); 
             $table->integer('visible');
             $table->timestamps();
+            $table->foreign('id_rol')->references('id')->on('rol');
+            $table->foreign('id_depto')->references('id')->on('departamento');
+            $table->foreign('id_empresa')->references('id')->on('empresa');
         });
     }
 

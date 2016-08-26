@@ -14,12 +14,13 @@ class CrearTablaProductoImagen extends Migration
     {
         Schema::create('productoImagen', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('idProducto');
+            $table->integer('idProducto')->unsigned()->nullable(); 
             $table->string('codigo');
             $table->string('nombreImagen');
             $table->string('url');
             $table->boolean('visible');
             $table->timestamps();
+            $table->foreign('idProducto')->references('id')->on('producto');
         });
     }
     /**

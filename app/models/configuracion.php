@@ -5,24 +5,24 @@ namespace App\models;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 use App\models\Menu;
-use App\models\Empresas;
+use App\models\Empresa;
 use App\models\Sucursal;
 use App\models\Departamento;
-use App\models\Roles;
+use App\models\Rol;
 use App\models\Permisos_rol;
 class configuracion extends Model
 {
     public static function verificar_usuario($usuario,$clave)
     {
 
-        $resultado=DB::table('usuarios')
-            ->select('usuarios.id', 'usuarios.usuario','usuarios.nombre','usuarios.id_rol','usuarios.id_depto','usuarios.id_empresa','roles.nombre as nom_rol','usuarios.imagen','empresas.skin','empresas.nombre as nom_empresa','departamentos.nombre as nom_depto')
-            ->join('roles', 'usuarios.id_rol', '=', 'roles.id')
-            ->join('departamentos','usuarios.id_depto','=','departamentos.id')
-            ->join('empresas','usuarios.id_empresa','=','empresas.id')
-            ->where('usuarios.usuario',$usuario)
-            ->where('usuarios.pass',$clave)
-            ->where('usuarios.visible',1)
+        $resultado=DB::table('usuario')
+            ->select('usuario.id', 'usuario.usuario','usuario.nombre','usuario.id_rol','usuario.id_depto','usuario.id_empresa','rol.nombre as nom_rol','usuario.imagen','empresa.skin','empresa.nombre as nom_empresa','departamento.nombre as nom_depto')
+            ->join('rol', 'usuario.id_rol', '=', 'rol.id')
+            ->join('departamento','usuario.id_depto','=','departamento.id')
+            ->join('empresa','usuario.id_empresa','=','empresa.id')
+            ->where('usuario.usuario',$usuario)
+            ->where('usuario.pass',$clave)
+            ->where('usuario.visible',1)
             ->get();
     	return $resultado;
     }
@@ -46,7 +46,7 @@ class configuracion extends Model
 
     public static function all_empresas()
     {
-        $empresas = Empresas::all();
+        $empresas = Empresa::all();
         return $empresas;
     }
 
@@ -77,7 +77,7 @@ class configuracion extends Model
 
     public static function get_roles($depto)
     {
-        $roles=Roles::where('id_depto',$depto)
+        $roles=Rol::where('id_depto',$depto)
                     ->orderBy('id', 'asc')
                     ->get(['id','nombre']);
         return $roles;

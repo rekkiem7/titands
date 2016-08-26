@@ -14,13 +14,13 @@ class CrearTablaProducto extends Migration
     {
         Schema::create('producto', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_empresa');
+            $table->integer('id_empresa')->unsigned()->nullable(); 
             $table->string('codigo');
             $table->string('nombre');
             $table->integer('tipo');
-            $table->integer('familia');
-            $table->integer('categoria');
-            $table->integer('unidadMedida');
+            $table->integer('familia')->unsigned()->nullable(); 
+            $table->integer('categoria')->unsigned()->nullable(); 
+            $table->integer('unidadMedida')->unsigned()->nullable(); 
             $table->float('precioVenta');
             $table->float('cantidadMinimaVenta');
             $table->float('precioPorMayor')->nullable();
@@ -33,6 +33,11 @@ class CrearTablaProducto extends Migration
             $table->integer('usuario_creacion');
             $table->integer('usuario_modificacion')->nullable();
             $table->timestamps();
+            $table->foreign('id_empresa')->references('id')->on('empresa');
+            $table->foreign('familia')->references('id')->on('familia');
+            $table->foreign('categoria')->references('id')->on('categoria');
+            $table->foreign('unidadMedida')->references('id')->on('unidad_medida');
+
         });
     }
 

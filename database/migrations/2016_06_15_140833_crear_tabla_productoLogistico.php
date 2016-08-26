@@ -14,7 +14,7 @@ class CrearTablaProductoLogistico extends Migration
     {
         Schema::create('productoLogistico', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('idProducto');
+            $table->integer('idProducto')->unsigned()->nullable(); 
             $table->string('codigo');
             $table->float('ancho');
             $table->float('alto');
@@ -30,6 +30,7 @@ class CrearTablaProductoLogistico extends Migration
             $table->float('pesoEmpaque');
             $table->integer('unidadPesoEmpaque');
             $table->timestamps();
+            $table->foreign('idProducto')->references('id')->on('producto');
         });
     }
 

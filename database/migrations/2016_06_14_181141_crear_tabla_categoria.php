@@ -19,6 +19,8 @@ class CrearTablaCategoria extends Migration
             $table->integer('id_empresa')->unsigned()->nullable(); 
             $table->string('visible');
             $table->timestamps();
+            $table->foreign('id_familia')->references('id')->on('familia');
+            $table->foreign('id_empresa')->references('id')->on('empresa');
         });
     }
 

@@ -15,12 +15,13 @@ class CrearTablaMenu extends Migration
         Schema::create('menu', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->integer('id_padre')->nullable();
+            $table->integer('id_padre')->unsigned()->nullable(); 
             $table->string('url');
             $table->string('icono')->nullable();
             $table->string('clase')->nullable();
             $table->integer('visible');
             $table->timestamps();
+            $table->foreign('id_padre')->references('id')->on('menu');
         });
     }
 

@@ -45,8 +45,9 @@ class mantenedores extends Model
 
     public static function verificar_url($url)
     {
-        $sql="SELECT *FROM menu WHERE url='".$url."'";
-        $menu=DB::select($sql);
+        $menu=DB::table('menu')
+            ->where('url',$url)
+            ->get();
         return $menu;
     }
 
@@ -64,9 +65,10 @@ class mantenedores extends Model
 
     public static function select_menu($id)
     {
-        $sql="SELECT *FROM menu WHERE id=".$id;
-        $datos=DB::select($sql);
-        return $datos;
+        $menu=DB::table('menu')
+            ->where('id',$id)
+            ->get();
+        return $menu;
     }
 
     public static function select_menu_editar($id)

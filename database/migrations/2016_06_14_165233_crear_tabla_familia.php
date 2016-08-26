@@ -18,6 +18,7 @@ class CrearTablaFamilia extends Migration
             $table->integer('id_empresa')->unsigned()->nullable(); 
             $table->string('visible');
             $table->timestamps();
+            $table->foreign('id_empresa')->references('id')->on('empresa');
         });
     }
 
