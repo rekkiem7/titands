@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CrearTablaRoles extends Migration
+class CrearTablaDepartamentos extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,16 @@ class CrearTablaRoles extends Migration
      */
     public function up()
     {
-         Schema::create('roles', function (Blueprint $table) {
+        Schema::create('departamento', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->integer('id_depto');
+            $table->integer('id_empresa')->unsigned()->nullable(); 
+            $table->integer('id_sucursal')->unsigned()->nullable(); 
             $table->integer('visible');
             $table->timestamps();
+            $table->foreign('id_sucursal')->references('id')->on('sucursal');
+            $table->foreign('id_empresa')->references('id')->on('empresa');
+            
         });
     }
 
@@ -28,6 +32,6 @@ class CrearTablaRoles extends Migration
      */
     public function down()
     {
-        Schema::drop('roles');
+        Schema::drop('departamento');
     }
 }

@@ -14,10 +14,10 @@ class CrearTablaPermisosRol extends Migration
     {
         Schema::create('permisos_rol', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_menu')->unsigned();
-            $table->integer('id_rol')->unsigned();
-            $table->integer('id_depto')->unsigned(); 
-            $table->integer('id_empresa')->unsigned();
+            $table->integer('id_menu')->unsigned()->nullable(); 
+            $table->integer('id_rol')->unsigned()->nullable(); 
+            $table->integer('id_depto')->unsigned()->nullable(); 
+            $table->integer('id_empresa')->unsigned()->nullable(); 
             $table->integer('agregar');
             $table->integer('editar');
             $table->integer('eliminar');
@@ -25,9 +25,9 @@ class CrearTablaPermisosRol extends Migration
             $table->integer('visible');
             $table->timestamps();
             $table->foreign('id_menu')->references('id')->on('menu');
-            $table->foreign('id_rol')->references('id')->on('roles');
-            $table->foreign('id_depto')->references('id')->on('departamentos');
-            $table->foreign('id_empresa')->references('id')->on('empresas');
+            $table->foreign('id_rol')->references('id')->on('rol');
+            $table->foreign('id_depto')->references('id')->on('departamento');
+            $table->foreign('id_empresa')->references('id')->on('empresa');
         });
     }
 

@@ -15,8 +15,8 @@ class CrearTablaCategoria extends Migration
         Schema::create('categoria', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->integer('id_familia');
-            $table->integer('id_empresa');
+            $table->integer('id_familia')->unsigned()->nullable(); 
+            $table->integer('id_empresa')->unsigned()->nullable(); 
             $table->string('visible');
             $table->timestamps();
         });

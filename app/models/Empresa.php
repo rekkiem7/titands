@@ -4,9 +4,10 @@ namespace App\models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Empresas extends Model
+class Empresa extends Model
 {
-    protected $table ="empresas";
+    protected $table ="empresa";
 
     protected $fillable=['id','nombre','skin','visible'];
 }
+

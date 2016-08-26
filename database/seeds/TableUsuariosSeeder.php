@@ -11,7 +11,7 @@ class TableUsuariosSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\models\Usuarios::class)->create([
+        factory(App\models\Usuario::class)->create([
         		'usuario'=>'pbarria',
         		'pass'=>'utemmacul1097',
                 'nombre'=>'Pablo Barría Reyes',
@@ -22,7 +22,7 @@ class TableUsuariosSeeder extends Seeder
                 'visible'=>1
         	]);
 
-        factory(App\models\Usuarios::class)->create([
+        factory(App\models\Usuario::class)->create([
         		'usuario'=>'evidal',
         		'pass'=>'r4p4nu1',
         		'nombre'=>'Eduardo Vidal',
@@ -33,7 +33,7 @@ class TableUsuariosSeeder extends Seeder
                 'visible'=>1
         	]);
 
-        factory(App\models\Usuarios::class)->create([
+        factory(App\models\Usuario::class)->create([
                 'usuario'=>'william',
                 'pass'=>'12345',
                 'nombre'=>'William Industrial',
@@ -44,7 +44,7 @@ class TableUsuariosSeeder extends Seeder
                 'visible'=>1
             ]);
 
-        factory(App\models\Usuarios::class)->create([
+        factory(App\models\Usuario::class)->create([
                 'usuario'=>'logistica',
                 'pass'=>'12345',
                 'nombre'=>'Logistic Boss',
@@ -55,7 +55,7 @@ class TableUsuariosSeeder extends Seeder
                 'visible'=>1
             ]);
 
-        factory(App\models\Usuarios::class)->create([
+        factory(App\models\Usuario::class)->create([
                 'usuario'=>'Ventas',
                 'pass'=>'12345',
                 'nombre'=>'Pablo Barría',

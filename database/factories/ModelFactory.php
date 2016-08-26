@@ -20,7 +20,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });*/
 
-$factory->define(App\models\Usuarios::class, function (Faker\Generator $faker) {
+$factory->define(App\models\Usuario::class, function (Faker\Generator $faker) {
     return [
         'usuario' => $faker->name,
         'pass' => $faker->name,
@@ -45,7 +45,7 @@ $factory->define(App\models\Menu::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\models\Empresas::class, function (Faker\Generator $faker) {
+$factory->define(App\models\Empresa::class, function (Faker\Generator $faker) {
     return [
         'id' => $faker->name,
         'nombre' => $faker->name,
@@ -73,7 +73,7 @@ $factory->define(App\models\Departamento::class, function (Faker\Generator $fake
     ];
 });
 
-$factory->define(App\models\Roles::class, function (Faker\Generator $faker) {
+$factory->define(App\models\Rol::class, function (Faker\Generator $faker) {
     return [
         'id' => $faker->name,
         'nombre' => $faker->name,

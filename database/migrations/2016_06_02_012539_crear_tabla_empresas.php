@@ -12,7 +12,7 @@ class CrearTablaEmpresas extends Migration
      */
     public function up()
     {
-        Schema::create('empresas', function (Blueprint $table) {
+        Schema::create('empresa', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
             $table->string('skin');
@@ -28,6 +28,6 @@ class CrearTablaEmpresas extends Migration
      */
     public function down()
     {
-        Schema::drop('empresas');
+        Schema::drop('empresa');
     }
 }

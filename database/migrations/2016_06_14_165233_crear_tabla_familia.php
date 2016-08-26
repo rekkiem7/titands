@@ -15,7 +15,7 @@ class CrearTablaFamilia extends Migration
         Schema::create('familia', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->integer('id_empresa');
+            $table->integer('id_empresa')->unsigned()->nullable(); 
             $table->string('visible');
             $table->timestamps();
         });

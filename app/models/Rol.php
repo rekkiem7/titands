@@ -4,9 +4,9 @@ namespace App\models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Roles extends Model
+class Rol extends Model
 {
-    protected $table ="roles";
+    protected $table ="rol";
 
     protected $fillable=['id','nombre','id_depto','visible'];
 }

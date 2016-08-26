@@ -3,22 +3,22 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CrearTablaDepartamentos extends Migration
+class CrearTablaSucursal extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+   public function up()
     {
-        Schema::create('departamentos', function (Blueprint $table) {
+        Schema::create('sucursal', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->integer('id_empresa');
-            $table->integer('id_sucursal');
+            $table->integer('id_empresa')->unsigned()->nullable();
             $table->integer('visible');
             $table->timestamps();
+            $table->foreign('id_empresa')->references('id')->on('empresa');
         });
     }
 
@@ -29,6 +29,6 @@ class CrearTablaDepartamentos extends Migration
      */
     public function down()
     {
-        Schema::drop('departamentos');
+        Schema::drop('sucursal');
     }
 }

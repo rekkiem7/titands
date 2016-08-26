@@ -12,15 +12,15 @@ class CreaTablaUsuarios extends Migration
      */
     public function up()
     {
-        Schema::create('usuarios', function (Blueprint $table) {
+        Schema::create('usuario', function (Blueprint $table) {
             $table->increments('id');
             $table->string('usuario')->unique();
             $table->string('pass');
             $table->string('nombre')->nullable();
             $table->string('imagen');
-            $table->integer('id_rol');
-            $table->integer('id_depto');
-            $table->integer('id_empresa');
+            $table->integer('id_rol')->unsigned()->nullable(); 
+            $table->integer('id_depto')->unsigned()->nullable(); 
+            $table->integer('id_empresa')->unsigned()->nullable(); 
             $table->integer('visible');
             $table->timestamps();
         });
@@ -33,6 +33,6 @@ class CreaTablaUsuarios extends Migration
      */
     public function down()
     {
-        Schema::drop('usuarios');
+        Schema::drop('usuario');
     }
 }

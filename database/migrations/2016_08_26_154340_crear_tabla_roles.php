@@ -3,21 +3,22 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CrearTablaSucursal extends Migration
+class CrearTablaRoles extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-   public function up()
+    public function up()
     {
-        Schema::create('sucursal', function (Blueprint $table) {
+         Schema::create('rol', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->integer('id_empresa');
+            $table->integer('id_depto')->unsigned()->nullable(); 
             $table->integer('visible');
             $table->timestamps();
+            $table->foreign('id_depto')->references('id')->on('departamento');
         });
     }
 
@@ -28,6 +29,6 @@ class CrearTablaSucursal extends Migration
      */
     public function down()
     {
-        Schema::drop('sucursal');
+        Schema::drop('rol');
     }
 }
