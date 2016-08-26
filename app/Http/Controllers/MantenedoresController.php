@@ -20,10 +20,8 @@ class MantenedoresController extends Controller
       {
          $data['titulo']='Mantenedores';
          $data['subtitulo']="Sistema ERP Tomahawk";
-         $data['menus_padres']="";
          $data['block_menu']=Session::get('skin');
          $data['menus']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
-         $data["menus_hijos"]=app('App\Http\Controllers\ConfiguracionController')->menus_hijos($data['menus']);
          return view('mantenedores.index',$data);
       }
       else
@@ -38,10 +36,8 @@ class MantenedoresController extends Controller
       {
          $data['titulo']=" Creación de Menú";
          $data['subtitulo']="Sistema ERP Tomahawk"; 
-         $data["menus_padres"]="";  
          $data['block_menu']=Session::get('skin');
          $data['menus']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
-         $data["menus_hijos"]=app('App\Http\Controllers\ConfiguracionController')->menus_hijos($data['menus']);
          $data["all_menus"]=mantenedores::all_menus();
          return view('mantenedores.crear_menu',$data);
       }
@@ -108,10 +104,8 @@ class MantenedoresController extends Controller
       {
          $data['titulo']=" Listado Menús";
          $data['subtitulo']="Sistema ERP Tomahawk"; 
-         $data["menus_padres"]="";  
          $data['block_menu']=Session::get('skin');
          $data['menus']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
-         $data["menus_hijos"]=app('App\Http\Controllers\ConfiguracionController')->menus_hijos($data['menus']);
          $data["all_menus"]=mantenedores::all_menus();
          return view('mantenedores.listado_menu',$data);
       }

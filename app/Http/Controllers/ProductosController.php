@@ -23,12 +23,10 @@ class ProductosController extends Controller
       $data['titulo']='Módulo de Productos';
       $data['subtitulo']="Sistema ERP Tomahawk";
       $data['block_menu']=Session::get('skin');
-      $data['menus_padres']="";
       $data['unidad_medida']=mantenedores::get_unidadMedida();
      // dd($data['unidad_medida']);
       $data['familia']=mantenedores::get_familia($id_empresa);
       $data['menus']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
-      $data["menus_hijos"]=app('App\Http\Controllers\ConfiguracionController')->menus_hijos($data['menus']);
       return view('productos.index',$data);
       }else{
             //return View::make('login/login');
@@ -151,12 +149,10 @@ class ProductosController extends Controller
       $data['titulo']='Ficha de Productos';
       $data['subtitulo']="Sistema ERP Tomahawk";
       $data['block_menu']=Session::get('skin');
-      $data['menus_padres']="";
       $data['unidad_medida']=mantenedores::get_unidadMedida();
      // dd($data['unidad_medida']);
       $data['familia']=mantenedores::get_familia($id_empresa);
       $data['menus']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
-      $data["menus_hijos"]=app('App\Http\Controllers\ConfiguracionController')->menus_hijos($data['menus']);
       return view('productos.ficha_producto.index',$data);
       }else{
             //return View::make('login/login');
@@ -172,9 +168,7 @@ class ProductosController extends Controller
       $data['titulo']='Listado de Productos';
       $data['subtitulo']="Sistema ERP Tomahawk";
       $data['block_menu']=Session::get('skin');
-      $data['menus_padres']="";
       $data['menus']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
-      $data["menus_hijos"]=app('App\Http\Controllers\ConfiguracionController')->menus_hijos($data['menus']);
       $data["productos"]=Producto_Operative::select_productos($id_empresa);
       return view('productos.listado_productos.index',$data);
       }else{
@@ -191,9 +185,7 @@ class ProductosController extends Controller
       $data['titulo']='Ficha de Producto';
       $data['subtitulo']="Sistema ERP Tomahawk";
       $data['block_menu']=Session::get('skin');
-      $data['menus_padres']="";
       $data['menus']="";
-      $data["menus_hijos"]="";
       $data["producto"]=Producto_Operative::select_producto_xid($id);
       $data["imagenes"]=Producto_Operative::select_productoimagen($id);
       return view('productos.listado_productos.ficha_producto',$data);

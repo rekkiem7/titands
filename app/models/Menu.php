@@ -9,4 +9,9 @@ class Menu extends Model
     protected $table ="menu";
 
     protected $fillable=['id','nombre','id_padre','url','icono','clase','visible'];
+
+    public function menu()
+    {
+        return $this->hasMany('App\models\Menu');
+    }
 }

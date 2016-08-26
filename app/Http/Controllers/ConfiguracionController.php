@@ -83,9 +83,8 @@ class ConfiguracionController extends Controller
         $data['titulo']='Últimas Noticias';
         $data['subtitulo']="Sistema ERP Tomahawk";
         $rol=Session::get('id_rol');
-        $data['menus_padres']=configuracion::permisos_rol_padre($rol);
-        $data['menus']="";
-        $data['menus_hijos']="";
+        //$data['menus']=configuracion::permisos_rol_padre($rol);
+        $data['menus']=$this->menus_padres($rol);
         $data['block_menu']="hold-transition sidebar-collapse sidebar-min ".Session::get('skin');
         return view('home.slider',$data);
     }
@@ -104,10 +103,7 @@ class ConfiguracionController extends Controller
       $data['titulo']='Configuración';
       $data['subtitulo']="Sistema ERP Tomahawk";
       $data['block_menu']=Session::get('skin');
-      $data['menus_padres']="";
       $data['menus']=$this->menus_generales($menu);
-      $data["menus_hijos"]=$this->menus_hijos($data['menus']);
-      //dd($data["menus_hijos"]);
       return view('configuracion.index',$data);
     }
 
@@ -116,9 +112,7 @@ class ConfiguracionController extends Controller
       $data['titulo']="Permisos Por Rol ";
       $data['subtitulo']="Sistema ERP Tomahawk"; 
       $data['block_menu']=Session::get('skin');
-      $data["menus_padres"]="";  
       $data['menus']=$this->menus_generales($menu);
-      $data["menus_hijos"]=$this->menus_hijos($data['menus']);
       $data["empresas"]=configuracion::all_empresas();
       return view('configuracion.permisos_rol',$data);
     }
@@ -230,6 +224,18 @@ class ConfiguracionController extends Controller
       }
     }
 
+    public function menus_padres($rol)
+    {
+      $menus=configuracion::permisos_rol_padre($rol);
+      if($menus)
+       {
+          for($i=0;$i<count($menus);$i++)
+          {
+            $menus[$i]->hijos=[];
+          }
+       }
+      return $menus;
+    }
 
     public function menus_generales($menu)
     {
@@ -237,6 +243,16 @@ class ConfiguracionController extends Controller
        $depto=Session::get('id_depto');
        $empresa=Session::get('id_empresa');
        $menus=configuracion::permisos_rol_hijos($menu,$rol,$depto,$empresa);
+       if($menus)
+       {
+          for($i=0;$i<count($menus);$i++)
+          {
+            $new_id=$menus[$i]->id;
+            $hijo=$this->menus_generales($new_id);
+            $menus[$i]->hijos=$hijo;
+          }
+       }
+
        return $menus;
     }
 

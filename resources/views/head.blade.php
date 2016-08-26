@@ -6,6 +6,52 @@
         @include('plantilla')
     </head>
     <body class="{{$block_menu}}">
+    <?php
+    function dibujar_menu($menus)
+    {
+     if($menus)
+                          {
+                            foreach($menus as $row)
+                            {
+                                if($row->hijos || $row->hijos !=[])
+                                {
+                                    $hijos=$row->hijos;
+                            ?>
+                                <li class="treeview">
+                                        <a href="#"><i class="{{$row->clase}}"></i><span>{{$row->nombre}}</span><i class="fa fa-angle-left pull-right"></i></a>
+                                    <ul class="treeview-menu">
+                                    <?php 
+                                        for($i=0;$i<count($hijos);$i++)
+                                        {
+                                            if($hijos[$i]->hijos==[])
+                                            {
+                                           ?>
+                                           <li><a href="{{asset($hijos[$i]->url)}}"><i class="{{$hijos[$i]->clase}}"></i> {{$hijos[$i]->nombre}}</a></li> 
+                                           <?php
+                                            }
+                                            else
+                                            {?><li class="treeview">
+                                                    <a href="#"><i class="{{$hijos[$i]->clase}}"></i><span>{{$hijos[$i]->nombre}}</span><i class="fa fa-angle-left pull-right"></i></a>
+                                                <ul class="treeview-menu">
+                                            <?php
+                                               
+                                                dibujar_menu($hijos[$i]->hijos);
+                                            ?></ul><?php
+                                            }
+                                        }
+                                    ?>
+                                    </ul>
+                                </li>
+                    <?php       }
+                                else
+                                {?>
+                                  <li><a href="{{asset($row->url)}}"><i class="{{$row->clase}}"></i><span>{{$row->nombre}}</span></a></li>  
+                                <?php
+                                }
+                            }
+                          }                   
+    }
+    ?>
     <div class="wrapper">
 
         <!-- Main Header -->
@@ -183,71 +229,9 @@
                 <ul class="sidebar-menu">
                     <li class="header"><a href="{{asset('/home')}}"><i class="fa fa-home"></i>&nbsp;<span>HOME</span></a></li>
                     <!-- Optionally, you can add icons to the links -->
-                    @if($menus_padres)
-                    @foreach($menus_padres as $row)
-                    
-                    <li><a href="{{asset($row->url)}}"><i class="{{$row->clase}}"></i><span>{{$row->nombre}}</span></a></li>
-                    @endforeach
-                    @endif
-                    
-                <?php 
-                      if($menus!="")
-                      {
-                      foreach($menus as $menu1)
-                      {
-                        if($menu1->id_padre!==null && $menus_hijos!="")
-                        {
-                            $cont=0;
-                            for($i=0;$i<count($menus_hijos);$i++)
-                            {
-                                for($t=0;$t<count($menus_hijos[$i]);$t++)
-                                {
-                                    if($menus_hijos[$i][$t]->id_padre==$menu1->id && $menus_hijos[$i][$t]->id_padre!="" )
-                                    {
-                                        $cont=$cont+1;
-                                    }
-                                }
-                                if($cont>0)
-                                {?>
-                                    <li class="treeview">
-                                        <a href="#"><i class="{{$menu1->clase}}"></i><span>{{$menu1->nombre}}</span><i class="fa fa-angle-left pull-right"></i></a>        
-                                    <ul class="treeview-menu">
-                                <?php
-                                    for($i=0;$i<count($menus_hijos);$i++)
-                                    {
-                                        for($t=0;$t<count($menus_hijos[$i]);$t++)
-                                        {
-                                            if($menus_hijos[$i][$t]->id_padre==$menu1->id)
-                                            {
-                                            ?> 
-                                               <li><a href="{{asset($menus_hijos[$i][$t]->url)}}"><i class="{{$menus_hijos[$i][$t]->clase}}"></i> {{$menus_hijos[$i][$t]->nombre}}</a></li>         
-                                       <?php
-                                            }
-                                        }
-                                    }
-                                ?>
-                            </ul></li>
-                                <?php 
-                                }
-                                else
-                                {
-                                ?>
-                                    <li>
-                                        <a href="{{asset($menu1->url)}}"><i class="{{$menu1->clase}}"></i><span>{{$menu1->nombre}}</span></a>       
-                                    </li>
-                            <?php
-                                }
-                            }
-                        }
-                     }
-                 }
-                                ?> 
-
-                             
-                     
-                     
-                    
-                        
+                    <?php
+                        dibujar_menu($menus);
+                    ?>           
                     <li><a href="javascript:history.back()"><i class="fa fa-reply"></i><span>Volver</span></a></li>
                 </ul><!-- /.sidebar-menu -->
             </section>
