@@ -153,6 +153,24 @@ class TableMenuSeeder extends Seeder
                 'visible'=>1
             ]);
 
+            factory(App\models\Menu::class)->create([
+                'nombre'=>'Crear Producto',
+                'id_padre'=>14,
+                'url'=>'/crear_producto/17',
+                'icono'=>null,
+                'clase'=>'fa fa-rocket',
+                'visible'=>1
+            ]);
+
+            factory(App\models\Menu::class)->create([
+                'nombre'=>'Listado Productos',
+                'id_padre'=>14,
+                'url'=>'/listado_productos/18',
+                'icono'=>null,
+                'clase'=>'fa fa-list-ol',
+                'visible'=>1
+            ]);
+
         
     }
 }

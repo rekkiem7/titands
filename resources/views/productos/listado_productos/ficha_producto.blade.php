@@ -35,7 +35,7 @@
 		    	<div class="nav-tabs-custom">
 		            <ul class="nav nav-tabs">
 		              <li class="active TitanTab"><a href="#resumen" data-toggle="tab">&nbsp;&nbsp;Resumen</a></li>
-		              <li ><a  href="#datos" data-toggle="tab">&nbsp;&nbsp;Datos</a></li>    
+		              <li ><a  href="#datos" data-toggle="tab">&nbsp;&nbsp;Ficha Producto</a></li>    
 		            </ul>
 		            <div class="tab-content">
 		              <div class="active tab-pane animated fadeIn" id="resumen">

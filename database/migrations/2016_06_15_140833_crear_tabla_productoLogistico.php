@@ -30,7 +30,7 @@ class CrearTablaProductoLogistico extends Migration
             $table->float('pesoEmpaque');
             $table->integer('unidadPesoEmpaque');
             $table->timestamps();
-            $table->foreign('idProducto')->references('id')->on('producto');
+            $table->foreign('idProducto')->references('id')->on('producto')->onDelete('cascade');
         });
     }
 

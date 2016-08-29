@@ -20,7 +20,7 @@ class CrearTablaProductoImagen extends Migration
             $table->string('url');
             $table->boolean('visible');
             $table->timestamps();
-            $table->foreign('idProducto')->references('id')->on('producto');
+            $table->foreign('idProducto')->references('id')->on('producto')->onDelete('cascade');;
         });
     }
     /**
