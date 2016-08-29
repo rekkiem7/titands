@@ -189,7 +189,7 @@ class ProductosController extends Controller
       $data["producto"]=Producto_Operative::select_producto_xid($id);
       $data["imagenes"]=Producto_Operative::select_productoimagen($id);
 
-    //  dd($data);
+     // dd($data);
       return view('productos.listado_productos.ficha_producto',$data);
       }else{
             //return View::make('login/login');

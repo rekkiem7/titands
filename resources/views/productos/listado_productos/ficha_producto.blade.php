@@ -23,7 +23,18 @@
     height:50%;
 }
 
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: #5bc0de; 
+ }
+
 </style>
+<?php
+if($producto[0]->visible==1){$producto[0]->visible="Si";}else{$producto[0]->visible="No";}
+if($producto[0]->disponiblePedidos==1){$producto[0]->disponiblePedidos="Si";}else{$producto[0]->disponiblePedidos="No";}
+if($producto[0]->mostrarPrecio==1){$producto[0]->mostrarPrecio="Si";}else{$producto[0]->mostrarPrecio="No";}
+if($producto[0]->disponibleOnline==1){$producto[0]->disponibleOnline="Si";}else{$producto[0]->disponibleOnline="No";}
+?>
 <section class="content">
    <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -115,7 +126,26 @@
 					  </div>
 		           
 		              <div class="tab-pane animated fadeIn" id="datos">
-		              panel 2
+		              <h4>Datos Generales</h4><br>
+		              <table class="table table-striped info">
+		              	<tr><td><strong>Código</strong></td><td>{{$producto[0]->codigo}}</td></tr>
+		              	<tr><td><strong>Nombre del Producto</strong></td><td>{{$producto[0]->nombre}}</td></tr>
+		              	<tr><td><strong>Tipo </strong></td><td></td></tr>
+		              	<tr><td><strong>Familia </strong></td><td></td></tr>
+		              	<tr><td><strong>Categoria </strong></td><td></td></tr>
+		              	<tr><td><strong>Precio Venta</strong></td><td>{{$producto[0]->precioVenta}}</td></tr>
+		              	<tr><td><strong>Cantidad Mínima de Venta</strong></td><td>{{$producto[0]->cantidadMinimaVenta}}</td></tr>
+		              	<tr><td><strong>Precio por Mayor</strong></td><td>{{$producto[0]->precioPorMayor}}</td></tr>
+		              </table><br>
+
+		              <h4>Restricciones</h4><br>
+		              <table class="table table-striped info">
+		              	<tr><td><strong>Visible</strong></td><td>{{$producto[0]->visible}}</td></tr>
+		              	<tr><td><strong>Disponible en Pedidos</strong></td><td>{{$producto[0]->disponiblePedidos}}</td></tr>
+		              	<tr><td><strong>Mostrar Precios </strong></td><td>{{$producto[0]->mostrarPrecio}}</td></tr>
+		              	<tr><td><strong>Disponible Online </strong></td><td>{{$producto[0]->disponibleOnline}}</td></tr>
+		              </table><br>
+
 		              </div>
 		            </div>
 		         </div>
