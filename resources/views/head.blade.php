@@ -5,6 +5,35 @@
         <title>Sistema Tomahawk ERP</title>
         @include('plantilla')
     </head>
+    <style>
+    @media only screen and (max-width: 768px) {
+    .logo1{
+        width: auto;
+        height: 60%;
+    }
+    }
+
+    @media only screen and (min-width: 769px) and (max-width: 992px) {
+    .logo1{
+        width: 50%;
+        height: 45%;
+    }
+    }
+
+    @media only screen and (min-width: 993px) and (max-width: 1200px) {
+    .logo1{
+        width: 60%;
+        height: 50%;
+    }
+    }
+
+    @media only screen and (min-width: 1201px)  {
+    .logo1{
+        width: 60%;
+        height: auto;
+    }
+    }
+    </style>
     <body class="{{$block_menu}}">
     <?php
     function dibujar_menu($menus)
@@ -58,7 +87,7 @@
         <header class="main-header">
 
             <!-- Logo -->
-            <a href="{{url()}}" class="logo"><img src="{{asset('/archivos_empresas/'.Session::get('id_empresa').'/LogoHeader1.png')}}" width="60%" /></a>
+            <a href="{{url()}}" class="logo"><img class="logo1" src="{{asset('/archivos_empresas/'.Session::get('id_empresa').'/LogoHeader1.png')}}"/></a>
             <!--<img src="{{asset('/archivos_empresas/2/logo.jpg')}}" width="13%" height="10%"/>-->
 
             <!-- Header Navbar -->
