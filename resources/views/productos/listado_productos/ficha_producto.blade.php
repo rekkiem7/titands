@@ -126,25 +126,55 @@ if($producto[0]->disponibleOnline==1){$producto[0]->disponibleOnline="Si";}else{
 					  </div>
 		           
 		              <div class="tab-pane animated fadeIn" id="datos">
-		              <h4>Datos Generales</h4><br>
-		              <table class="table table-striped info">
-		              	<tr><td><strong>Código</strong></td><td>{{$producto[0]->codigo}}</td></tr>
-		              	<tr><td><strong>Nombre del Producto</strong></td><td>{{$producto[0]->nombre}}</td></tr>
-		              	<tr><td><strong>Tipo </strong></td><td></td></tr>
-		              	<tr><td><strong>Familia </strong></td><td></td></tr>
-		              	<tr><td><strong>Categoria </strong></td><td></td></tr>
-		              	<tr><td><strong>Precio Venta</strong></td><td>{{$producto[0]->precioVenta}}</td></tr>
-		              	<tr><td><strong>Cantidad Mínima de Venta</strong></td><td>{{$producto[0]->cantidadMinimaVenta}}</td></tr>
-		              	<tr><td><strong>Precio por Mayor</strong></td><td>{{$producto[0]->precioPorMayor}}</td></tr>
-		              </table><br>
+		              		<div class="box box-info">
+						            <div class="box-header">
+						              <h3 class="box-title">Datos Generales</h3>
+						              <!-- tools box -->
+						              <div class="pull-right box-tools">
+						                <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+						                  <i class="fa fa-minus"></i></button>
+						                <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove">
+						                  <i class="fa fa-times"></i></button>
+						              </div>
+						              <!-- /. tools -->
+						            </div>
+						            <!-- /.box-header -->
+						            <div class="box-body pad">
+						             <table class="table table-striped info">
+						              	<tr><td><strong>Código</strong></td><td>{{$producto[0]->codigo}}</td></tr>
+						              	<tr><td><strong>Nombre del Producto</strong></td><td>{{$producto[0]->nombre}}</td></tr>
+						              	<tr><td><strong>Tipo </strong></td><td></td></tr>
+						              	<tr><td><strong>Familia </strong></td><td></td></tr>
+						              	<tr><td><strong>Categoria </strong></td><td></td></tr>
+						              	<tr><td><strong>Precio Venta</strong></td><td>{{$producto[0]->precioVenta}}</td></tr>
+						              	<tr><td><strong>Cantidad Mínima de Venta</strong></td><td>{{$producto[0]->cantidadMinimaVenta}}</td></tr>
+						              	<tr><td><strong>Precio por Mayor</strong></td><td>{{$producto[0]->precioPorMayor}}</td></tr>
+						              </table>    
+						            </div>
+						     </div>
 
-		              <h4>Restricciones</h4><br>
-		              <table class="table table-striped info">
-		              	<tr><td><strong>Visible</strong></td><td>{{$producto[0]->visible}}</td></tr>
-		              	<tr><td><strong>Disponible en Pedidos</strong></td><td>{{$producto[0]->disponiblePedidos}}</td></tr>
-		              	<tr><td><strong>Mostrar Precios </strong></td><td>{{$producto[0]->mostrarPrecio}}</td></tr>
-		              	<tr><td><strong>Disponible Online </strong></td><td>{{$producto[0]->disponibleOnline}}</td></tr>
-		              </table><br>
+						     <div class="box box-info">
+						            <div class="box-header">
+						              <h3 class="box-title">Restricciones</h3>
+						              <!-- tools box -->
+						              <div class="pull-right box-tools">
+						                <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+						                  <i class="fa fa-minus"></i></button>
+						                <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove">
+						                  <i class="fa fa-times"></i></button>
+						              </div>
+						              <!-- /. tools -->
+						            </div>
+						            <!-- /.box-header -->
+						            <div class="box-body pad">
+						            <table class="table table-striped info">
+						              	<tr><td><strong>Visible</strong></td><td>{{$producto[0]->visible}}</td></tr>
+						              	<tr><td><strong>Disponible en Pedidos</strong></td><td>{{$producto[0]->disponiblePedidos}}</td></tr>
+						              	<tr><td><strong>Mostrar Precios </strong></td><td>{{$producto[0]->mostrarPrecio}}</td></tr>
+						              	<tr><td><strong>Disponible Online </strong></td><td>{{$producto[0]->disponibleOnline}}</td></tr>
+						              </table>
+						            </div>
+						    </div>
 
 		              </div>
 		            </div>
