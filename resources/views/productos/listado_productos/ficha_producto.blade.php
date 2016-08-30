@@ -133,8 +133,6 @@ if($producto[0]->disponibleOnline==1){$producto[0]->disponibleOnline="Si";}else{
 						              <div class="pull-right box-tools">
 						                <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse">
 						                  <i class="fa fa-minus"></i></button>
-						                <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove">
-						                  <i class="fa fa-times"></i></button>
 						              </div>
 						              <!-- /. tools -->
 						            </div>
@@ -160,8 +158,6 @@ if($producto[0]->disponibleOnline==1){$producto[0]->disponibleOnline="Si";}else{
 						              <div class="pull-right box-tools">
 						                <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse">
 						                  <i class="fa fa-minus"></i></button>
-						                <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove">
-						                  <i class="fa fa-times"></i></button>
 						              </div>
 						              <!-- /. tools -->
 						            </div>
@@ -173,6 +169,49 @@ if($producto[0]->disponibleOnline==1){$producto[0]->disponibleOnline="Si";}else{
 						              	<tr><td><strong>Mostrar Precios </strong></td><td>{{$producto[0]->mostrarPrecio}}</td></tr>
 						              	<tr><td><strong>Disponible Online </strong></td><td>{{$producto[0]->disponibleOnline}}</td></tr>
 						              </table>
+						            </div>
+						    </div>
+
+						    <div class="box box-info">
+						            <div class="box-header">
+						              <h3 class="box-title">Datos Logísticos</h3>
+						              <!-- tools box -->
+						              <div class="pull-right box-tools">
+						                <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+						                  <i class="fa fa-minus"></i></button>
+						              </div>
+						              <!-- /. tools -->
+						            </div>
+						            <!-- /.box-header -->
+						            <div class="box-body pad">
+						            	<table class="table table-striped info">
+						            	<tr><td><strong>Ancho</strong></td><td>{{$producto[0]->ancho}}</td></tr>
+						            	<tr><td><strong>Alto</strong></td><td>{{$producto[0]->alto}}</td></tr>
+						            	<tr><td><strong>Profundidad</strong></td><td>{{$producto[0]->profundidad}}</td></tr>
+						            	<tr><td><strong>Peso</strong></td><td>{{$producto[0]->peso}}</td></tr>
+						            	</table>
+						            </div>
+						    </div>
+
+						    <div class="box box-info">
+						            <div class="box-header">
+						              <h3 class="box-title">Datos de Empaquetado</h3>
+						              <!-- tools box -->
+						              <div class="pull-right box-tools">
+						                <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+						                  <i class="fa fa-minus"></i></button>
+						              </div>
+						              <!-- /. tools -->
+						            </div>
+						            <!-- /.box-header -->
+						            <div class="box-body pad">
+						            	<table class="table table-striped info">
+						            	<tr><td><strong>Cantidad por Unidad de Empaque</strong></td><td>{{$producto[0]->cantidadPorUEmpaque}}</td></tr>
+						            	<tr><td><strong>Ancho</strong></td><td>{{$producto[0]->anchoEmpaque}}</td></tr>
+						            	<tr><td><strong>Alto</strong></td><td>{{$producto[0]->altoEmpaque}}</td></tr>
+						            	<tr><td><strong>Profundidad</strong></td><td>{{$producto[0]->profundidadEmpaque}}</td></tr>
+						            	<tr><td><strong>Peso por Unidad de Empaque</strong></td><td>{{$producto[0]->pesoEmpaque}}</td></tr>
+						            	</table>
 						            </div>
 						    </div>
 
