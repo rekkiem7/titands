@@ -33,3 +33,4 @@ Route::post('/add_producto','ProductosController@add_producto');
 Route::get('/crear_producto/{menu}','ProductosController@crear_producto');
 Route::get('/listado_productos/{menu}','ProductosController@listado_productos');
 Route::get('/ficha_producto/{producto}','ProductosController@ficha_producto');
+Route::get('/crear_usuario/{menu}','MantenedoresController@crear_usuario');

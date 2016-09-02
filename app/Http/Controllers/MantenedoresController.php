@@ -160,4 +160,20 @@ class MantenedoresController extends Controller
         return "SINSESION";
       }
    }
+
+   public function crear_usuario($menu)
+   {
+      if (Session::get('logeado')==true)
+      {
+         $data['titulo']=" Crear Usuario";
+         $data['subtitulo']="Sistema ERP Tomahawk"; 
+         $data['block_menu']=Session::get('skin');
+         $data['menus']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
+         return view('mantenedores.Usuarios.crear_usuario',$data);
+      }
+      else
+      {
+        return Redirect::to('/');
+      }
+   }
 }
