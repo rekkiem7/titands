@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Redirect;
 use Cache;
 use Validator;
 use App\models\mantenedores;
+use App\models\configuracion;
 
 class MantenedoresController extends Controller
 {
@@ -169,6 +170,7 @@ class MantenedoresController extends Controller
          $data['subtitulo']="Sistema ERP Tomahawk"; 
          $data['block_menu']=Session::get('skin');
          $data['menus']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
+         $data["empresas"]=configuracion::all_empresas();
          return view('mantenedores.Usuarios.crear_usuario',$data);
       }
       else
