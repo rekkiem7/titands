@@ -171,6 +171,33 @@ class TableMenuSeeder extends Seeder
                 'visible'=>1
             ]);
 
+            factory(App\models\Menu::class)->create([
+                'nombre'=>'Mantenedor Usuarios',
+                'id_padre'=>2,
+                'url'=>'/mant_usuarios/19',
+                'icono'=>null,
+                'clase'=>'fa fa-users',
+                'visible'=>1
+            ]);
+
+            factory(App\models\Menu::class)->create([
+                'nombre'=>'Crear Usuario',
+                'id_padre'=>19,
+                'url'=>'/crear_usuario/20',
+                'icono'=>null,
+                'clase'=>'fa fa-user-plus',
+                'visible'=>1
+            ]);
+
+            factory(App\models\Menu::class)->create([
+                'nombre'=>'Listado Usuarios',
+                'id_padre'=>19,
+                'url'=>'/listado_usuarios/21',
+                'icono'=>null,
+                'clase'=>'fa fa-navicon',
+                'visible'=>1
+            ]);
+
         
     }
 }
