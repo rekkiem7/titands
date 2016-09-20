@@ -10,8 +10,9 @@
 		    	<div class="nav-tabs-custom">
 			    	<div class="nav-tabs-custom">
 			            <ul class="nav nav-tabs">
-			            	<li class="active general" id="Tabgeneral" ><a id="Ageneral" href="#general" data-toggle="tab">General</a></li>
+			            	<li class="active" id="Tabgeneral" ><a id="Ageneral" href="#general" data-toggle="tab">General</a></li>
 			            	<li id="Tabdetalle"><a id="Adetalle" href="#detalle" data-toggle="tab">Detalle</a></li>
+							<li id="Tabavatar"><a id="Aavatar" href="#avatar" data-toggle="tab">Foto de Perfil</a></li>
 			            </ul>
 
 			            <div class="tab-content">
@@ -40,7 +41,7 @@
 		              			<div id="input-sucursal" style="display:none">
 		              			<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Sucursal</label>
 		              			<div class="input-group col-lg-5 col-md-5 col-sm-12">
-		              				<select class="form-control" id="sucursal" name="sucursal">
+		              				<select class="form-control requerido" id="sucursal" name="sucursal">
                     				</select>
 		              				<span class="input-group-addon"><i class="fa fa-building"></i></span>
 		              			</div><br>
@@ -48,7 +49,7 @@
 		              			<div id="input-depto" style="display:none">
 		              			<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Departamento</label>
 		              			<div class="input-group col-lg-5 col-md-5 col-sm-12">
-		              				<select class="form-control" id="depto" name="depto">
+		              				<select class="form-control requerido" id="depto" name="depto">
                     				</select>
 		              				<span class="input-group-addon"><i class="fa fa-building"></i></span>
 		              			</div><br>
@@ -56,7 +57,7 @@
 		              			<div id="input-rol" style="display:none">
 		              			<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Rol</label>
 		              			<div class="input-group col-lg-5 col-md-5 col-sm-12">
-		              				<select class="form-control" id="rol" name="rol">
+		              				<select class="form-control requerido" id="rol" name="rol">
                     				</select>
 		              				<span class="input-group-addon"><i class="fa fa-flag"></i></span>
 		              			</div><br>
@@ -114,7 +115,7 @@
 		              			</div><br>
 		              			<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Correo</label>
 		              			<div class="input-group col-lg-5 col-md-5 col-sm-12">
-		              				<input type="text" class="form-control requerido" id="correo" name="correo"/>
+		              				<input type="text" class="form-control requerido" id="correo" name="correo" onblur="validar_correo();"/>
 		              				<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
 		              			</div><br>
 		              			<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Teléfono</label>
@@ -127,10 +128,30 @@
 		              				<input type="text" class="form-control requerido" id="celular" name="celular"/>
 		              				<span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
 		              			</div><br>
-		              			<div class="input-group col-lg-5 col-md-5 col-sm-12">
-									<button class="btn btn-success" id="guardarUsuario" name="guardarUsuario" >Guardar  <i class="glyphicon glyphicon-floppy-disk"></i></button><br><br>
-								</div>
+								<div class="col-lg-8 col-md-8 col-sm-12">
+									<button onclick="Direccionar('avatar');" type="button" class="btn btn-info">Continuar&nbsp;&nbsp;<i class="glyphicon glyphicon-chevron-right"></i></button>
+								</div><br><br>
+
 		              		</div>
+							<div class="tab-pane animated fadeIn" id="avatar">
+								<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Imágen del Usuario</label>
+								<div class="input-group col-lg-12 col-md-12 col-sm-12">
+									<form enctype="multipart/form-data">
+										<input id="imagen" name="imagen" class="file requerido" type="file" >
+									</form>
+									<script>
+										$('#imagen').fileinput({
+											language: 'es',
+											showUpload:false,
+											allowedFileExtensions : ['jpg', 'png','gif']
+										});
+									</script>
+								</div><br>
+								<div class="input-group col-lg-5 col-md-5 col-sm-12">
+									<button class="btn btn-success" id="guardarUsuario" name="guardarUsuario" onclick="guardarUsuario();">Guardar  <i class="glyphicon glyphicon-floppy-disk"></i></button><br><br>
+								</div>
+							</div>
+
 		              	</div>
 			        </div>
 		    	</div>
@@ -140,6 +161,53 @@
    </div>
 </section>
 <script>
+function validar_input(){
+
+	var error=0;
+	$('.requerido').each(function(i, elem)
+	{
+		var valor=$(this).val();
+		if($(elem).val()=='' || $(elem).val()==0)
+		{
+			$(elem).css({'border':'1px solid #CC0000'});
+			error++;
+		}
+		else
+		{
+			$(elem).css({'border':''});
+		}
+	});
+	return error;
+}
+function guardarUsuario()
+{
+	var respuesta=validar_input();
+	if(respuesta==0)
+	{
+		alert("guardando");
+	}
+	else{
+		swal("Campos Faltantes", "Debe ingresar los datos faltantes", "info");
+	}
+}
+function validar_correo()
+{
+	var email=$('#correo').val();
+	if(email!='')
+	{
+	validarEmail(email);
+	}
+}
+
+function validarEmail( email ) {
+		expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		if ( !expr.test(email) ) {
+			$('#correo').val('');
+			$('#correo').focus();
+			swal("Email no válido", "El correo " + email + " no es correcto", "error");
+		}
+}
+
 function Direccionar(DondeDireccionar)
 {
     // ACTIVA EL TAB SEGUN EL ID ANCHOR
@@ -153,6 +221,7 @@ function Direccionar(DondeDireccionar)
     // VUELVE AL INICIO DE LA PAGINA
     $('html, body').animate({scrollTop:0}, 'slow');
 }
+
 $(document).ready(function(){
 	$('#rut').Rut();
 	$('#empresa').change(function()
