@@ -75,23 +75,28 @@
 		              			<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Primer Nombre</label>
 		              			<div class="input-group col-lg-5 col-md-5 col-sm-12">
 		              				<input type="text" class="form-control requerido" id="primer_nombre" name="primer_nombre"/>
-		              				<span class="input-group-addon"><i class="fa fa-user"></i></span>
+		              				<span class="input-group-addon"><i class="fa fa-child"></i></span>
 		              			</div><br>
 		              			<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Segundo Nombre</label>
 		              			<div class="input-group col-lg-5 col-md-5 col-sm-12">
 		              				<input type="text" class="form-control requerido" id="segundo_nombre" name="segundo_nombre"/>
-		              				<span class="input-group-addon"><i class="fa fa-user"></i></span>
+		              				<span class="input-group-addon"><i class="fa fa-male"></i></span>
 		              			</div><br>
 		              			<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Apellido Paterno</label>
 		              			<div class="input-group col-lg-5 col-md-5 col-sm-12">
-		              				<input type="text" class="form-control requerido" id="apellido_paterno" name="apellido_materno"/>
-		              				<span class="input-group-addon"><i class="fa fa-user"></i></span>
+		              				<input type="text" class="form-control requerido" id="apellido_paterno" name="apellido_paterno"/>
+		              				<span class="input-group-addon"><i class="fa fa-file-word-o"></i></span>
 		              			</div><br>
 		              			<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Apellido Materno</label>
 		              			<div class="input-group col-lg-5 col-md-5 col-sm-12">
 		              				<input type="text" class="form-control requerido" id="apellido_materno" name="apellido_materno"/>
-		              				<span class="input-group-addon"><i class="fa fa-user"></i></span>
+		              				<span class="input-group-addon"><i class="fa fa-file-word-o"></i></span>
 		              			</div><br>
+								<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">R.U.T</label>
+								<div class="input-group col-lg-5 col-md-5 col-sm-12">
+									<input type="text" class="form-control requerido" id="rut" name="rut"/>
+									<span class="input-group-addon"><i class="fa fa-barcode"></i></span>
+								</div><br>
 		              			<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Sexo</label>
 		              			<div class="input-group col-lg-5 col-md-5 col-sm-12">
 		              				<select class="form-control requerido" id="sexo" name="sexo">
@@ -99,28 +104,28 @@
 		              					<option value="1">Masculino</option>
 		              					<option value="2">Femenino</option> 
 		              			    </select>
-		              				<span class="input-group-addon"><i class="fa fa-user"></i></span>
+		              				<span class="input-group-addon"><i class="fa fa-flag"></i></span>
 		              			</div><br>
 
 		              			<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Dirección</label>
 		              			<div class="input-group col-lg-5 col-md-5 col-sm-12">
 		              				<input type="text" class="form-control requerido" id="direccion" name="direccion"/>
-		              				<span class="input-group-addon"><i class="fa fa-user"></i></span>
+		              				<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
 		              			</div><br>
 		              			<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Correo</label>
 		              			<div class="input-group col-lg-5 col-md-5 col-sm-12">
 		              				<input type="text" class="form-control requerido" id="correo" name="correo"/>
-		              				<span class="input-group-addon"><i class="fa fa-user"></i></span>
+		              				<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
 		              			</div><br>
 		              			<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Teléfono</label>
 		              			<div class="input-group col-lg-5 col-md-5 col-sm-12">
 		              				<input type="text" class="form-control requerido" id="telefono" name="telefono"/>
-		              				<span class="input-group-addon"><i class="fa fa-user"></i></span>
+		              				<span class="input-group-addon"><i class="fa fa-phone"></i></span>
 		              			</div><br>
 		              			<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Celular</label>
 		              			<div class="input-group col-lg-5 col-md-5 col-sm-12">
 		              				<input type="text" class="form-control requerido" id="celular" name="celular"/>
-		              				<span class="input-group-addon"><i class="fa fa-user"></i></span>
+		              				<span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
 		              			</div><br>
 		              			<div class="input-group col-lg-5 col-md-5 col-sm-12">
 									<button class="btn btn-success" id="guardarUsuario" name="guardarUsuario" >Guardar  <i class="glyphicon glyphicon-floppy-disk"></i></button><br><br>
@@ -149,6 +154,7 @@ function Direccionar(DondeDireccionar)
     $('html, body').animate({scrollTop:0}, 'slow');
 }
 $(document).ready(function(){
+	$('#rut').Rut();
 	$('#empresa').change(function()
   {
     var id_emp=$('#empresa').val();

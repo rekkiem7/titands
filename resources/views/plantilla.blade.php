@@ -40,6 +40,8 @@
 <script src="{{ asset ('/template/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset ('/template/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ asset ('/template/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ asset ('/plugins_adicionales/rutjs/jquery.Rut.js') }}"></script>
+<script src="{{ asset ('/plugins_adicionales/rutjs/jquery.Rut.min.js') }}"></script>
 
 
 
