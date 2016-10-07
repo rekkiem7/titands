@@ -39,3 +39,4 @@ Route::post('/delete_menu','MantenedoresController@delete_menu');
 Route::post('/info_menu_editar','MantenedoresController@info_menu_editar');
 Route::post('/add_producto','ProductosController@add_producto');
 Route::post('/verificar_disponibilidad_nombre_usuario','MantenedoresController@verificar_disponibilidad_nombre_usuario');
+Route::post('/add_usuario','MantenedoresController@add_usuario');

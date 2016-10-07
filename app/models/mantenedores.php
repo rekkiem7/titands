@@ -86,4 +86,16 @@ class mantenedores extends Model
         $dato=DB::table("usuario")->where("usuario",$usuario)->get();
         return $dato;
     }
+
+    public static function insert_usuario($data)
+    {
+        $id=DB::table('usuario')->insertGetId($data);
+        return $id;
+    }
+
+    public static function insert_usuario_detalle($data)
+    {
+        $id=DB::table('usuario_detalle')->insertGetId($data);
+        return $id;
+    }
 }

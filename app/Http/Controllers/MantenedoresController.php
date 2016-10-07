@@ -199,4 +199,76 @@ class MantenedoresController extends Controller
          return "SINSESION";
       }
    }
+
+   public function add_usuario()
+   {
+      if (Session::get('logeado')==true)
+      {
+         $nombre_usuario=$_POST['nombre_usuario'];
+         $password=$_POST['password'];
+         $empresa=$_POST['empresa'];
+         $sucursal=$_POST['sucursal'];
+         $departamento=$_POST['departamento'];
+         $rol=$_POST['rol'];
+         $visible=$_POST['visible'];
+         $primer_nombre=$_POST['primer_nombre'];
+         $segundo_nombre=$_POST['segundo_nombre'];
+         $apellido_paterno=$_POST['apellido_paterno'];
+         $apellido_materno=$_POST['apellido_materno'];
+         $rut=$_POST['rut'];
+         $sexo=$_POST['sexo'];
+         $direccion=$_POST['direccion'];
+         $correo=$_POST['correo'];
+         $telefono=$_POST['telefono'];
+         $celular=$_POST['celular'];
+         $r_aux=explode('.',$rut);
+         $rut_oficial='';
+         for($a=0;$a<count($r_aux);$a++)
+         {
+            $rut_oficial.=$r_aux[$a];
+         }
+         if($visible===true){$visible=1;}else{$visible=0;}
+         $time=date("Y-m-d H:i:s");
+         $data1=["usuario"=>$nombre_usuario,"pass"=>$password,"nombre"=>$primer_nombre.' '.$segundo_nombre.' '.$apellido_paterno.' '.$apellido_materno,"id_rol"=>$rol,"id_depto"=>$departamento,"id_empresa"=>$empresa,"visible"=>$visible,"created_at"=>$time];
+         $insert1=mantenedores::insert_usuario($data1);
+         if($insert1)
+         {
+            /*****Almacenando foto de perfil*******/
+            $nombre_archivo = $_FILES["archivo"]["name"];
+            $ext=explode(".",$nombre_archivo);
+            $idusuario=1000;
+            $uploadfile = 'archivos_empresas/'.$empresa.'/profiles/'.$insert1.'_'.$rut_oficial.'.'.$ext[1];
+            $subido = copy($_FILES['archivo']['tmp_name'], $uploadfile);
+
+            if(file_exists($uploadfile))
+            {
+               $data2=["id_usuario"=>$insert1,"nombre1"=>$primer_nombre,"nombre2"=>$segundo_nombre,"apellido_paterno"=>$apellido_paterno,"apellido_materno"=>$apellido_materno,"rut"=>$rut_oficial,"sexo"=>$sexo,"direccion"=>$direccion,"correo"=>$correo,"telefono"=>$telefono,"celular"=>$celular,"avatar"=>$uploadfile,"created_at"=>$time];
+               $insert2=mantenedores::insert_usuario_detalle($data2);
+               if($insert2)
+               {
+                  return 1;
+               }
+               else
+               {
+                  return 2;
+               }
+
+            }
+            else
+            {
+               return "PROBLEMASIMAGEN";
+            }
+            /**************************************/
+         }
+         else
+         {
+            return 0;
+         }
+
+      }
+      else
+      {
+      return "SINSESION";
+      }
+   }
 }

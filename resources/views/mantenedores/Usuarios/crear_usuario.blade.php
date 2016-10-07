@@ -99,8 +99,8 @@
 		              			<div class="input-group col-lg-5 col-md-5 col-sm-12">
 		              				<select class="form-control requerido" id="sexo" name="sexo">
 		              					<option value="0">Seleccione sexo...</option>
-		              					<option value="1">Masculino</option>
-		              					<option value="2">Femenino</option>
+		              					<option value="Masculino">Masculino</option>
+		              					<option value="Femenino">Femenino</option>
 		              			    </select>
 		              				<span class="input-group-addon"><i class="fa fa-flag"></i></span>
 		              			</div><br>
@@ -212,7 +212,86 @@ function guardarUsuario()
 	var respuesta=validar_input();
 	if(respuesta==0)
 	{
-		alert("guardando");
+		var nombre_usuario=$('#usuario').val();
+		var password=$('#password').val();
+		var empresa=$('#empresa').val();
+		var sucursal=$('#sucursal').val();
+		var departamento=$('#depto').val();
+		var rol=$('#rol').val();
+		var visible=document.getElementById("visible").checked;
+		var primer_nombre=$("#primer_nombre").val();
+		var segundo_nombre=$('#segundo_nombre').val();
+		var apellido_paterno=$('#apellido_paterno').val();
+		var apellido_materno=$('#apellido_materno').val();
+		var rut=$('#rut').val();
+		var sexo=$('#sexo').val();
+		var direccion=$('#direccion').val();
+		var correo=$('#correo').val();
+		var telefono=$('#telefono').val();
+		var celular=$('#celular').val();
+
+		var inputFileImage = document.getElementById("imagen");
+		var file = inputFileImage.files[0];
+		var data = new FormData();
+		data.append("archivo",file);
+		data.append("nombre_usuario",nombre_usuario);
+		data.append("password",password);
+		data.append("empresa",empresa);
+		data.append("sucursal",sucursal);
+		data.append("departamento",departamento);
+		data.append("rol",rol);
+		data.append("visible",visible);
+		data.append("primer_nombre",primer_nombre);
+		data.append("segundo_nombre",segundo_nombre);
+		data.append("apellido_paterno",apellido_paterno);
+		data.append("apellido_materno",apellido_materno);
+		data.append("rut",rut);
+		data.append("sexo",sexo);
+		data.append("direccion",direccion);
+		data.append("correo",correo);
+		data.append("telefono",telefono);
+		data.append("celular",celular);
+		$.ajax({
+			url: '{{url()}}/add_usuario',
+			type: 'POST',
+			contentType:false,
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			data: data,
+			processData:false,
+			cache:false,
+			success: function (data) {
+				if(data==1)
+				{
+						swal("Usuario Guardado", "El usuario ha sido registrado correctamente", "success");
+				}
+				else {
+					if (data == 0) {
+						swal("Error", "Se a producido un problema al guardar el usuario, por favor, inténtelo nuevamente", "error");
+					}
+					else
+					{
+						if(data==2)
+						{
+							swal("Error", "Se a producido un problema al guardar el detalle del usuario.", "error");
+						}
+						else {
+							if(data=="SINSESION")
+							{
+								sinsesion();
+							}
+							else {
+								if(data=="PROBLEMASIMAGEN")
+								{
+									swal("Error", "Se a producido un problema al almacenar la imagen de perfil.", "error");
+								}
+							}
+						}
+					}
+				}
+			}
+		});
 	}
 	else{
 		swal("Campos Faltantes", "Debe ingresar los datos faltantes", "info");
