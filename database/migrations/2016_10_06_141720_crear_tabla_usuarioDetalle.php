@@ -14,7 +14,7 @@ class CrearTablaUsuarioDetalle extends Migration
     {
         Schema::create('usuario_detalle', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_usuario');
+            $table->integer('id_usuario')->unsigned();
             $table->string('nombre1');
             $table->string('nombre2')->nullable();
             $table->string('apellido_paterno');
@@ -27,6 +27,7 @@ class CrearTablaUsuarioDetalle extends Migration
             $table->string('celular')->nullable();
             $table->string('avatar')->nullaable();
             $table->timestamps();
+            $table->foreign('id_usuario')->references('id')->on('usuario');
         });
     }
 

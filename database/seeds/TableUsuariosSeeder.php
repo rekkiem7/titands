@@ -14,7 +14,7 @@ class TableUsuariosSeeder extends Seeder
         factory(App\models\Usuario::class)->create([
         		'usuario'=>'pbarria',
         		'pass'=>'utemmacul1097',
-                'nombre'=>'Pablo Barría Reyes',
+                'nombre'=>'Pablo Andrés Barría Reyes',
                 'imagen'=>'1.jpg',
         		'id_rol'=>1,
         		'id_depto'=>1,
@@ -25,7 +25,7 @@ class TableUsuariosSeeder extends Seeder
         factory(App\models\Usuario::class)->create([
         		'usuario'=>'evidal',
         		'pass'=>'r4p4nu1',
-        		'nombre'=>'Eduardo Vidal',
+        		'nombre'=>'Eduardo Patricio Vidal Troncoso',
                 'imagen'=>'2.jpg',
         		'id_rol'=>1,
                 'id_depto'=>1,

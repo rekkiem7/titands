@@ -168,8 +168,6 @@ $factory->define(App\models\ProductoLogistico::class, function (Faker\Generator 
     ];
 });
 
-
-
 $factory->define(App\models\ProductoImagenes::class, function (Faker\Generator $faker) {
     return [
         'id' => $faker->name,
@@ -178,5 +176,23 @@ $factory->define(App\models\ProductoImagenes::class, function (Faker\Generator $
         'nombreImagen' => $faker->name,
         'url' => $faker->name,
         'visible' => $faker->name
+    ];
+});
+
+$factory->define(App\models\UsuarioDetalle::class, function (Faker\Generator $faker) {
+    return [
+        'id' => $faker->name,
+        'id_usuario' => $faker->name,
+        'nombre1' => $faker->name,
+        'nombre2' => $faker->name,
+        'apellido_paterno' => $faker->name,
+        'apellido_materno' => $faker->name,
+        'rut' => $faker->name,
+        'sexo' => $faker->name,
+        'direccion' => $faker->name,
+        'correo' => $faker->name,
+        'telefono' => $faker->name,
+        'celular' => $faker->name,
+        'avatar' => $faker->name,
     ];
 });
