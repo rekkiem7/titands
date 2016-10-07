@@ -16,10 +16,11 @@ class configuracion extends Model
     {
 
         $resultado=DB::table('usuario')
-            ->select('usuario.id', 'usuario.usuario','usuario.nombre','usuario.id_rol','usuario.id_depto','usuario.id_empresa','rol.nombre as nom_rol','usuario.imagen','empresa.skin','empresa.nombre as nom_empresa','departamento.nombre as nom_depto')
+            ->select('usuario.id', 'usuario.usuario','usuario.nombre','usuario.id_rol','usuario.id_depto','usuario.id_empresa','rol.nombre as nom_rol','usuario.imagen','empresa.skin','empresa.nombre as nom_empresa','departamento.nombre as nom_depto','usuario_detalle.*')
             ->join('rol', 'usuario.id_rol', '=', 'rol.id')
             ->join('departamento','usuario.id_depto','=','departamento.id')
             ->join('empresa','usuario.id_empresa','=','empresa.id')
+            ->leftjoin('usuario_detalle',"usuario.id","=","usuario_detalle.id_usuario")
             ->where('usuario.usuario',$usuario)
             ->where('usuario.pass',$clave)
             ->where('usuario.visible',1)

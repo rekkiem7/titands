@@ -167,6 +167,7 @@ class MantenedoresController extends Controller
       if (Session::get('logeado')==true)
       {
          $data['titulo']=" Crear Usuario";
+         $data['menu']=$menu;
          $data['subtitulo']="Sistema ERP Tomahawk"; 
          $data['block_menu']=Session::get('skin');
          $data['menus']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
@@ -227,7 +228,7 @@ class MantenedoresController extends Controller
          {
             $rut_oficial.=$r_aux[$a];
          }
-         if($visible===true){$visible=1;}else{$visible=0;}
+         if($visible==="true"){$visible=1;}else{$visible=0;}
          $time=date("Y-m-d H:i:s");
          $data1=["usuario"=>$nombre_usuario,"pass"=>$password,"nombre"=>$primer_nombre.' '.$segundo_nombre.' '.$apellido_paterno.' '.$apellido_materno,"id_rol"=>$rol,"id_depto"=>$departamento,"id_empresa"=>$empresa,"visible"=>$visible,"created_at"=>$time];
          $insert1=mantenedores::insert_usuario($data1);
@@ -252,7 +253,6 @@ class MantenedoresController extends Controller
                {
                   return 2;
                }
-
             }
             else
             {

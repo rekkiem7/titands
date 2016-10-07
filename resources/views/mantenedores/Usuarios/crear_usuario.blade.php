@@ -265,6 +265,7 @@ function guardarUsuario()
 				if(data==1)
 				{
 						swal("Usuario Guardado", "El usuario ha sido registrado correctamente", "success");
+					setTimeout(function(){ window.open("{{URL::to('crear_usuario/'.$menu)}}","_self") }, 1500);
 				}
 				else {
 					if (data == 0) {
