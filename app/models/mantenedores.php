@@ -80,4 +80,10 @@ class mantenedores extends Model
             ->get();
         return $menus;
     }
+
+    public static function select_nombre_usuario_usuario($usuario)
+    {
+        $dato=DB::table("usuario")->where("usuario",$usuario)->get();
+        return $dato;
+    }
 }

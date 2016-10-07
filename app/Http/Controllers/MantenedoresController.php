@@ -178,4 +178,25 @@ class MantenedoresController extends Controller
         return Redirect::to('/');
       }
    }
+
+   public function verificar_disponibilidad_nombre_usuario()
+   {
+      if (Session::get('logeado')==true)
+      {
+         $usuario=$_POST['usuario'];
+         $dato=mantenedores::select_nombre_usuario_usuario($usuario);
+         if($dato)
+         {
+            return 0;
+         }
+         else
+         {
+            return 1;
+         }
+      }
+      else
+      {
+         return "SINSESION";
+      }
+   }
 }

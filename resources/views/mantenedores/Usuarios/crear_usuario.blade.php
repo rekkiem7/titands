@@ -1,7 +1,7 @@
 @include('head')
 <section class="content">
-   <div class="row">
-      <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+<div class="row">
+<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 		<div class="box box-info animated fadeInRight">
 			<div class="box-header with-border">
 		        <h3 class="box-title">Agregar Usuario</h3>
@@ -14,12 +14,11 @@
 			            	<li id="Tabdetalle"><a id="Adetalle" href="#detalle" data-toggle="tab">Detalle</a></li>
 							<li id="Tabavatar"><a id="Aavatar" href="#avatar" data-toggle="tab">Foto de Perfil</a></li>
 			            </ul>
-
 			            <div class="tab-content">
 		              		<div class="active tab-pane animated fadeIn TitanTab" id="general">
 		              			<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Usuario</label>
 		              			<div class="input-group col-lg-5 col-md-5 col-sm-12">
-		              				<input type="text" class="form-control requerido" id="usuario" name="usuario"/>
+		              				<input type="text" class="form-control requerido" id="usuario" name="usuario" onblur="verificar_usuario();"/>
 		              				<span class="input-group-addon"><i class="fa fa-user"></i></span>
 		              			</div><br>
 		              			<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Contraseña</label>
@@ -34,7 +33,7 @@
 				                      @foreach($empresas as $row_empresa)
 				                      <option value="{{$row_empresa->id}}">{{$row_empresa->nombre}}</option>
 				                      @endforeach
-				                      
+
 				                    </select>
 		              				<span class="input-group-addon"><i class="fa fa-bank"></i></span>
 		              			</div><br>
@@ -69,9 +68,7 @@
 		              			<div class="col-lg-8 col-md-8 col-sm-12">
 									<button onclick="Direccionar('detalle');" type="button" class="btn btn-info">Continuar&nbsp;&nbsp;<i class="glyphicon glyphicon-chevron-right"></i></button>
 								</div><br><br>
-
 		              		</div>
-
 		              		<div class="tab-pane animated fadeIn" id="detalle">
 		              			<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Primer Nombre</label>
 		              			<div class="input-group col-lg-5 col-md-5 col-sm-12">
@@ -80,7 +77,7 @@
 		              			</div><br>
 		              			<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Segundo Nombre</label>
 		              			<div class="input-group col-lg-5 col-md-5 col-sm-12">
-		              				<input type="text" class="form-control requerido" id="segundo_nombre" name="segundo_nombre"/>
+		              				<input type="text" class="form-control" id="segundo_nombre" name="segundo_nombre"/>
 		              				<span class="input-group-addon"><i class="fa fa-male"></i></span>
 		              			</div><br>
 		              			<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Apellido Paterno</label>
@@ -90,7 +87,7 @@
 		              			</div><br>
 		              			<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Apellido Materno</label>
 		              			<div class="input-group col-lg-5 col-md-5 col-sm-12">
-		              				<input type="text" class="form-control requerido" id="apellido_materno" name="apellido_materno"/>
+		              				<input type="text" class="form-control" id="apellido_materno" name="apellido_materno"/>
 		              				<span class="input-group-addon"><i class="fa fa-file-word-o"></i></span>
 		              			</div><br>
 								<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">R.U.T</label>
@@ -103,29 +100,29 @@
 		              				<select class="form-control requerido" id="sexo" name="sexo">
 		              					<option value="0">Seleccione sexo...</option>
 		              					<option value="1">Masculino</option>
-		              					<option value="2">Femenino</option> 
+		              					<option value="2">Femenino</option>
 		              			    </select>
 		              				<span class="input-group-addon"><i class="fa fa-flag"></i></span>
 		              			</div><br>
 
 		              			<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Dirección</label>
 		              			<div class="input-group col-lg-5 col-md-5 col-sm-12">
-		              				<input type="text" class="form-control requerido" id="direccion" name="direccion"/>
+		              				<input type="text" class="form-control " id="direccion" name="direccion"/>
 		              				<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
 		              			</div><br>
 		              			<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Correo</label>
 		              			<div class="input-group col-lg-5 col-md-5 col-sm-12">
-		              				<input type="text" class="form-control requerido" id="correo" name="correo" onblur="validar_correo();"/>
+		              				<input type="text" class="form-control" id="correo" name="correo" onblur="validar_correo();"/>
 		              				<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
 		              			</div><br>
 		              			<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Teléfono</label>
 		              			<div class="input-group col-lg-5 col-md-5 col-sm-12">
-		              				<input type="text" class="form-control requerido" id="telefono" name="telefono"/>
+		              				<input type="text" class="form-control" id="telefono" name="telefono"/>
 		              				<span class="input-group-addon"><i class="fa fa-phone"></i></span>
 		              			</div><br>
 		              			<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Celular</label>
 		              			<div class="input-group col-lg-5 col-md-5 col-sm-12">
-		              				<input type="text" class="form-control requerido" id="celular" name="celular"/>
+		              				<input type="text" class="form-control" id="celular" name="celular"/>
 		              				<span class="input-group-addon"><i class="fa fa-mobile-phone"></i></span>
 		              			</div><br>
 								<div class="col-lg-8 col-md-8 col-sm-12">
@@ -137,7 +134,7 @@
 								<label for="" class="col-lg-3 col-md-3 col-sm-12 control-label">Imágen del Usuario</label>
 								<div class="input-group col-lg-12 col-md-12 col-sm-12">
 									<form enctype="multipart/form-data">
-										<input id="imagen" name="imagen" class="file requerido" type="file" >
+										<input id="imagen" name="imagen" class="file" type="file" >
 									</form>
 									<script>
 										$('#imagen').fileinput({
@@ -157,10 +154,41 @@
 		    	</div>
 		    </div>
 		</div>
-	  </div>
-   </div>
+</div>
+</div>
 </section>
+@include('footer')
 <script>
+function verificar_usuario()
+{
+	var usuario=$('#usuario').val();
+	if(usuario!='' || usuario.length>0)
+	{
+		$.ajax({
+			url: '{{url()}}/verificar_disponibilidad_nombre_usuario',
+			type: 'POST',
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			data: {usuario: usuario},
+			success: function (data) {
+				if(data==0)
+				{
+					$('#usuario').val("");
+					$('#usuario').focus();
+					swal("Nombre de Usuario existente", "Estimado(a) usuario(a), el nombre de usuario ingresado ya se encuentra en uso, por favor, inténte con otro nombre", "info");
+				}
+				else
+				{
+					if(data=="SINSESION")
+					{
+						sinsesion();
+					}
+				}
+			}
+		});
+	}
+}
 function validar_input(){
 
 	var error=0;
@@ -345,4 +373,3 @@ $(document).ready(function(){
   });
 });
 </script>
-@include('footer')
