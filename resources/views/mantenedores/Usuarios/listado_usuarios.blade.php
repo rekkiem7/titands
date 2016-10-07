@@ -16,7 +16,7 @@
                         <table id="usuarios" class="table table-bordered table-hover">
                             <thead>
                                 <th>Id</th>
-                                <td>Usuario</td>
+                                <th>Usuario</th>
                                 <th>Nombre</th>
                                 <th>Empresa</th>
                                 <th>Sucursal</th>
@@ -53,7 +53,17 @@
                 if(data!=0)
                 {
                     var datos=JSON.parse(data);
-                    $('#ver_id').html(datos[0]["iduser"]);
+
+
+                    if(datos[0]["visible"]==1)
+                    {
+                        var notif_visible='<small class="label bg-green">Visible</small>';
+                    }
+                    else
+                    {
+                        var notif_visible='<small class="label bg-red">No Visible</small>';
+                    }
+                    $('#ver_id').html(datos[0]["iduser"] +'&nbsp;&nbsp;'+notif_visible);
                     $('#ver_nombre_usuario').html(datos[0]["usuario"]);
                     if(datos[0]["avatar"]=="" || datos[0]["avatar"]===null)
                     {
@@ -63,6 +73,11 @@
                     $("#avatar_usuario").html(img);
                     var nombre_completo=datos[0]["nombre1"]+' '+datos[0]["nombre2"]+' '+datos[0]["apellido_paterno"]+' '+datos[0]["apellido_materno"];
                     $('#ver_nombre_completo').html(nombre_completo);
+                    $('#ver_password').html(datos[0]["pass"]);
+                    $('#ver_empresa').html(datos[0]["empresa"]);
+                    $('#ver_sucursal').html(datos[0]["sucursal"]);
+                    $('#ver_departamento').html(datos[0]["departamento"]);
+                    $('#ver_rol').html(datos[0]["rol"]);
                     $('#ver_usuario').modal();
                 }
                 else{

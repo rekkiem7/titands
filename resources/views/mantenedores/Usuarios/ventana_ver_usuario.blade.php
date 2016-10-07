@@ -14,19 +14,20 @@
                         <h3 class="profile-username text-center"><span id="ver_nombre_usuario"></span></h3>
 
                         <p class="text-muted text-center">Usuario N° <span id="ver_id"></span></p>
-
                         <strong><i class="fa fa-user"></i> Nombre Completo</strong><br>
-
-                        <span id="ver_nombre_completo" class="text-muted">
-
-                        </span>
-
-                        <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                        <span id="ver_nombre_completo" class="text-muted"></span><HR>
+                        <strong><i class="fa fa-asterisk"></i> Password</strong><br>
+                        <span id="ver_password" class="text-muted"></span><HR>
+                        <strong><i class="fa fa-asterisk"></i> Empresa</strong><br>
+                        <span id="ver_empresa" class="text-muted"></span><HR>
+                        <strong><i class="fa fa-asterisk"></i> Sucursal</strong><br>
+                        <span id="ver_sucursal" class="text-muted"></span><HR>
+                        <strong><i class="fa fa-asterisk"></i> Departamento</strong><br>
+                        <span id="ver_departamento" class="text-muted"></span><HR>
+                        <strong><i class="fa fa-asterisk"></i> Rol</strong><br>
+                        <span id="ver_rol" class="text-muted"></span><HR>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
         <!-- /.modal-content -->
