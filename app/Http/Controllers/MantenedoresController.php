@@ -271,4 +271,48 @@ class MantenedoresController extends Controller
       return "SINSESION";
       }
    }
+
+   public function listado_usuarios($menu)
+   {
+      if (Session::get('logeado')==true)
+      {
+         $data['titulo']="Listado de Usuarios";
+         $data['menu']=$menu;
+         $data['subtitulo']="Sistema ERP Tomahawk";
+         $data['block_menu']=Session::get('skin');
+         $data['menus']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
+         return view('mantenedores.Usuarios.listado_usuarios',$data);
+      }
+      else
+      {
+         return Redirect::to('/');
+      }
+   }
+
+   public function cargar_usuarios()
+   {
+      if (Session::get('logeado')==true)
+      {
+         $usuarios=mantenedores::all_usuarios();
+         return json_encode($usuarios);
+      }
+      else
+      {
+         return "SINSESION";
+      }
+   }
+
+   public function ver_usuario()
+   {
+      if (Session::get('logeado')==true)
+      {
+         $id=$_POST['id'];
+         $usuario=mantenedores::info_usuario($id);
+         return json_encode($usuario);
+      }
+      else
+      {
+         return "SINSESION";
+      }
+   }
 }

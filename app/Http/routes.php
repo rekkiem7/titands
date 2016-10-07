@@ -19,6 +19,7 @@ Route::get('/crear_producto/{menu}','ProductosController@crear_producto');
 Route::get('/listado_productos/{menu}','ProductosController@listado_productos');
 Route::get('/ficha_producto/{producto}','ProductosController@ficha_producto');
 Route::get('/crear_usuario/{menu}','MantenedoresController@crear_usuario');
+Route::get('/listado_usuarios/{menu}','MantenedoresController@listado_usuarios');
 
 /**************Procesos POST***************/
 
@@ -40,3 +41,5 @@ Route::post('/info_menu_editar','MantenedoresController@info_menu_editar');
 Route::post('/add_producto','ProductosController@add_producto');
 Route::post('/verificar_disponibilidad_nombre_usuario','MantenedoresController@verificar_disponibilidad_nombre_usuario');
 Route::post('/add_usuario','MantenedoresController@add_usuario');
+Route::post('/cargar_usuarios','MantenedoresController@cargar_usuarios');
+Route::post('/ver_usuario','MantenedoresController@ver_usuario');

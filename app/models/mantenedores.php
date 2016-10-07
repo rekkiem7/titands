@@ -98,4 +98,28 @@ class mantenedores extends Model
         $id=DB::table('usuario_detalle')->insertGetId($data);
         return $id;
     }
+
+    public static function all_usuarios()
+    {
+        $datos=DB::table("usuario")->select("usuario.id","usuario.usuario","usuario.nombre","empresa.nombre as empresa","departamento.nombre as departamento","sucursal.nombre as sucursal","rol.nombre as rol","usuario_detalle.nombre1","usuario_detalle.nombre2","usuario_detalle.apellido_paterno","usuario_detalle.apellido_materno","usuario.visible")
+                    ->leftjoin("usuario_detalle","usuario.id","=","usuario_detalle.id_usuario")
+                    ->join("empresa","usuario.id_empresa","=","empresa.id")
+                    ->join("departamento","usuario.id_depto","=","departamento.id")
+                    ->join("sucursal","departamento.id_sucursal","=","sucursal.id")
+                    ->join("rol","usuario.id_rol","=","rol.id")->orderBy("usuario.id","desc")
+                    ->get();
+        return $datos;
+    }
+
+    public static function info_usuario($id)
+    {
+        $datos=DB::table("usuario")->select("usuario.id as iduser","usuario.usuario","usuario.pass","usuario.visible","usuario.id_rol","usuario.id_depto","usuario.id_empresa","empresa.nombre as empresa","departamento.nombre as departamento","sucursal.nombre as sucursal","rol.nombre as rol","usuario_detalle.*","usuario.imagen","usuario.nombre")
+                    ->leftjoin("usuario_detalle","usuario.id","=","usuario_detalle.id_usuario")
+                    ->join("empresa","usuario.id_empresa","=","empresa.id")
+                    ->join("departamento","usuario.id_depto","=","departamento.id")
+                    ->join("sucursal","departamento.id_sucursal","=","sucursal.id")
+                    ->join("rol","usuario.id_rol","=","rol.id")->orderBy("usuario.id","desc")
+                    ->where("usuario.id",$id)->get();
+        return $datos;
+    }
 }
