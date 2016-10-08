@@ -122,4 +122,16 @@ class mantenedores extends Model
                     ->where("usuario.id",$id)->get();
         return $datos;
     }
+
+    public static function delete_usuario_detalle($id)
+    {
+        $delete=DB::table('usuario_detalle')->where('id_usuario',$id)->delete();
+        return $delete;
+    }
+
+    public static function delete_usuario($id)
+    {
+        $delete=DB::table('usuario')->where('id',$id)->delete();
+        return $delete;
+    }
 }

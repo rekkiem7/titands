@@ -4,68 +4,68 @@
         <meta charset="UTF-8">
         <title>Sistema Tomahawk ERP</title>
         @include('plantilla')
+        <style>
+            @media only screen and (max-width: 768px) {
+                .logo1{
+                    width: auto;
+                    height: 60%;
+                }
+            }
+
+            @media only screen and (min-width: 769px) and (max-width: 992px) {
+                .logo1{
+                    width: 50%;
+                    height: 45%;
+                }
+            }
+
+            @media only screen and (min-width: 993px) and (max-width: 1200px) {
+                .logo1{
+                    width: 60%;
+                    height: 50%;
+                }
+            }
+
+            @media only screen and (min-width: 1201px)  {
+                .logo1{
+                    width: 60%;
+                    height: auto;
+                }
+            }
+            .image-preview-input {
+                position: relative;
+                overflow: hidden;
+                margin: 0px;
+                color: #333;
+                background-color: #fff;
+                border-color: #ccc;
+            }
+            .image-preview-input input[type=file] {
+                position: absolute;
+                top: 0;
+                right: 0;
+                margin: 0;
+                padding: 0;
+                font-size: 20px;
+                cursor: pointer;
+                opacity: 0;
+                filter: alpha(opacity=0);
+            }
+            .image-preview-input-title {
+                margin-left:2px;
+            }
+
+            .kv-file-upload{
+                display:none;
+            }
+
+            .kv-file-zoom{
+                display:none;
+            }
+
+        </style>
     </head>
-    <style>
-    @media only screen and (max-width: 768px) {
-    .logo1{
-        width: auto;
-        height: 60%;
-    }
-    }
-
-    @media only screen and (min-width: 769px) and (max-width: 992px) {
-    .logo1{
-        width: 50%;
-        height: 45%;
-    }
-    }
-
-    @media only screen and (min-width: 993px) and (max-width: 1200px) {
-    .logo1{
-        width: 60%;
-        height: 50%;
-    }
-    }
-
-    @media only screen and (min-width: 1201px)  {
-    .logo1{
-        width: 60%;
-        height: auto;
-    }
-    }
-    .image-preview-input {
-        position: relative;
-        overflow: hidden;
-        margin: 0px;
-        color: #333;
-        background-color: #fff;
-        border-color: #ccc;
-    }
-    .image-preview-input input[type=file] {
-        position: absolute;
-        top: 0;
-        right: 0;
-        margin: 0;
-        padding: 0;
-        font-size: 20px;
-        cursor: pointer;
-        opacity: 0;
-        filter: alpha(opacity=0);
-    }
-    .image-preview-input-title {
-        margin-left:2px;
-    }
-
-    .kv-file-upload{
-        display:none;
-    }
-
-    .kv-file-zoom{
-        display:none;
-    }
-
-
-    </style>
+@include('funcionesJS')
     <body class="{{$block_menu}}">
     <?php
     function dibujar_menu($menus)

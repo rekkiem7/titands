@@ -43,3 +43,4 @@ Route::post('/verificar_disponibilidad_nombre_usuario','MantenedoresController@v
 Route::post('/add_usuario','MantenedoresController@add_usuario');
 Route::post('/cargar_usuarios','MantenedoresController@cargar_usuarios');
 Route::post('/ver_usuario','MantenedoresController@ver_usuario');
+Route::post('/delete_usuario','MantenedoresController@delete_usuario');

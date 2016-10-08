@@ -315,4 +315,27 @@ class MantenedoresController extends Controller
          return "SINSESION";
       }
    }
+
+   public function delete_usuario()
+   {
+      if (Session::get('logeado')==true)
+      {
+         $id=$_POST["id"];
+         mantenedores::delete_usuario_detalle($id);
+         $delete2=mantenedores::delete_usuario($id);
+             if($delete2)
+             {
+               return 1;
+             }
+             else
+             {
+                return 0;
+             }
+      }
+      else
+      {
+         return "SINSESION";
+      }
+
+   }
 }

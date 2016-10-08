@@ -40,6 +40,37 @@
 </section>
 @include('footer')
 <script>
+    function eliminar_usuario(id)
+    {
+        swal({   title: "¿Desea Eliminar el usuario N° "+id+" ?",   text: "El usuario desaparecerá del sistema",   type: "warning",   showCancelButton: true,cancelButtonText: "Cancelar",confirmButtonColor: "#CC0000",   confirmButtonText: "Eliminar",   closeOnConfirm: false },
+                function() {
+                    $.ajax({
+                        url: '{{url()}}/delete_usuario',
+                        type: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {id: id},
+                        success: function (data) {
+                            if (data == 1) {
+                                swal("Usuario Eliminado", "El usuario N° "+id+" ha sido eliminado correctamente", "success");
+                                setTimeout(function(){
+                                    swal.close();
+                                    cargar_usuarios();
+                                }, 1500);
+                            }
+                            else {
+                                if (data == "SINSESION") {
+                                    sinsesion();
+                                }
+                                else {
+                                    swal("Error", "No se ha producido un problema al eliminar un usuario, por favor inténtelo nuevamente", "error");
+                                }
+                            }
+                        }
+                    });
+                });
+    }
     function ver_usuario(id)
     {
         $.ajax({
