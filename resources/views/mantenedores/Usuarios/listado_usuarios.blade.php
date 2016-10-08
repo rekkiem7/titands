@@ -53,8 +53,6 @@
                 if(data!=0)
                 {
                     var datos=JSON.parse(data);
-
-
                     if(datos[0]["visible"]==1)
                     {
                         var notif_visible='<small class="label bg-green">Visible</small>';
@@ -65,12 +63,15 @@
                     }
                     $('#ver_id').html(datos[0]["iduser"] +'&nbsp;&nbsp;'+notif_visible);
                     $('#ver_nombre_usuario').html(datos[0]["usuario"]);
+                    $('#ver_id2').html(datos[0]["iduser"] +'&nbsp;&nbsp;'+notif_visible);
+                    $('#ver_nombre_usuario2').html(datos[0]["usuario"]);
                     if(datos[0]["avatar"]=="" || datos[0]["avatar"]===null)
                     {
                         datos[0]["avatar"]=datos[0]["imagen"];
                     }
                     var img='<img class="profile-user-img img-responsive img-circle" src="{{url()}}/'+datos[0]["avatar"]+'" alt="User profile picture">';
                     $("#avatar_usuario").html(img);
+                    $("#avatar_usuario2").html(img);
                     var nombre_completo=datos[0]["nombre1"]+' '+datos[0]["nombre2"]+' '+datos[0]["apellido_paterno"]+' '+datos[0]["apellido_materno"];
                     $('#ver_nombre_completo').html(nombre_completo);
                     $('#ver_password').html(datos[0]["pass"]);
@@ -78,6 +79,16 @@
                     $('#ver_sucursal').html(datos[0]["sucursal"]);
                     $('#ver_departamento').html(datos[0]["departamento"]);
                     $('#ver_rol').html(datos[0]["rol"]);
+                    $('#ver_primer_nombre').html(datos[0]["nombre1"]);
+                    $('#ver_segundo_nombre').html(datos[0]["nombre2"]);
+                    $('#ver_apellido_paterno').html(datos[0]["apellido_paterno"]);
+                    $('#ver_apellido_materno').html(datos[0]["apellido_materno"]);
+                    $('#ver_rut').html(datos[0]["rut"]);
+                    $('#ver_sexo').html(datos[0]["sexo"]);
+                    $('#ver_direccion').html(datos[0]["direccion"]);
+                    $('#ver_correo').html(datos[0]["correo"]);
+                    $('#ver_telefono').html(datos[0]["telefono"]);
+                    $('#ver_celular').html(datos[0]["celular"]);
                     $('#ver_usuario').modal();
                 }
                 else{
