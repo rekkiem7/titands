@@ -336,6 +336,59 @@ class MantenedoresController extends Controller
       {
          return "SINSESION";
       }
+   }
 
+   public function ver_editar_usuario()
+   {
+      if (Session::get('logeado')==true)
+      {
+         $id=$_POST["id"];
+         $datos["usuario"]=mantenedores::info_usuario($id);
+         if($datos["usuario"])
+         {
+            $datos["empresas"]=configuracion::all_empresas();
+            $datos["sucursales"]=configuracion::get_sucursales($datos["usuario"][0]->id_empresa);
+            $datos["departamentos"]=configuracion::get_departamentos($datos["usuario"][0]->id_empresa,$datos["usuario"][0]->id_sucursal);
+            $datos["roles"]=configuracion::get_roles($datos["usuario"][0]->id_depto);
+            return json_encode($datos);
+         }
+         else
+         {
+            return 0;
+         }
+      }
+      else
+      {
+         return "SINSESION";
+      }
+   }
+
+   public function update_usuario()
+   {
+      if (Session::get('logeado')==true)
+      {
+         $id_usuario=$_POST["id_usuario"];
+         $nombre_usuario=$_POST["nombre_usuario"];
+         $password=$_POST["pasword"];
+         $empresa=$_POST["empresa"];
+         $sucursal=$_POST["sucursal"];
+         $departamento=$_POST["departamento"];
+         $rol=$_POST["rol"];
+         $visible=$_POST["rol"];
+         $nombre1=$_POST["nombre1"];
+         $nombre2=$_POST["nombre2"];
+         $apellido1=$_POST["apellido1"];
+         $apellido2=$_POST["apellido2"];
+         $rut=$_POST["rut"];
+         $sexo=$_POST["sexo"];
+         $direccion=$_POST["direccion"];
+         $correo=$_POST["correo"];
+         $telefono=$_POST["telefono"];
+         $celular=$_POST["celular"];
+      }
+      else
+      {
+         return "SINSESION";
+      }
    }
 }

@@ -37,9 +37,160 @@
     </div>
 
     @include('mantenedores.Usuarios.ventana_ver_usuario')
+    @include('mantenedores.Usuarios.ventana_editar_usuario')
 </section>
 @include('footer')
 <script>
+    function validar_input(){
+
+        var error=0;
+        $('.requerido').each(function(i, elem)
+        {
+            var valor=$(this).val();
+            if($(elem).val()=='' || $(elem).val()==0)
+            {
+                $(elem).css({'border':'1px solid #CC0000'});
+                error++;
+            }
+            else
+            {
+                $(elem).css({'border':''});
+            }
+        });
+        return error;
+    }
+    function update_usuario()
+    {
+        var respuesta=validar_input();
+        if(respuesta==0)
+        {
+            var inputFileImage = document.getElementById("editar_imagen");
+            var file = inputFileImage.files[0];
+            var data = new FormData();
+            data.append("archivo",file);
+            data.append("id_usuario",$('#editar_id').val());
+            data.append("nombre_usuario",$('#editar_usuario').val());
+            data.append("password",$('#editar_password').val());
+            data.append("empresa",$('#editar_empresa').val());
+            data.append("sucursal",$('#editar_sucursal').val());
+            data.append("departamento",$('#editar_departamento').val());
+            data.append("rol",$('#editar_rol').val());
+            data.append("visible",document.getElementById("editar_visible").checked);
+            data.append("nombre1",$('#editar_primer_nombre').val());
+            data.append("nombre2",$('#editar_segundo_nombre').val());
+            data.append("apellido1",$('#editar_apellido_paterno').val());
+            data.append("apellido2",$('#editar_apellido_materno').val());
+            data.append("rut",$('#editar_rut').val());
+            data.append("sexo",$('#editar_sexo').val());
+            data.append("direccion",$('#editar_direccion').val());
+            data.append("correo",$('#editar_correo').val());
+            data.append("telefono",$('#editar_telefono').val());
+            data.append("celular",$('#editar_celular').val());
+            $.ajax({
+                url: '{{url()}}/update_usuario',
+                type: 'POST',
+                contentType: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: data,
+                processData: false,
+                cache: false,
+                success: function (data) {
+                    if(data=="SINSESION")
+                    {
+                        sinsesion();
+                    }
+                    else {
+                        if (data == 0) {
+                            swal("Error", "Se ha producido un problema al intentar editar el usuario, por favor inténtelo nuevamente", "error");
+                        }
+                    }
+                }
+            });
+        }
+        else{
+            swal("Campos Faltantes", "Debe ingresar los datos faltantes", "info");
+        }
+    }
+    function editar_usuario(id)
+    {
+        $.ajax({
+            url: '{{url()}}/ver_editar_usuario',
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {id: id},
+            success: function (data) {
+                if(data=="SINSESION")
+                {
+                    sinsesion();
+                }
+                else{
+                    if(data==0)
+                    {
+                        swal("Error", "Se ha producido un problema al intentar editar el usuario, por favor inténtelo nuevamente", "error");
+                    }
+                    else
+                    {
+                        var datos=JSON.parse(data);
+                        $("#editar_empresa").find('option').remove();
+                        $("#editar_sucursal").find('option').remove();
+                        $("#editar_departamento").find('option').remove();
+                        $("#editar_rol").find('option').remove();
+                        $('#editar_usuario').val(datos["usuario"][0]["usuario"]);
+                        $('#editar_password').val(datos["usuario"][0]["pass"]);
+                        for(var i=0;i<datos["empresas"].length;i++) {
+                            $("#editar_empresa").append('<option value="'+datos["empresas"][i]["id"]+'">'+datos["empresas"][i]["nombre"]+'</option>');
+                        }
+                        for(var i=0;i<datos["sucursales"].length;i++) {
+                            $("#editar_sucursal").append('<option value="'+datos["sucursales"][i]["id"]+'">'+datos["sucursales"][i]["nombre"]+'</option>');
+                        }
+                        for(var i=0;i<datos["departamentos"].length;i++) {
+                            $("#editar_departamento").append('<option value="'+datos["departamentos"][i]["id"]+'">'+datos["departamentos"][i]["nombre"]+'</option>');
+                        }
+                        for(var i=0;i<datos["roles"].length;i++) {
+                            $("#editar_rol").append('<option value="'+datos["roles"][i]["id"]+'">'+datos["roles"][i]["nombre"]+'</option>');
+                        }
+                        $("#editar_empresa").val(datos["usuario"][0]["id_empresa"]);
+                        $("#editar_sucursal").val(datos["usuario"][0]["id_sucursal"]);
+                        $("#editar_departamento").val(datos["usuario"][0]["id_depto"]);
+                        $("#editar_rol").val(datos["usuario"][0]["id_rol"]);
+                        $("#editar_primer_nombre").val(datos["usuario"][0]["nombre1"]);
+                        $("#editar_segundo_nombre").val(datos["usuario"][0]["nombre2"]);
+                        $("#editar_apellido_paterno").val(datos["usuario"][0]["apellido_paterno"]);
+                        $("#editar_apellido_materno").val(datos["usuario"][0]["apellido_materno"]);
+                        $("#editar_rut").val(datos["usuario"][0]["rut"]);
+                        $("#editar_sexo").val(datos["usuario"][0]["sexo"]);
+                        $("#editar_direccion").val(datos["usuario"][0]["direccion"]);
+                        $("#editar_correo").val(datos["usuario"][0]["correo"]);
+                        $("#editar_telefono").val(datos["usuario"][0]["telefono"]);
+                        $("#editar_celular").val(datos["usuario"][0]["celular"]);
+                        if(datos["usuario"][0]["visible"]==1)
+                        {
+                            $("#editar_visible").bootstrapToggle('on');
+                        }
+                        else{
+                            $("#editar_visible").bootstrapToggle('off');
+                        }
+
+                        if(datos["usuario"][0]["avatar"]=="" || datos["usuario"][0]["avatar"]===null)
+                        {
+                            datos["usuario"][0]["avatar"]=datos["usuario"][0]["imagen"];
+                        }
+                        var img='<img class="profile-user-img img-responsive img-circle" src="{{url()}}/'+datos["usuario"][0]["avatar"]+'" alt="User profile picture">';
+                        $('#avatar_usuario_editar').html(img);
+                        $('#ver_nombre_editar_usuario').html(datos["usuario"][0]["usuario"]);
+                        $('#ver_id_editar').html(datos["usuario"][0]["id"]);
+                        $('#editar_id').val(datos["usuario"][0]["id"]);
+                        $('#ventana_editar_usuario').modal();
+                    }
+                }
+            }
+        });
+
+    }
     function eliminar_usuario(id)
     {
         swal({   title: "¿Desea Eliminar el usuario N° "+id+" ?",   text: "El usuario desaparecerá del sistema",   type: "warning",   showCancelButton: true,cancelButtonText: "Cancelar",confirmButtonColor: "#CC0000",   confirmButtonText: "Eliminar",   closeOnConfirm: false },
@@ -161,9 +312,110 @@
         });
 
     }
+
+    function validarEmail( email ) {
+        expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if ( !expr.test(email) ) {
+            $('#editar_correo').val('');
+            $('#editar_correo').focus();
+            swal("Email no válido", "El correo " + email + " no es correcto", "error");
+        }
+    }
     $(document).ready(function()
     {
         cargar_usuarios();
+        $('#editar_empresa').change(function()
+        {
+            var id_emp=$('#editar_empresa').val();
+
+            $("#editar_departamento").find('option').remove();
+            $("#editar_rol").find('option').remove();
+            $("#editar_sucursal").find('option').remove();
+            $("#editar_sucursal").append('<option value="0">Seleccione una Sucursal...</option>');
+            if(id_emp>0)
+            {
+                $.ajax({
+                    url: '{{url()}}/get_sucursal',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data:{empresa:id_emp},
+                    success:function(data)
+                    {
+                        if(data!=0)
+                        {
+                            var datos=JSON.parse(data);
+                            for(var i=0;i<datos.length;i++)
+                            {
+                                $("#editar_sucursal").append('<option value="' + datos[i]['id'] + '">' + datos[i]['nombre'] + '</option>');
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+        $('#editar_sucursal').change(function()
+        {
+            var id_emp=$('#editar_empresa').val();
+            var sucursal=$('#editar_sucursal').val();
+            $("#editar_departamento").find('option').remove();
+            $("#editar_rol").find('option').remove();
+            $("#editar_departamento").append('<option value="0">Seleccione un Departamento...</option>');
+            if(sucursal>0)
+            {
+                $.ajax({
+                    url: '{{url()}}/get_departamentos',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data:{empresa:id_emp,sucursal:sucursal},
+                    success:function(data)
+                    {
+                        if(data!=0)
+                        {
+                            var datos=JSON.parse(data);
+                            for(var i=0;i<datos.length;i++)
+                            {
+                                $("#editar_departamento").append('<option value="' + datos[i]['id'] + '">' + datos[i]['nombre'] + '</option>');
+                            }
+
+                        }
+                    }
+                });
+            }
+        });
+
+        $('#editar_departamento').change(function()
+        {
+            var id_depto=$('#editar_departamento').val();
+            $("#editar_rol").find('option').remove();
+            $("#editar_rol").append('<option value="0">Seleccione un Rol...</option>');
+            if(id_depto>0)
+            {
+                $.ajax({
+                    url: '{{url()}}/get_roles',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data:{dpto:id_depto},
+                    success:function(data)
+                    {
+                        if(data!=0)
+                        {
+                            var datos=JSON.parse(data);
+                            for(var i=0;i<datos.length;i++)
+                            {
+                                $("#editar_rol").append('<option value="' + datos[i]['id'] + '">' + datos[i]['nombre'] + '</option>');
+                            }
+                        }
+                    }
+                });
+            }
+        });
         $('#usuarios').DataTable({
             "paging": true,
             "lengthChange": true,

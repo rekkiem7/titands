@@ -113,7 +113,7 @@ class mantenedores extends Model
 
     public static function info_usuario($id)
     {
-        $datos=DB::table("usuario")->select("usuario.id as iduser","usuario.usuario","usuario.pass","usuario.visible","usuario.id_rol","usuario.id_depto","usuario.id_empresa","empresa.nombre as empresa","departamento.nombre as departamento","sucursal.nombre as sucursal","rol.nombre as rol","usuario_detalle.*","usuario.imagen","usuario.nombre")
+        $datos=DB::table("usuario")->select("usuario.id as iduser","usuario.usuario","usuario.pass","usuario.visible","usuario.id_rol","usuario.id_depto","usuario.id_empresa","departamento.id_sucursal","empresa.nombre as empresa","departamento.nombre as departamento","sucursal.nombre as sucursal","rol.nombre as rol","usuario_detalle.*","usuario.imagen","usuario.nombre")
                     ->leftjoin("usuario_detalle","usuario.id","=","usuario_detalle.id_usuario")
                     ->join("empresa","usuario.id_empresa","=","empresa.id")
                     ->join("departamento","usuario.id_depto","=","departamento.id")

@@ -44,3 +44,5 @@ Route::post('/add_usuario','MantenedoresController@add_usuario');
 Route::post('/cargar_usuarios','MantenedoresController@cargar_usuarios');
 Route::post('/ver_usuario','MantenedoresController@ver_usuario');
 Route::post('/delete_usuario','MantenedoresController@delete_usuario');
+Route::post('/ver_editar_usuario','MantenedoresController@ver_editar_usuario');
+Route::post('/update_usuario','MantenedoresController@update_usuario');

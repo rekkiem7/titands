@@ -154,6 +154,18 @@ class configuracion extends Model
         return $id;
     }
 
+    public static function all_sucursales()
+    {
+        $datos=DB::table("sucursal")->get();
+        return $datos;
+    }
+
+    public static function all_roles()
+    {
+        $datos=DB::table("rol")->get();
+        return $datos;
+    }
+
 
 
 
