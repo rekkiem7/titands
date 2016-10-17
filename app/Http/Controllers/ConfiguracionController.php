@@ -149,11 +149,21 @@ class ConfiguracionController extends Controller
     {
         try{
             if (Session::get('logeado')==true) {
-                $data['titulo'] = 'Configuración';
-                $data['subtitulo'] = "Sistema ERP Tomahawk";
-                $data['block_menu'] = Session::get('skin');
-                $data['menus'] = $this->menus_generales($menu);
-                return view('configuracion.index', $data);
+                $rol=Session::get("id_rol");
+                $usuario=Session::get("id_usuario");
+                $depto=Session::get("id_depto");
+                $empresa=Session::get("id_empresa");
+                $permiso=$this->verificar_permisos($usuario,$empresa,$depto,$rol,$menu);
+                if($permiso) {
+                    $data['titulo'] = 'Configuración';
+                    $data['subtitulo'] = "Sistema ERP Tomahawk";
+                    $data['block_menu'] = Session::get('skin');
+                    $data['menus'] = $this->menus_generales($menu);
+                    return view('configuracion.index', $data);
+                }
+                else{
+                    return view('prohibido');
+                }
             }
             else
             {
@@ -170,12 +180,22 @@ class ConfiguracionController extends Controller
     {
         try{
             if (Session::get('logeado')==true) {
-              $data['titulo']="Permisos Por Rol ";
-              $data['subtitulo']="Sistema ERP Tomahawk";
-              $data['block_menu']=Session::get('skin');
-              $data['menus']=$this->menus_generales($menu);
-              $data["empresas"]=configuracion::all_empresas();
-              return view('configuracion.permisos_rol',$data);
+              $rol=Session::get("id_rol");
+              $usuario=Session::get("id_usuario");
+              $depto=Session::get("id_depto");
+              $empresa=Session::get("id_empresa");
+              $permiso=$this->verificar_permisos($usuario,$empresa,$depto,$rol,$menu);
+              if($permiso) {
+                  $data['titulo'] = "Permisos Por Rol ";
+                  $data['subtitulo'] = "Sistema ERP Tomahawk";
+                  $data['block_menu'] = Session::get('skin');
+                  $data['menus'] = $this->menus_generales($menu);
+                  $data["empresas"] = configuracion::all_empresas();
+                  return view('configuracion.permisos_rol', $data);
+              }
+              else {
+                  return view('prohibido');
+              }
             }
             else
             {
