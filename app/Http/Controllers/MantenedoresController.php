@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use MyProject\Proxies\__CG__\stdClass;
 use View;
 use Input;
 use Session;
@@ -276,12 +277,18 @@ class MantenedoresController extends Controller
    {
       if (Session::get('logeado')==true)
       {
-         $data['titulo']="Listado de Usuarios";
-         $data['menu']=$menu;
-         $data['subtitulo']="Sistema ERP Tomahawk";
-         $data['block_menu']=Session::get('skin');
-         $data['menus']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
-         return view('mantenedores.Usuarios.listado_usuarios',$data);
+         try{
+            $data['titulo'] = "Listado de Usuarios";
+            $data['menu'] = $menu;
+            $data['subtitulo'] = "Sistema ERP Tomahawk";
+            $data['block_menu'] = Session::get('skin');
+            $data['menus'] = app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
+            return view('mantenedores.Usuarios.listado_usuarios', $data);
+         }
+         catch (\Exception $e){
+            $data['message']= '<strong>Message</strong>: '.$e->getMessage().'<br><strong>File</strong>:'.$e->getFile().'<br><strong>Line '.$e->getLine().'</strong>';
+            return view('exception',$data);
+         }
       }
       else
       {
