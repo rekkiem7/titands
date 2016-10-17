@@ -71,8 +71,7 @@
                                 <th>Rol</th>
                                 <th>Visible</th>
                                 <th>Ver</th>
-                                <th>Editar</th>
-                                <th>Eliminar</th>
+                                <th>Ingresar</th>
                                 </thead>
                                 <tbody>
                                 </tbody>
@@ -82,9 +81,51 @@
                 </div>
                 </div>
     </div>
+    <div style="display:none">
+    <form action="{{ URL::to('login') }}" method="post" role="form" id="form" name="form">
+        <div class="form-group has-feedback">
+            <input type="text" class="form-control" placeholder="Nombre de Usuario" id="usuario" name="usuario">
+            <span class="glyphicon  glyphicon-user form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+            <input type="password" class="form-control" placeholder="Password" id="clave" name="clave">
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+        @if(Session::has('error'))
+        <div class="alert alert-danger alert-dismissible fadeInDown">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+            <h4>
+                <i class="icon fa fa-ban"></i>
+                Datos Incorrectos
+            </h4>
+            {{ Session::get('error') }}
+        </div>
+        @endif
+        <input type="hidden" name="_token" value="{{ csrf_token() }}"><br>
+    </form>
+    </div>
+    @include('mantenedores.Usuarios.ventana_ver_usuario')
 </section>
 @include('footer')
 <script>
+    function ingresar_como(id,usuario,pass)
+    {
+
+        swal({   title: "¿Desea Ingresar como el usuario N°"+id+" ?",
+                 text: "Su sesión actual se eliminará, procure guardar todos sus cambios.",
+                 type: "info",
+                 showCancelButton: true,
+                 cancelButtonText: "Cancelar",
+                 confirmButtonColor: "#5cb85c",
+                 confirmButtonText: "Ingresar",
+                 closeOnConfirm: true },
+                 function(){
+                    $('#usuario').val(usuario);
+                     $('#clave').val(pass);
+                     $('#form').submit();
+                 });
+    }
+
     function cargar_usuarios()
     {
         var empresa=$('#empresa').val();
@@ -122,36 +163,73 @@
                             var array_final = new Array();
                             for (var i = 0; i < datos.length; i++) {
                                 var boton_ver='<button class="btn btn-default" onclick="ver_usuario('+datos[i]["id"]+');"><i class="fa fa-search"></i></button>';
-                                var boton_editar='<button class="btn btn-primary" onclick="editar_usuario('+datos[i]["id"]+');"><i class="fa fa-pencil"></i></button>';
-                                var boton_eliminar='<button class="btn btn-danger" onclick="eliminar_usuario('+datos[i]["id"]+');"><i class="fa fa-trash"></i></button>';
+                                var boton_ingresar='<button class="btn btn-primary" onclick="ingresar_como('+datos[i]["id"]+',\''+datos[i]["usuario"]+'\',\''+datos[i]["pass"]+'\');"><i class="fa fa-key"></i></button>';
                                 if(datos[i]["visible"]==1){datos[i]["visible"]='<i class="fa fa-check"></i>';}else{datos[i]["visible"]='<i class="fa fa-remove"></i>';}
-                                var info=[datos[i]["id"],datos[i]["usuario"],datos[i]["nombre"],datos[i]["empresa"],datos[i]["sucursal"],datos[i]["departamento"],datos[i]["rol"],datos[i]["visible"],boton_ver,boton_editar,boton_eliminar];
+                                var info=[datos[i]["id"],datos[i]["usuario"],datos[i]["nombre"],datos[i]["empresa"],datos[i]["sucursal"],datos[i]["departamento"],datos[i]["rol"],datos[i]["visible"],boton_ver,boton_ingresar];
                                 array_final.push(info);
                             }
                             t.rows.add(array_final).draw();
                         }
                     }
                 }
-                /*
-                if(data!=0) {
-                    var t = $('#usuarios').DataTable();
-                    t.clear().draw();
-                    var datos = JSON.parse(data);
-                    var array_final = new Array();
-                    for (var i = 0; i < datos.length; i++) {
-                        var boton_ver='<button class="btn btn-default" onclick="ver_usuario('+datos[i]["id"]+');"><i class="fa fa-search"></i></button>';
-                        var boton_editar='<button class="btn btn-primary" onclick="editar_usuario('+datos[i]["id"]+');"><i class="fa fa-pencil"></i></button>';
-                        var boton_eliminar='<button class="btn btn-danger" onclick="eliminar_usuario('+datos[i]["id"]+');"><i class="fa fa-trash"></i></button>';
-                        if(datos[i]["visible"]==1){datos[i]["visible"]='<i class="fa fa-check"></i>';}else{datos[i]["visible"]='<i class="fa fa-remove"></i>';}
-                        var info=[datos[i]["id"],datos[i]["usuario"],datos[i]["nombre"],datos[i]["empresa"],datos[i]["sucursal"],datos[i]["departamento"],datos[i]["rol"],datos[i]["visible"],boton_ver,boton_editar,boton_eliminar];
-                        array_final.push(info);
+            }
+        });
+    }
+
+    function ver_usuario(id)
+    {
+        $.ajax({
+            url: '{{url()}}/ver_usuario',
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {id: id},
+            success: function (data) {
+                if(data!=0)
+                {
+                    var datos=JSON.parse(data);
+                    if(datos[0]["visible"]==1)
+                    {
+                        var notif_visible='<small class="label bg-green">Visible</small>';
                     }
-                    t.rows.add(array_final).draw();
+                    else
+                    {
+                        var notif_visible='<small class="label bg-red">No Visible</small>';
+                    }
+                    $('#ver_id').html(datos[0]["iduser"] +'&nbsp;&nbsp;'+notif_visible);
+                    $('#ver_nombre_usuario').html(datos[0]["usuario"]);
+                    $('#ver_id2').html(datos[0]["iduser"] +'&nbsp;&nbsp;'+notif_visible);
+                    $('#ver_nombre_usuario2').html(datos[0]["usuario"]);
+                    if(datos[0]["avatar"]=="" || datos[0]["avatar"]===null)
+                    {
+                        datos[0]["avatar"]=datos[0]["imagen"];
+                    }
+                    var img='<img class="profile-user-img img-responsive img-circle" src="{{url()}}/'+datos[0]["avatar"]+'" alt="User profile picture">';
+                    $("#avatar_usuario").html(img);
+                    $("#avatar_usuario2").html(img);
+                    var nombre_completo=datos[0]["nombre1"]+' '+datos[0]["nombre2"]+' '+datos[0]["apellido_paterno"]+' '+datos[0]["apellido_materno"];
+                    $('#ver_nombre_completo').html(nombre_completo);
+                    $('#ver_password').html(datos[0]["pass"]);
+                    $('#ver_empresa').html(datos[0]["empresa"]);
+                    $('#ver_sucursal').html(datos[0]["sucursal"]);
+                    $('#ver_departamento').html(datos[0]["departamento"]);
+                    $('#ver_rol').html(datos[0]["rol"]);
+                    $('#ver_primer_nombre').html(datos[0]["nombre1"]);
+                    $('#ver_segundo_nombre').html(datos[0]["nombre2"]);
+                    $('#ver_apellido_paterno').html(datos[0]["apellido_paterno"]);
+                    $('#ver_apellido_materno').html(datos[0]["apellido_materno"]);
+                    $('#ver_rut').html(datos[0]["rut"]);
+                    $('#ver_sexo').html(datos[0]["sexo"]);
+                    $('#ver_direccion').html(datos[0]["direccion"]);
+                    $('#ver_correo').html(datos[0]["correo"]);
+                    $('#ver_telefono').html(datos[0]["telefono"]);
+                    $('#ver_celular').html(datos[0]["celular"]);
+                    $('#ver_usuario').modal();
                 }
-                else {
-                    swal("Sin Registros", "No se han encontrado registros de usuarios en el sistema", "info");
+                else{
+
                 }
-                */
             }
         });
     }
@@ -295,7 +373,7 @@
             "info": true,
             "autoWidth": true,
             "columnDefs": [
-                { className: "centrado", "targets": [ 1,4,5,6,7,8,9,10 ] }
+                { className: "centrado", "targets": [ 1,4,5,6,7,8,9 ] }
             ],
             "language": {
                 "search":"Buscar:",

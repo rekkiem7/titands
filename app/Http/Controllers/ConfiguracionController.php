@@ -64,6 +64,7 @@ class ConfiguracionController extends Controller
          Session::put('nom_rol',         $datos[0]->nom_rol);
          Session::put('id_depto',         $datos[0]->id_depto);
          Session::put('nombre_completo',         $datos[0]->nombre);
+         Session::put('nombre_corto',         $datos[0]->nombre1.' '.$datos[0]->apellido_paterno);
 
           if($datos[0]->avatar=="" || $datos[0]->avatar===null)
           {
@@ -376,13 +377,25 @@ class ConfiguracionController extends Controller
         if (Session::get('logeado')==true)
         {
             try{
-                $data['titulo'] = "Ingresar como un Usuario";
-                $data['menu'] = $menu;
-                $data['subtitulo'] = "Sistema ERP Tomahawk";
-                $data['block_menu'] = Session::get('skin');
-                $data['menus'] = app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
-                $data["empresas"]=configuracion::all_empresas();
-                return view('configuracion.ingresar_como', $data);
+                $rol=Session::get("id_rol");
+                $usuario=Session::get("id_usuario");
+                $depto=Session::get("id_depto");
+                $empresa=Session::get("id_empresa");
+                $permiso=$this->verificar_permisos($usuario,$empresa,$depto,$rol,$menu);
+                if($permiso)
+                {
+                    $data['titulo'] = "Ingresar como un Usuario";
+                    $data['menu'] = $menu;
+                    $data['subtitulo'] = "Sistema ERP Tomahawk";
+                    $data['block_menu'] = Session::get('skin');
+                    $data['menus'] = $this->menus_generales($menu);
+                    $data["empresas"]=configuracion::all_empresas();
+                    return view('configuracion.ingresar_como', $data);
+                }
+                else
+                {
+                 return view('prohibido');
+                }
             }
             catch (\Exception $e){
                 $data['message']= '<strong>Message</strong>: '.$e->getMessage().'<br><strong>File</strong>:'.$e->getFile().'<br><strong>Line '.$e->getLine().'</strong>';
@@ -415,6 +428,16 @@ class ConfiguracionController extends Controller
         else {
             return response(["result"=>2,"error"=>"Sesión Expirada"]);
         }
+    }
+
+    public function verificar_permisos($usuario,$empresa,$depto,$rol,$menu)
+    {
+        $permisosUsuario=[];
+        if(!$permisosUsuario)
+        {
+            $permisosUsuario=configuracion::select_permisos_rol($empresa,$depto,$rol,$menu);
+        }
+        return $permisosUsuario;
     }
 
     

@@ -168,7 +168,7 @@ class configuracion extends Model
 
     public static function get_usuarios_for_filter($empresa,$sucursal,$depto,$rol)
     {
-        $query=DB::table("usuario")->select("usuario.id","usuario.usuario","usuario.nombre","empresa.nombre as empresa","departamento.nombre as departamento","sucursal.nombre as sucursal","rol.nombre as rol","usuario_detalle.nombre1","usuario_detalle.nombre2","usuario_detalle.apellido_paterno","usuario_detalle.apellido_materno","usuario.visible")
+        $query=DB::table("usuario")->select("usuario.id","usuario.usuario","usuario.pass","usuario.nombre","empresa.nombre as empresa","departamento.nombre as departamento","sucursal.nombre as sucursal","rol.nombre as rol","usuario_detalle.nombre1","usuario_detalle.nombre2","usuario_detalle.apellido_paterno","usuario_detalle.apellido_materno","usuario.visible")
             ->leftjoin("usuario_detalle","usuario.id","=","usuario_detalle.id_usuario")
             ->join("empresa","usuario.id_empresa","=","empresa.id")
             ->join("departamento","usuario.id_depto","=","departamento.id")
@@ -197,6 +197,12 @@ class configuracion extends Model
 
         $datos=$query->orderBy("usuario.id","desc")->get();
        // echo $datos;
+        return $datos;
+    }
+
+    public static function select_permisos_rol($empresa,$depto,$rol,$menu)
+    {
+        $datos=DB::table("permisos_rol")->where("id_empresa",$empresa)->where("id_depto",$depto)->where("id_rol",$rol)->where("id_menu",$menu)->get();
         return $datos;
     }
 

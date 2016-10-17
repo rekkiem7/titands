@@ -278,7 +278,7 @@
                         <img src="{{ asset(Session::get('imagen')) }}" class="img-circle" alt="User Image" />
                     </div>
                     <div class="pull-left info">
-                        <p>{{Session::get('nombre_completo')}}</p>
+                        <p>{{Session::get('nombre_corto')}}</p>
                         <!-- Status -->
                         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                     </div>

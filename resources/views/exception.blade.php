@@ -7,8 +7,6 @@
             background-color: #000000;
         }
         .mensaje{
-            width:auto !important;
-            height:auto;
             background-color: #ffffff;
         }
     </style>
@@ -19,8 +17,8 @@
         <a href="{{url()}}" style="color:#ffffff"><b ><img src="{{asset('/archivos_empresas/1/LogoHeader1.png')}}" width="40%"/></b><br> Tomahawk Sytem</a>
     </div><!-- /.login-logo --><!-- /.login-box-body -->
 </div><!-- /.login-box -->
-<div class=" col-lg-offset-3 col-lg-9 col-md-offset-2 col-md-10   col-sm-12   col-xs-12 mensaje">
-    <?php echo $message;?>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mensaje">
+   <div class="table-responsive"><?php echo $message;?></div>
 </div>
 </body>
 </html>
