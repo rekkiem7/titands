@@ -170,6 +170,10 @@
                             }
                             t.rows.add(array_final).draw();
                         }
+                        else
+                        {
+                            swal("Error","Se ha producido un error, por favor inténtelo más tarde", "error");
+                        }
                     }
                 }
             }

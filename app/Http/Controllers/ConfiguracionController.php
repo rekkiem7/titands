@@ -18,43 +18,67 @@ class ConfiguracionController extends Controller
     public function index()
     {
        if (Session::get('logeado')==true){
-            return Redirect::to('/home');
+
+           try {
+               return Redirect::to('/home');
+           }
+           catch (\Exception $e){
+               $data['message']= '<strong>Message</strong>: '.$e->getMessage().'<br><strong>File</strong>:'.$e->getFile().'<br><strong>Line '.$e->getLine().'</strong>';
+               return view('exception',$data);
+           }
             
         }else{
             //return View::make('login/login');
-            return Redirect::to('/inicio');
+           try {
+               return Redirect::to('/inicio');
+           }
+           catch (\Exception $e){
+               $data['message']= '<strong>Message</strong>: '.$e->getMessage().'<br><strong>File</strong>:'.$e->getFile().'<br><strong>Line '.$e->getLine().'</strong>';
+               return view('exception',$data);
+           }
         }   
     } 
 
     public function inicio()
     {
+        try {
         return view('login');
+        }
+        catch (\Exception $e){
+            $data['message']= '<strong>Message</strong>: '.$e->getMessage().'<br><strong>File</strong>:'.$e->getFile().'<br><strong>Line '.$e->getLine().'</strong>';
+            return view('exception',$data);
+        }
     }
 
     public function login()
     {
-        $userdata = array(
-            'nombre_usuario' => Request::get('usuario'),
-            'clave'=> Request::get('clave')
-           // 'clave'=> md5(Request::get('clave'))
-        );
+        try{
+            Session::flush();
+            $userdata = array(
+                'nombre_usuario' => Request::get('usuario'),
+                'clave'=> Request::get('clave')
+               // 'clave'=> md5(Request::get('clave'))
+            );
 
-        $login=$this->iniciar_login($userdata);
-        if($login==1)
-        {
-            return Redirect::to('/home');
+            $login=$this->iniciar_login($userdata);
+            if($login==1)
+            {
+                return Redirect::to('/home');
+            }
+            else
+            {
+                return Redirect::to('/');
+            }
         }
-        else
-        {
-            return Redirect::to('/');
+        catch (\Exception $e){
+        $data['message']= '<strong>Message</strong>: '.$e->getMessage().'<br><strong>File</strong>:'.$e->getFile().'<br><strong>Line '.$e->getLine().'</strong>';
+        return view('exception',$data);
         }
     }
 
     public function iniciar_login($data)
     {
-        
       $datos=configuracion::verificar_usuario($data['nombre_usuario'],$data['clave']);
-
       if($datos)
       {
          Session::put('logeado',     true);
@@ -65,7 +89,6 @@ class ConfiguracionController extends Controller
          Session::put('id_depto',         $datos[0]->id_depto);
          Session::put('nombre_completo',         $datos[0]->nombre);
          Session::put('nombre_corto',         $datos[0]->nombre1.' '.$datos[0]->apellido_paterno);
-
           if($datos[0]->avatar=="" || $datos[0]->avatar===null)
           {
               $datos[0]->avatar=$datos[0]->imagen;
@@ -82,53 +105,87 @@ class ConfiguracionController extends Controller
         Session::put('error',"Los datos de acceso no coinciden con nuestras credenciales");
         return 0;
       }
-      
     }
 
     public function home()
     {
-        if (Session::get('logeado')==true)
-        {
-        $data['titulo']='Últimas Noticias';
-        $data['subtitulo']="Sistema ERP Tomahawk";
-        $rol=Session::get('id_rol');
-        //$data['menus']=configuracion::permisos_rol_padre($rol);
-        $data['menus']=$this->menus_padres($rol);
-        $data['block_menu']="hold-transition sidebar-collapse sidebar-min ".Session::get('skin');
-        return view('home.slider',$data);
+        try{
+            if (Session::get('logeado')==true)
+            {
+            $data['titulo']='Últimas Noticias';
+            $data['subtitulo']="Sistema ERP Tomahawk";
+            $rol=Session::get('id_rol');
+            //$data['menus']=configuracion::permisos_rol_padre($rol);
+            $data['menus']=$this->menus_padres($rol);
+            $data['block_menu']="hold-transition sidebar-collapse sidebar-min ".Session::get('skin');
+            return view('home.slider',$data);
+            }
+            else
+            {
+                return Redirect::to('/');
+            }
         }
-        else
-        {
-            return Redirect::to('/');
+        catch (\Exception $e){
+        $data['message']= '<strong>Message</strong>: '.$e->getMessage().'<br><strong>File</strong>:'.$e->getFile().'<br><strong>Line '.$e->getLine().'</strong>';
+        return view('exception',$data);
         }
     }
 
     public function logout()
     {
-     
-        Session::flush();
-        return Redirect::to('/');    
+        try{
+            Session::flush();
+            return Redirect::to('/');
+        }
+            catch (\Exception $e){
+            $data['message']= '<strong>Message</strong>: '.$e->getMessage().'<br><strong>File</strong>:'.$e->getFile().'<br><strong>Line '.$e->getLine().'</strong>';
+            return view('exception',$data);
+        }
     }
 
     /***********************************************************************************************************************/
 
     public function configuracion($menu)
     {
-      $data['titulo']='Configuración';
-      $data['subtitulo']="Sistema ERP Tomahawk";
-      $data['block_menu']=Session::get('skin');
-      $data['menus']=$this->menus_generales($menu);
-      return view('configuracion.index',$data);
+        try{
+            if (Session::get('logeado')==true) {
+                $data['titulo'] = 'Configuración';
+                $data['subtitulo'] = "Sistema ERP Tomahawk";
+                $data['block_menu'] = Session::get('skin');
+                $data['menus'] = $this->menus_generales($menu);
+                return view('configuracion.index', $data);
+            }
+            else
+            {
+                return Redirect::to('/');
+            }
+        }
+        catch (\Exception $e){
+        $data['message']= '<strong>Message</strong>: '.$e->getMessage().'<br><strong>File</strong>:'.$e->getFile().'<br><strong>Line '.$e->getLine().'</strong>';
+        return view('exception',$data);
+        }
     }
 
     public function permisos_rol($menu)
     {
-      $data['titulo']="Permisos Por Rol ";
-      $data['subtitulo']="Sistema ERP Tomahawk"; 
-      $data['block_menu']=Session::get('skin');
-      $data['menus']=$this->menus_generales($menu);
-      $data["empresas"]=configuracion::all_empresas();
-      return view('configuracion.permisos_rol',$data);
+        try{
+            if (Session::get('logeado')==true) {
+              $data['titulo']="Permisos Por Rol ";
+              $data['subtitulo']="Sistema ERP Tomahawk";
+              $data['block_menu']=Session::get('skin');
+              $data['menus']=$this->menus_generales($menu);
+              $data["empresas"]=configuracion::all_empresas();
+              return view('configuracion.permisos_rol',$data);
+            }
+            else
+            {
+                return Redirect::to('/');
+            }
+        }
+        catch (\Exception $e){
+            $data['message']= '<strong>Message</strong>: '.$e->getMessage().'<br><strong>File</strong>:'.$e->getFile().'<br><strong>Line '.$e->getLine().'</strong>';
+            return view('exception',$data);
+        }
     }
 
     public function get_sucursal()
@@ -410,23 +467,25 @@ class ConfiguracionController extends Controller
 
     public function cargar_usuarios_xfiltro()
     {
-        if (Session::get('logeado')==true) {
-            $empresa=$_POST["empresa"];
-            $sucursal=$_POST["sucursal"];
-            $depto=$_POST["depto"];
-            $rol=$_POST["rol"];
-            $datos=configuracion::get_usuarios_for_filter($empresa,$sucursal,$depto,$rol);
-            if($datos)
-            {
-                return response(["result"=>1,"data"=>json_encode($datos)]);
-            }
-            else
-            {
-                return response(["result"=>0,"titulo"=>"Sin Registros","error"=>"No se han encontrado registros de usuarios en el sistema"]);
+        try {
+            if (Session::get('logeado') == true) {
+                $empresa = $_POST["empresa"];
+                $sucursal = $_POST["sucursal"];
+                $depto = $_POST["depto"];
+                $rol = $_POST["rol"];
+                $datos = configuracion::get_usuarios_for_filter($empresa, $sucursal, $depto, $rol);
+                if ($datos) {
+                    return response(["result" => 1, "data" => json_encode($datos)]);
+                } else {
+                    return response(["result" => 0, "titulo" => "Sin Registros", "error" => "No se han encontrado registros de usuarios en el sistema"]);
+                }
+            } else {
+                return response(["result" => 2, "error" => "Sesión Expirada"]);
             }
         }
-        else {
-            return response(["result"=>2,"error"=>"Sesión Expirada"]);
+        catch (\Exception $e){
+            $data['message']= '<strong>Message</strong>: '.$e->getMessage().'<br><strong>File</strong>:'.$e->getFile().'<br><strong>Line '.$e->getLine().'</strong>';
+            return response(["result"=>99,"message"=>$e->getMessage(),"file"=>$e->getFile(),"line"=>$e->getLine()]);
         }
     }
 
