@@ -198,6 +198,24 @@ class TableMenuSeeder extends Seeder
                 'visible'=>1
             ]);
 
+            factory(App\models\Menu::class)->create([
+                'nombre'=>'Administrador',
+                'id_padre'=>1,
+                'url'=>'/administrador/22',
+                'icono'=>null,
+                'clase'=>'fa fa-user-secret ',
+                'visible'=>1
+            ]);
+
+        factory(App\models\Menu::class)->create([
+            'nombre'=>'Ingresar como Usuario',
+            'id_padre'=>22,
+            'url'=>'/ingresar_como_usuario/23',
+            'icono'=>null,
+            'clase'=>'fa fa-user-secret ',
+            'visible'=>1
+        ]);
+
         
     }
 }

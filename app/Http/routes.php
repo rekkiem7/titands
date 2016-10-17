@@ -20,7 +20,7 @@ Route::get('/listado_productos/{menu}','ProductosController@listado_productos');
 Route::get('/ficha_producto/{producto}','ProductosController@ficha_producto');
 Route::get('/crear_usuario/{menu}','MantenedoresController@crear_usuario');
 Route::get('/listado_usuarios/{menu}','MantenedoresController@listado_usuarios');
-
+Route::get('/ingresar_como_usuario/{menu}','ConfiguracionController@ingresar_como_usuario');
 /**************Procesos POST***************/
 
 Route::post('/login', 'ConfiguracionController@login');
@@ -46,3 +46,4 @@ Route::post('/ver_usuario','MantenedoresController@ver_usuario');
 Route::post('/delete_usuario','MantenedoresController@delete_usuario');
 Route::post('/ver_editar_usuario','MantenedoresController@ver_editar_usuario');
 Route::post('/update_usuario','MantenedoresController@update_usuario');
+Route::post('/cargar_usuarios_xfiltro','ConfiguracionController@cargar_usuarios_xfiltro');

@@ -166,6 +166,40 @@ class configuracion extends Model
         return $datos;
     }
 
+    public static function get_usuarios_for_filter($empresa,$sucursal,$depto,$rol)
+    {
+        $query=DB::table("usuario")->select("usuario.id","usuario.usuario","usuario.nombre","empresa.nombre as empresa","departamento.nombre as departamento","sucursal.nombre as sucursal","rol.nombre as rol","usuario_detalle.nombre1","usuario_detalle.nombre2","usuario_detalle.apellido_paterno","usuario_detalle.apellido_materno","usuario.visible")
+            ->leftjoin("usuario_detalle","usuario.id","=","usuario_detalle.id_usuario")
+            ->join("empresa","usuario.id_empresa","=","empresa.id")
+            ->join("departamento","usuario.id_depto","=","departamento.id")
+            ->join("sucursal","departamento.id_sucursal","=","sucursal.id")
+            ->join("rol","usuario.id_rol","=","rol.id");
+
+        if($empresa && $empresa!=0)
+        {
+            $query->where("empresa.id",$empresa);
+        }
+
+        if($sucursal && $sucursal !=0)
+        {
+            $query->where("sucursal.id",$sucursal);
+        }
+
+        if($depto && $depto!=0)
+        {
+            $query->where("departamento.id",$depto);
+        }
+
+        if($rol && $rol!=0)
+        {
+            $query->where("rol.id",$rol);
+        }
+
+        $datos=$query->orderBy("usuario.id","desc")->get();
+       // echo $datos;
+        return $datos;
+    }
+
 
 
 

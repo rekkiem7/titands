@@ -7,6 +7,7 @@ use Input;
 use Session;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
+use Response;
 use Cache;
 use Validator;
 use App\models\configuracion;
@@ -367,6 +368,52 @@ class ConfiguracionController extends Controller
                $this->recursivo_permisos_rol($menus_hijos[$i]->id,$accion,$rol,$depto,$empresa);
             }
           }
+        }
+    }
+    
+    public function ingresar_como_usuario($menu)
+    {
+        if (Session::get('logeado')==true)
+        {
+            try{
+                $data['titulo'] = "Ingresar como un Usuario";
+                $data['menu'] = $menu;
+                $data['subtitulo'] = "Sistema ERP Tomahawk";
+                $data['block_menu'] = Session::get('skin');
+                $data['menus'] = app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
+                $data["empresas"]=configuracion::all_empresas();
+                return view('configuracion.ingresar_como', $data);
+            }
+            catch (\Exception $e){
+                $data['message']= '<strong>Message</strong>: '.$e->getMessage().'<br><strong>File</strong>:'.$e->getFile().'<br><strong>Line '.$e->getLine().'</strong>';
+                return view('exception',$data);
+            }
+        }
+        else
+        {
+            return Redirect::to('/');
+        }
+    }
+
+    public function cargar_usuarios_xfiltro()
+    {
+        if (Session::get('logeado')==true) {
+            $empresa=$_POST["empresa"];
+            $sucursal=$_POST["sucursal"];
+            $depto=$_POST["depto"];
+            $rol=$_POST["rol"];
+            $datos=configuracion::get_usuarios_for_filter($empresa,$sucursal,$depto,$rol);
+            if($datos)
+            {
+                return response(["result"=>1,"data"=>json_encode($datos)]);
+            }
+            else
+            {
+                return response(["result"=>0,"titulo"=>"Sin Registros","error"=>"No se han encontrado registros de usuarios en el sistema"]);
+            }
+        }
+        else {
+            return response(["result"=>2,"error"=>"Sesión Expirada"]);
         }
     }
 
