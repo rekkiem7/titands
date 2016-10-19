@@ -16,9 +16,24 @@
 
                             <select class="form-control" id="empresa" name="empresa">
                                 <option value="0">Seleccione una empresa...</option>
-                                @foreach($empresas as $row_empresa)
-                                <option value="{{$row_empresa->id}}">{{$row_empresa->nombre}}</option>
-                                @endforeach
+                                <?php
+                                    foreach($empresas as $row_empresa) 
+                                    {
+                                        if($usuario_empresa==1)
+                                        {
+                                         ?>
+                                            <option value="{{$row_empresa->id}}">{{$row_empresa->nombre}}</option>
+                                        <?php
+                                        }
+                                        else {
+                                            if ($usuario_empresa == $row_empresa->id) {
+                                                ?>
+                                                <option value="{{$row_empresa->id}}">{{$row_empresa->nombre}}</option>
+                                                <?php
+                                            }
+                                        }
+                                    }
+                                ?>
 
                             </select>
                             <span class="input-group-addon"><i class="fa fa-bank"></i></span>

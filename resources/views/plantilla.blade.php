@@ -18,7 +18,7 @@
 <link href="{{ asset('template/plugins/select2/select2.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('/plugins_adicionales/fileinput/css/fileinput.css')}}" rel="stylesheet"/>
 <link href="{{ asset('template/plugins/datatables/dataTables.bootstrap.css')}}" rel="stylesheet" type="text/css" />
-
+<link rel="shortcut icon" type="image/ico" href="{{asset('logo.ico')}}" />
 <script src="{{ asset ('/template/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
 <script src="{{ asset ('/template/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset ('/template/dist/js/app.min.js') }}" type="text/javascript"></script>
@@ -42,7 +42,7 @@
 <script src="{{ asset ('/template/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ asset ('/plugins_adicionales/rutjs/jquery.Rut.js') }}"></script>
 <script src="{{ asset ('/plugins_adicionales/rutjs/jquery.Rut.min.js') }}"></script>
-
+<title>Sistema Tomahawk ERP</title>
 
 
 

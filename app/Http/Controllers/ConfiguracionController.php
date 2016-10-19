@@ -459,6 +459,7 @@ class ConfiguracionController extends Controller
                 $depto=Session::get("id_depto");
                 $empresa=Session::get("id_empresa");
                 $permiso=$this->verificar_permisos($usuario,$empresa,$depto,$rol,$menu);
+                $data["usuario_empresa"]=$empresa;
                 if($permiso)
                 {
                     $data['titulo'] = "Ingresar como un Usuario";
