@@ -221,6 +221,42 @@
                                 </li>
                             </ul>
                         </li>
+                        <!--perfiles menu-->
+                        <?php
+                        if($perfiles) {
+                            ?>
+                            <li class="dropdown notifications-menu">
+                                <!-- Menu Toggle Button -->
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-group"></i>
+                                    <span class="label label-danger">{{count($perfiles)}}</span>
+                                </a>
+                                <ul class="dropdown-menu notifications-menu">
+                                    <li class="header">Cambio de Perfil</li>
+                                    <li>
+                                        <!-- Inner menu: contains the tasks -->
+                                        <ul class="menu">
+                                            <?php
+                                            foreach ($perfiles as $perfil) {
+                                                ?>
+                                                <li><!-- start notification -->
+                                                    <a href="javascript:void(0);" onclick="cambiar_perfil('{{$perfil->usuario}}','{{$perfil->pass}}')">
+                                                        <table><tr><td><i class="fa fa-users text-aqua"></i></td><td style="padding-left:10px"><?php echo $perfil->nombre_rol.'<br>'.$perfil->nombre_empresa.'<br>'.$perfil->nombre_sucursal;?></td></tr></table>
+                                                    </a>
+                                                </li><!-- end notification -->
+                                                <?php
+                                            }
+                                            ?>
+                                        </ul>
+                                    </li>
+                                    <li class="footer">
+                                        <a href="#">View all tasks</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <?php
+                        }
+                        ?>
                         <!-- User Account Menu -->
                         <li class="dropdown user user-menu">
                             <!-- Menu Toggle Button -->
@@ -265,6 +301,30 @@
                     </ul>
                 </div>
             </nav>
+
+            <div style="display:none">
+                <form action="{{ URL::to('login') }}" method="post" role="form" id="form" name="form">
+                    <div class="form-group has-feedback">
+                        <input type="text" class="form-control" placeholder="Nombre de Usuario" id="usuario" name="usuario">
+                        <span class="glyphicon  glyphicon-user form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input type="password" class="form-control" placeholder="Password" id="clave" name="clave">
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                    @if(Session::has('error'))
+                    <div class="alert alert-danger alert-dismissible fadeInDown">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                        <h4>
+                            <i class="icon fa fa-ban"></i>
+                            Datos Incorrectos
+                        </h4>
+                        {{ Session::get('error') }}
+                    </div>
+                    @endif
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}"><br>
+                </form>
+            </div>
         </header>
         <!-- Left side column. contains the logo and sidebar -->
         <aside class="main-sidebar">

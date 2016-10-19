@@ -206,6 +206,20 @@ class configuracion extends Model
         return $datos;
     }
 
+    public static function get_perfiles($usuario)
+    {
+        $rut=DB::table("usuario_detalle")->select("rut")->where("id_usuario",$usuario)->get();
+        $datos=DB::table("usuario")->select("usuario.id","usuario.usuario","usuario.pass","usuario_detalle.nombre1","usuario_detalle.nombre2","usuario_detalle.apellido_paterno","usuario_detalle.apellido_materno","empresa.nombre as nombre_empresa","sucursal.nombre as nombre_sucursal","departamento.nombre as nombre_departamento","rol.nombre as nombre_rol")
+                ->join("usuario_detalle","usuario.id","=","usuario_detalle.id_usuario")
+                ->join("empresa","usuario.id_empresa","=","empresa.id")
+                ->join("departamento","usuario.id_depto","=","departamento.id")
+                ->join("sucursal","departamento.id_sucursal","=","sucursal.id")
+                ->join("rol","usuario.id_rol","=","rol.id")
+                ->where("usuario_detalle.rut",$rut[0]->rut)->where("usuario.id","!=",$usuario)->get();
+
+        return $datos;
+    }
+
 
 
 

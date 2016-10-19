@@ -117,6 +117,7 @@ class ConfiguracionController extends Controller
             $rol=Session::get('id_rol');
             //$data['menus']=configuracion::permisos_rol_padre($rol);
             $data['menus']=$this->menus_padres($rol);
+            $data['perfiles']=configuracion::get_perfiles(Session::get('id_usuario'));
             $data['block_menu']="hold-transition sidebar-collapse sidebar-min ".Session::get('skin');
             return view('home.slider',$data);
             }
