@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Redirect;
 use Cache;
 use Validator;
 use App\models\logistica;
+use App\models\configuracion;
 
 class LogisticaController extends Controller
 {
@@ -21,23 +22,63 @@ class LogisticaController extends Controller
      */
     public function index($menu)
     {
-      $data['titulo']='Logística';
-      $data['subtitulo']="Sistema ERP Tomahawk";
-      $data['menus_padres']="";
-      $data['menus']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
-      $data["menus_hijos"]=app('App\Http\Controllers\ConfiguracionController')->menus_hijos($data['menus']);
-     // dd($data["menus_hijos"]);
-      return view('logistica.index',$data);     
+        try{
+            $rol=Session::get("id_rol");
+            $usuario=Session::get("id_usuario");
+            $depto=Session::get("id_depto");
+            $empresa=Session::get("id_empresa");
+            $permiso=app('App\Http\Controllers\ConfiguracionController')->verificar_permisos($usuario,$empresa,$depto,$rol,$menu);
+            if($permiso) {
+                $data['perfiles'] = configuracion::get_perfiles(Session::get('id_usuario'));
+                $data['titulo'] = 'Logística';
+                $data['subtitulo'] = "Sistema ERP Tomahawk";
+                $data['menus'] = app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
+                $data['block_menu'] = Session::get('skin');
+                return view('logistica.index', $data);
+            }
+            else{
+                return view('prohibido');
+            }
+        }
+        catch (\Exception $e){
+            $data['message']= '<strong>Message</strong>: '.$e->getMessage().'<br><strong>File</strong>:'.$e->getFile().'<br><strong>Line '.$e->getLine().'</strong>';
+            return view('exception',$data);
+        }
+
     }
 
     public function bodegas($menu)
     {
-      $data['titulo']='Sistema de Bodegas';
-      $data['subtitulo']="Sistema ERP Tomahawk";
-      $data['menus_padres']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
-      $data['menus']="";
-      $data["menus_hijos"]=""; 
-      return view('logistica.bodegas',$data);
+        try{
+            if (Session::get('logeado')==true)
+            {
+                $rol=Session::get("id_rol");
+                $usuario=Session::get("id_usuario");
+                $depto=Session::get("id_depto");
+                $empresa=Session::get("id_empresa");
+                $permiso=app('App\Http\Controllers\ConfiguracionController')->verificar_permisos($usuario,$empresa,$depto,$rol,$menu);
+                if($permiso){
+                    $data['perfiles']=configuracion::get_perfiles(Session::get('id_usuario'));
+                    $data['titulo']='Sistema de Bodegas';
+                    $data['subtitulo']="Sistema ERP Tomahawk";
+                    $data['block_menu'] = Session::get('skin');
+                    $data['menus'] = app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
+                    return view('logistica.bodegas',$data);
+                }
+                else{
+                    return view('prohibido');
+                }
+            }
+            else
+            {
+                return Redirect::to('/');
+            }
+        }
+        catch (\Exception $e){
+            $data['message']= '<strong>Message</strong>: '.$e->getMessage().'<br><strong>File</strong>:'.$e->getFile().'<br><strong>Line '.$e->getLine().'</strong>';
+            return view('exception',$data);
+        }
+
     }
 
     

@@ -18,36 +18,70 @@ class MantenedoresController extends Controller
 {
    public function index($menu)
    {
-      if (Session::get('logeado')==true)
-      {
-         $data['titulo']='Mantenedores';
-         $data['subtitulo']="Sistema ERP Tomahawk";
-         $data['block_menu']=Session::get('skin');
-         $data['menus']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
-         //dd($data['menus']);
-         return view('mantenedores.index',$data);
+      try{
+         if (Session::get('logeado')==true)
+         {
+            $rol=Session::get("id_rol");
+            $usuario=Session::get("id_usuario");
+            $depto=Session::get("id_depto");
+            $empresa=Session::get("id_empresa");
+            $permiso=app('App\Http\Controllers\ConfiguracionController')->verificar_permisos($usuario,$empresa,$depto,$rol,$menu);
+            if($permiso) {
+               $data['perfiles'] = configuracion::get_perfiles(Session::get('id_usuario'));
+               $data['titulo'] = 'Mantenedores';
+               $data['subtitulo'] = "Sistema ERP Tomahawk";
+               $data['block_menu'] = Session::get('skin');
+               $data['menus'] = app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
+               //dd($data['menus']);
+               return view('mantenedores.index', $data);
+            }else{
+               return view('prohibido');
+            }
+         }
+         else
+         {
+            return Redirect::to('/');
+         }
       }
-      else
-      {
-         return Redirect::to('/');
-      } 
+      catch (\Exception $e){
+         $data['message']= '<strong>Message</strong>: '.$e->getMessage().'<br><strong>File</strong>:'.$e->getFile().'<br><strong>Line '.$e->getLine().'</strong>';
+         return view('exception',$data);
+      }
+
    } 
 
    public function crear_menu($menu)
    {
-      if (Session::get('logeado')==true)
-      {
-         $data['titulo']=" Creación de Menú";
-         $data['subtitulo']="Sistema ERP Tomahawk"; 
-         $data['block_menu']=Session::get('skin');
-         $data['menus']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
-         $data["all_menus"]=mantenedores::all_menus();
-         return view('mantenedores.crear_menu',$data);
+      try{
+         if (Session::get('logeado')==true)
+         {
+            $rol=Session::get("id_rol");
+            $usuario=Session::get("id_usuario");
+            $depto=Session::get("id_depto");
+            $empresa=Session::get("id_empresa");
+            $permiso=app('App\Http\Controllers\ConfiguracionController')->verificar_permisos($usuario,$empresa,$depto,$rol,$menu);
+            if($permiso) {
+               $data['perfiles'] = configuracion::get_perfiles(Session::get('id_usuario'));
+               $data['titulo'] = " Creación de Menú";
+               $data['subtitulo'] = "Sistema ERP Tomahawk";
+               $data['block_menu'] = Session::get('skin');
+               $data['menus'] = app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
+               $data["all_menus"] = mantenedores::all_menus();
+               return view('mantenedores.crear_menu', $data);
+            }else{
+               return view('prohibido');
+            }
+         }
+         else
+         {
+            return Redirect::to('/');
+         }
       }
-      else
-      {
-         return Redirect::to('/');
-      }   
+      catch (\Exception $e){
+         $data['message']= '<strong>Message</strong>: '.$e->getMessage().'<br><strong>File</strong>:'.$e->getFile().'<br><strong>Line '.$e->getLine().'</strong>';
+         return view('exception',$data);
+      }
+
    }
 
    public function verificar_url()
@@ -103,19 +137,36 @@ class MantenedoresController extends Controller
 
    public function Listado_menu($menu)
    {
-      if (Session::get('logeado')==true)
-      {
-         $data['titulo']=" Listado Menús";
-         $data['subtitulo']="Sistema ERP Tomahawk"; 
-         $data['block_menu']=Session::get('skin');
-         $data['menus']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
-         $data["all_menus"]=mantenedores::all_menus();
-         return view('mantenedores.listado_menu',$data);
+      try{
+         if (Session::get('logeado')==true)
+         {
+            $rol=Session::get("id_rol");
+            $usuario=Session::get("id_usuario");
+            $depto=Session::get("id_depto");
+            $empresa=Session::get("id_empresa");
+            $permiso=app('App\Http\Controllers\ConfiguracionController')->verificar_permisos($usuario,$empresa,$depto,$rol,$menu);
+            if($permiso) {
+               $data['perfiles'] = configuracion::get_perfiles(Session::get('id_usuario'));
+               $data['titulo'] = " Listado Menús";
+               $data['subtitulo'] = "Sistema ERP Tomahawk";
+               $data['block_menu'] = Session::get('skin');
+               $data['menus'] = app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
+               $data["all_menus"] = mantenedores::all_menus();
+               return view('mantenedores.listado_menu', $data);
+            }else{
+               return view('prohibido');
+            }
+         }
+         else
+         {
+            return Redirect::to('/');
+         }
       }
-      else
-      {
-         return Redirect::to('/');
-      }   
+      catch (\Exception $e){
+         $data['message']= '<strong>Message</strong>: '.$e->getMessage().'<br><strong>File</strong>:'.$e->getFile().'<br><strong>Line '.$e->getLine().'</strong>';
+         return view('exception',$data);
+      }
+
    }
 
    public function delete_menu()
@@ -165,20 +216,37 @@ class MantenedoresController extends Controller
 
    public function crear_usuario($menu)
    {
-      if (Session::get('logeado')==true)
-      {
-         $data['titulo']=" Crear Usuario";
-         $data['menu']=$menu;
-         $data['subtitulo']="Sistema ERP Tomahawk"; 
-         $data['block_menu']=Session::get('skin');
-         $data['menus']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
-         $data["empresas"]=configuracion::all_empresas();
-         return view('mantenedores.Usuarios.crear_usuario',$data);
+      try{
+         if (Session::get('logeado')==true)
+         {
+            $rol=Session::get("id_rol");
+            $usuario=Session::get("id_usuario");
+            $depto=Session::get("id_depto");
+            $empresa=Session::get("id_empresa");
+            $permiso=app('App\Http\Controllers\ConfiguracionController')->verificar_permisos($usuario,$empresa,$depto,$rol,$menu);
+            if($permiso) {
+               $data['perfiles'] = configuracion::get_perfiles(Session::get('id_usuario'));
+               $data['titulo'] = " Crear Usuario";
+               $data['menu'] = $menu;
+               $data['subtitulo'] = "Sistema ERP Tomahawk";
+               $data['block_menu'] = Session::get('skin');
+               $data['menus'] = app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
+               $data["empresas"] = configuracion::all_empresas();
+               return view('mantenedores.Usuarios.crear_usuario', $data);
+            }else{
+               return view('prohibido');
+            }
+         }
+         else
+         {
+            return Redirect::to('/');
+         }
       }
-      else
-      {
-        return Redirect::to('/');
+      catch (\Exception $e){
+         $data['message']= '<strong>Message</strong>: '.$e->getMessage().'<br><strong>File</strong>:'.$e->getFile().'<br><strong>Line '.$e->getLine().'</strong>';
+         return view('exception',$data);
       }
+
    }
 
    public function verificar_disponibilidad_nombre_usuario()
@@ -275,24 +343,34 @@ class MantenedoresController extends Controller
 
    public function listado_usuarios($menu)
    {
-      if (Session::get('logeado')==true)
-      {
-         try{
-            $data['titulo'] = "Listado de Usuarios";
-            $data['menu'] = $menu;
-            $data['subtitulo'] = "Sistema ERP Tomahawk";
-            $data['block_menu'] = Session::get('skin');
-            $data['menus'] = app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
-            return view('mantenedores.Usuarios.listado_usuarios', $data);
+      try{
+         if (Session::get('logeado')==true)
+         {
+            $rol=Session::get("id_rol");
+            $usuario=Session::get("id_usuario");
+            $depto=Session::get("id_depto");
+            $empresa=Session::get("id_empresa");
+            $permiso=app('App\Http\Controllers\ConfiguracionController')->verificar_permisos($usuario,$empresa,$depto,$rol,$menu);
+            if($permiso) {
+               $data['perfiles'] = configuracion::get_perfiles(Session::get('id_usuario'));
+               $data['titulo'] = "Listado de Usuarios";
+               $data['menu'] = $menu;
+               $data['subtitulo'] = "Sistema ERP Tomahawk";
+               $data['block_menu'] = Session::get('skin');
+               $data['menus'] = app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
+               return view('mantenedores.Usuarios.listado_usuarios', $data);
+            }else{
+               return view('prohido');
+            }
          }
-         catch (\Exception $e){
-            $data['message']= '<strong>Message</strong>: '.$e->getMessage().'<br><strong>File</strong>:'.$e->getFile().'<br><strong>Line '.$e->getLine().'</strong>';
-            return view('exception',$data);
+         else
+         {
+            return Redirect::to('/');
          }
       }
-      else
-      {
-         return Redirect::to('/');
+      catch (\Exception $e){
+         $data['message']= '<strong>Message</strong>: '.$e->getMessage().'<br><strong>File</strong>:'.$e->getFile().'<br><strong>Line '.$e->getLine().'</strong>';
+         return view('exception',$data);
       }
    }
 

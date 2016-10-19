@@ -156,6 +156,7 @@ class ConfiguracionController extends Controller
                 $empresa=Session::get("id_empresa");
                 $permiso=$this->verificar_permisos($usuario,$empresa,$depto,$rol,$menu);
                 if($permiso) {
+                    $data['perfiles']=configuracion::get_perfiles(Session::get('id_usuario'));
                     $data['titulo'] = 'Configuración';
                     $data['subtitulo'] = "Sistema ERP Tomahawk";
                     $data['block_menu'] = Session::get('skin');
@@ -187,6 +188,7 @@ class ConfiguracionController extends Controller
               $empresa=Session::get("id_empresa");
               $permiso=$this->verificar_permisos($usuario,$empresa,$depto,$rol,$menu);
               if($permiso) {
+                  $data['perfiles']=configuracion::get_perfiles(Session::get('id_usuario'));
                   $data['titulo'] = "Permisos Por Rol ";
                   $data['subtitulo'] = "Sistema ERP Tomahawk";
                   $data['block_menu'] = Session::get('skin');
@@ -463,6 +465,7 @@ class ConfiguracionController extends Controller
                 $data["usuario_empresa"]=$empresa;
                 if($permiso)
                 {
+                    $data['perfiles']=configuracion::get_perfiles(Session::get('id_usuario'));
                     $data['titulo'] = "Ingresar como un Usuario";
                     $data['menu'] = $menu;
                     $data['subtitulo'] = "Sistema ERP Tomahawk";

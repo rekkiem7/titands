@@ -12,26 +12,42 @@ use Cache;
 use Validator;
 use App\models\mantenedores;
 use App\models\Producto_Operative;
+use App\models\configuracion;
 
 class ProductosController extends Controller
 { 
     public function index($menu)
     {
-      if (Session::get('logeado')==true)
-      {
-      $id_empresa=Session::get('id_empresa');
-      $data['titulo']='Módulo de Productos';
-      $data['subtitulo']="Sistema ERP Tomahawk";
-      $data['block_menu']=Session::get('skin');
-      $data['unidad_medida']=mantenedores::get_unidadMedida();
-     // dd($data['unidad_medida']);
-      $data['familia']=mantenedores::get_familia($id_empresa);
-      $data['menus']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
-      return view('productos.index',$data);
-      }else{
-            //return View::make('login/login');
-            return Redirect::to('/');
-        }   
+      try {
+        if (Session::get('logeado') == true) {
+          $rol=Session::get("id_rol");
+          $usuario=Session::get("id_usuario");
+          $depto=Session::get("id_depto");
+          $empresa=Session::get("id_empresa");
+          $permiso=app('App\Http\Controllers\ConfiguracionController')->verificar_permisos($usuario,$empresa,$depto,$rol,$menu);
+          if($permiso) {
+            $data['perfiles'] = configuracion::get_perfiles(Session::get('id_usuario'));
+            $id_empresa = Session::get('id_empresa');
+            $data['titulo'] = 'Módulo de Productos';
+            $data['subtitulo'] = "Sistema ERP Tomahawk";
+            $data['block_menu'] = Session::get('skin');
+            $data['unidad_medida'] = mantenedores::get_unidadMedida();
+            // dd($data['unidad_medida']);
+            $data['familia'] = mantenedores::get_familia($id_empresa);
+            $data['menus'] = app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
+            return view('productos.index', $data);
+          }else{
+            return view('prohibido');
+          }
+        } else {
+          //return View::make('login/login');
+          return Redirect::to('/');
+        }
+      }
+      catch (\Exception $e){
+        $data['message']= '<strong>Message</strong>: '.$e->getMessage().'<br><strong>File</strong>:'.$e->getFile().'<br><strong>Line '.$e->getLine().'</strong>';
+        return view('exception',$data);
+      }
     }
 
     public function get_categorias()
@@ -143,55 +159,102 @@ class ProductosController extends Controller
 
   public function crear_producto($menu)
   {
-    if (Session::get('logeado')==true)
+    try{
+      if (Session::get('logeado')==true)
       {
-      $id_empresa=Session::get('id_empresa');
-      $data['titulo']='Ficha de Productos';
-      $data['subtitulo']="Sistema ERP Tomahawk";
-      $data['block_menu']=Session::get('skin');
-      $data['unidad_medida']=mantenedores::get_unidadMedida();
-     // dd($data['unidad_medida']);
-      $data['familia']=mantenedores::get_familia($id_empresa);
-      $data['menus']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
-      return view('productos.ficha_producto.index',$data);
+        $rol=Session::get("id_rol");
+        $usuario=Session::get("id_usuario");
+        $depto=Session::get("id_depto");
+        $empresa=Session::get("id_empresa");
+        $permiso=app('App\Http\Controllers\ConfiguracionController')->verificar_permisos($usuario,$empresa,$depto,$rol,$menu);
+        if($permiso) {
+          $data['perfiles'] = configuracion::get_perfiles(Session::get('id_usuario'));
+          $id_empresa = Session::get('id_empresa');
+          $data['titulo'] = 'Ficha de Productos';
+          $data['subtitulo'] = "Sistema ERP Tomahawk";
+          $data['block_menu'] = Session::get('skin');
+          $data['unidad_medida'] = mantenedores::get_unidadMedida();
+          // dd($data['unidad_medida']);
+          $data['familia'] = mantenedores::get_familia($id_empresa);
+          $data['menus'] = app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
+          return view('productos.ficha_producto.index', $data);
+        }else{
+          return view('prohibido');
+        }
       }else{
-            //return View::make('login/login');
-            return Redirect::to('/');
-        }   
+        //return View::make('login/login');
+        return Redirect::to('/');
+      }
+    }catch (\Exception $e){
+      $data['message']= '<strong>Message</strong>: '.$e->getMessage().'<br><strong>File</strong>:'.$e->getFile().'<br><strong>Line '.$e->getLine().'</strong>';
+      return view('exception',$data);
+    }
   } 
 
   public function listado_productos($menu)
   {
-    if (Session::get('logeado')==true)
+    try{
+      if (Session::get('logeado')==true)
       {
-      $id_empresa=Session::get('id_empresa');
-      $data['titulo']='Listado de Productos';
-      $data['subtitulo']="Sistema ERP Tomahawk";
-      $data['block_menu']=Session::get('skin');
-      $data['menus']=app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
-      $data["productos"]=Producto_Operative::select_productos($id_empresa);
-      return view('productos.listado_productos.index',$data);
+        $rol=Session::get("id_rol");
+        $usuario=Session::get("id_usuario");
+        $depto=Session::get("id_depto");
+        $empresa=Session::get("id_empresa");
+        $permiso=app('App\Http\Controllers\ConfiguracionController')->verificar_permisos($usuario,$empresa,$depto,$rol,$menu);
+        if($permiso) {
+          $data['perfiles'] = configuracion::get_perfiles(Session::get('id_usuario'));
+          $id_empresa = Session::get('id_empresa');
+          $data['titulo'] = 'Listado de Productos';
+          $data['subtitulo'] = "Sistema ERP Tomahawk";
+          $data['block_menu'] = Session::get('skin');
+          $data['menus'] = app('App\Http\Controllers\ConfiguracionController')->menus_generales($menu);
+          $data["productos"] = Producto_Operative::select_productos($id_empresa);
+          return view('productos.listado_productos.index', $data);
+        }else{
+          return view('prohibido');
+        }
       }else{
-            //return View::make('login/login');
-            return Redirect::to('/');
-        }   
+        //return View::make('login/login');
+        return Redirect::to('/');
+      }
+    }catch (\Exception $e){
+      $data['message']= '<strong>Message</strong>: '.$e->getMessage().'<br><strong>File</strong>:'.$e->getFile().'<br><strong>Line '.$e->getLine().'</strong>';
+      return view('exception',$data);
+    }
+
   }
 
   public function ficha_producto($id)
   {
-    if (Session::get('logeado')==true)
+    try{
+      if (Session::get('logeado')==true)
       {
-      $id_empresa=Session::get('id_empresa');
-      $data['titulo']='Ficha de Producto';
-      $data['subtitulo']="Sistema ERP Tomahawk";
-      $data['block_menu']=Session::get('skin');
-      $data['menus']="";
-      $data["producto"]=Producto_Operative::select_producto_xid($id);
-      $data["imagenes"]=Producto_Operative::select_productoimagen($id);
-      return view('productos.listado_productos.ficha_producto',$data);
+        $rol=Session::get("id_rol");
+        $usuario=Session::get("id_usuario");
+        $depto=Session::get("id_depto");
+        $empresa=Session::get("id_empresa");
+        $permiso=app('App\Http\Controllers\ConfiguracionController')->verificar_permisos($usuario,$empresa,$depto,$rol,$menu);
+        if($permiso) {
+          $data['perfiles'] = configuracion::get_perfiles(Session::get('id_usuario'));
+          $id_empresa = Session::get('id_empresa');
+          $data['titulo'] = 'Ficha de Producto';
+          $data['subtitulo'] = "Sistema ERP Tomahawk";
+          $data['block_menu'] = Session::get('skin');
+          $data['menus'] = "";
+          $data["producto"] = Producto_Operative::select_producto_xid($id);
+          $data["imagenes"] = Producto_Operative::select_productoimagen($id);
+          return view('productos.listado_productos.ficha_producto', $data);
+        }else{
+          return(prohibido);
+        }
       }else{
-            //return View::make('login/login');
-            return Redirect::to('/');
-        }   
+        //return View::make('login/login');
+        return Redirect::to('/');
+      }
+    }catch (\Exception $e){
+      $data['message']= '<strong>Message</strong>: '.$e->getMessage().'<br><strong>File</strong>:'.$e->getFile().'<br><strong>Line '.$e->getLine().'</strong>';
+      return view('exception',$data);
+    }
+
   }
 }
