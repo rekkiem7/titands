@@ -14,6 +14,7 @@
     }
 </style>
 <div id="calendar"></div>
+@include('home.calendar.task')
 @include('footer')
 <script>
    $(document).ready(function(){
@@ -44,7 +45,7 @@
            },
 
            dayClick: function(date, jsEvent, view) {
-               $('#agregar_evento').modal();
+               $('#agregar_tarea').modal();
            },
 
        });
