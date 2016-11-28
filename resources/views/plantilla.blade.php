@@ -19,6 +19,8 @@
 <link href="{{ asset('/plugins_adicionales/fileinput/css/fileinput.css')}}" rel="stylesheet"/>
 <link href="{{ asset('template/plugins/datatables/dataTables.bootstrap.css')}}" rel="stylesheet" type="text/css" />
 <link rel="shortcut icon" type="image/ico" href="{{asset('logo.ico')}}" />
+<link rel="stylesheet" href="{{asset('/template/plugins/fullcalendar/fullcalendar.min.css')}}">
+<link rel="stylesheet" href="{{asset('/template/plugins/fullcalendar/fullcalendar.print.css')}}" media="print">
 <script src="{{ asset ('/template/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
 <script src="{{ asset ('/template/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset ('/template/dist/js/app.min.js') }}" type="text/javascript"></script>
@@ -42,6 +44,9 @@
 <script src="{{ asset ('/template/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ asset ('/plugins_adicionales/rutjs/jquery.Rut.js') }}"></script>
 <script src="{{ asset ('/plugins_adicionales/rutjs/jquery.Rut.min.js') }}"></script>
+<script src="{{ asset ('/template/plugins/fullcalendar/moment.min.js') }}"></script>
+<script src="{{ asset ('/template/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
+<script src="{{ asset ('/template/plugins/fullcalendar/es.js') }}"></script>
 <title>Sistema Tomahawk ERP</title>
 
 

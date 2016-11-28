@@ -38,12 +38,12 @@ function facturacion_test_generateToken()
 
 	var data = {
 	grant_type: "password",
-	username: "21946504-1",
-	password: "1234"
+	username: "76017396-7",
+	password: "723405"
 };
 
 $.ajax({
-	url: "http://api.facturasonline.cl/token",
+	url: "api.facturasonline.cl/token",
 	type: "POST",
 	contentType: "x-www-form-urlencoded",
 	dataType: "json",
@@ -61,10 +61,6 @@ $.ajax({
 
 function facturacion_test_facturaElectronica()
 {
-	var grant_type= "password";
-	var username="21946504-1";
-	var password= "1234";
-
 	var data = {
 	"Receiver":{
 		"RUT":"76380741-K", 
@@ -93,16 +89,14 @@ function facturacion_test_facturaElectronica()
 };
 
 	$.ajax({
-		url: "{{url()}}/facturasonline_facuturaElectronica",
+		url: "http://demo.facturasonline.cl:450/documents/CreateManualInvoice",
 		type: "POST",
-		 headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
+		contentType: "application/json",
+		dataType: "json",
 		data: data,
 		authorization: "bearer rCI-W9JBj1sRlveVG60vMsJz1QpUahS7hDBWqT0dXB00-AkFgJuhOCdpzXc6wAhKDn5eMaMFOvUu2DRQHXFDgCbV7BtLQJsik9Rz2nRwAwUI5_Rceoljjm6ku9LPV3Y4dSQMszp9WAVs76HDZQwef_VpD66FObQte1MGxKvYOGkxCDdaoRZK2t9RG6_b8uu5L5VItOc9B6ZB2nSc_jS94iLEn79d7NMYNkDWC-cXPVBhYcSQXll5Hy2tZ_4njcuB8Jy8LYAEPu3RgyzKccnCvQ",
 		success: function (token) {
 			console.log(token);
-			alert(token);
 		}
 	});
 }
