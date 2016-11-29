@@ -21,6 +21,7 @@ Route::get('/ficha_producto/{producto}','ProductosController@ficha_producto');
 Route::get('/crear_usuario/{menu}','MantenedoresController@crear_usuario');
 Route::get('/listado_usuarios/{menu}','MantenedoresController@listado_usuarios');
 Route::get('/ingresar_como_usuario/{menu}','ConfiguracionController@ingresar_como_usuario');
+Route::get('/planificacion/{menu}','PlanificacionController@index');
 /**************Procesos POST***************/
 
 Route::post('/login', 'ConfiguracionController@login');

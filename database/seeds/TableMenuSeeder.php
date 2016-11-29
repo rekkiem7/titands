@@ -207,14 +207,82 @@ class TableMenuSeeder extends Seeder
                 'visible'=>1
             ]);
 
-        factory(App\models\Menu::class)->create([
-            'nombre'=>'Ingresar como Usuario',
-            'id_padre'=>22,
-            'url'=>'/ingresar_como_usuario/23',
-            'icono'=>null,
-            'clase'=>'fa fa-user-secret ',
-            'visible'=>1
-        ]);
+            factory(App\models\Menu::class)->create([
+                'nombre'=>'Ingresar como Usuario',
+                'id_padre'=>22,
+                'url'=>'/ingresar_como_usuario/23',
+                'icono'=>null,
+                'clase'=>'fa fa-user-secret ',
+                'visible'=>1
+            ]);
+
+            factory(App\models\Menu::class)->create([
+                'nombre'=>'Planificación',
+                'id_padre'=>null,
+                'url'=>'/planificacion/24',
+                'icono'=>null,
+                'clase'=>'fa fa-book',
+                'visible'=>1
+            ]);
+
+            factory(App\models\Menu::class)->create([
+                'nombre'=>'Tareas',
+                'id_padre'=>24,
+                'url'=>'/planificacion_tareas/25',
+                'icono'=>null,
+                'clase'=>'fa fa-tasks',
+                'visible'=>1
+            ]);
+
+            factory(App\models\Menu::class)->create([
+                'nombre'=>'Grupos',
+                'id_padre'=>25,
+                'url'=>'/grupos_tareas/26',
+                'icono'=>null,
+                'clase'=>'fa fa-users',
+                'visible'=>1
+            ]);
+
+            factory(App\models\Menu::class)->create([
+                'nombre'=>'Crear Grupo',
+                'id_padre'=>26,
+                'url'=>'/crear_grupo_tareas/27',
+                'icono'=>null,
+                'clase'=>'fa fa-plus-circle',
+                'visible'=>1
+            ]);
+
+            factory(App\models\Menu::class)->create([
+                'nombre'=>'Listado de Grupos',
+                'id_padre'=>26,
+                'url'=>'/listado_grupo_tareas/28',
+                'icono'=>null,
+                'clase'=>'fa fa-navicon',
+                'visible'=>1
+            ]);
+
+            factory(App\models\Menu::class)->create([
+                'nombre'=>'Crear Tarea',
+                'id_padre'=>25,
+                'url'=>'/crear_tarea/29',
+                'icono'=>null,
+                'clase'=>'fa fa-calendar-plus-o',
+                'visible'=>1
+            ]);
+
+            factory(App\models\Menu::class)->create([
+                'nombre'=>'Listado de Tareas',
+                'id_padre'=>25,
+                'url'=>'/listado_tareas/30',
+                'icono'=>null,
+                'clase'=>'fa fa-navicon',
+                'visible'=>1
+            ]);
+
+
+
+
+
 
         
     }
